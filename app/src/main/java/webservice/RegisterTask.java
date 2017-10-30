@@ -38,7 +38,7 @@ public class RegisterTask extends AsyncTask<String, String, String> implements C
     }
 
     private String callRegisterService() throws IOException, JSONException {
-        String modelString = BASE_URL + "/register/add" + username + "&firstName=" + firstName + "&lastName=" + lastName + "&password=" + password;
+        String modelString = BASE_URL + "register/add?username=" + username + "&firstName=" + firstName + "&lastName=" + lastName + "&password=" + password;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
 
@@ -85,7 +85,7 @@ public class RegisterTask extends AsyncTask<String, String, String> implements C
         this.lastName = lastName;
         this.password = password;
 
-        String modelString = BASE_URL + "/register/add" + username + "&firstName=" + firstName + "&lastName=" + lastName + "&password=" + password;
+        String modelString = BASE_URL + "register/add?username=" + username + "&firstName=" + firstName + "&lastName=" + lastName + "&password=" + password;
         Uri uri = Uri.parse(modelString).buildUpon().build();
 
         this.execute(uri.toString());
