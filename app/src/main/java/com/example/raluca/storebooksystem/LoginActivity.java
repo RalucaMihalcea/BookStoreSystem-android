@@ -89,12 +89,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void serve(View v)
-    {
-       // m_textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
+    public void serve(View v) {
+        // m_textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
         Intent intentt = new Intent(LoginActivity.this, SignUpActivity.class);
         startActivity(intentt);
-       // Toast.makeText(getApplicationContext(), "Am intrat in actiune", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getApplicationContext(), "Am intrat in actiune", Toast.LENGTH_SHORT).show();
     }
 
     public void getLoginPreferences() {
