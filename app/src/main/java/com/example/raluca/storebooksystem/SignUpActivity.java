@@ -22,5 +22,6 @@ public class SignUpActivity extends AppCompatActivity {
         m_editTextPassword=(EditText)findViewById(R.id.editTextPassword);
         m_editTextRetypePassword=(EditText)findViewById(R.id.editTextRetypePassword);
 
+
     }
 }
