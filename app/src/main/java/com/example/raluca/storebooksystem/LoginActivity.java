@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,8 +16,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 
-public class LoginActivity extends AppCompatActivity {
+import manager.DataManager;
+import model.User;
+import webservice.LoginDelegate;
+import webservice.LoginTask;
+
+
+public class LoginActivity extends AppCompatActivity implements LoginDelegate {
 
     private ProgressBar progressBarSpinner;
     private CheckBox checkBox_RememberMe;
@@ -29,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private Boolean saveLogin;
     private LoginActivity loginActivity;
     private TextView m_txt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     progressBarSpinner.setVisibility(View.VISIBLE);
 
+                    LoginTask loginTask = new LoginTask(username, password);
+                    loginTask.setLoginDelegate(loginActivity);
+
                     if (checkBox_RememberMe.isChecked()) {
                         // remember username and password
                         loginPrefsEditor.putBoolean("saveLogin", true);
@@ -76,17 +89,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
 
-//        m_textViewSignUp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-//               startActivity(intent);
-//
-//                Toast.makeText(getApplicationContext(), "Am intrat in actiune", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+    private void startNewActivity(User user) {
+        Intent myIntent;
 
+        if (!user.getUsername().isEmpty() && !user.getFirstName().isEmpty()) {
+            myIntent = new Intent(LoginActivity.this, HomeActivity.class);
+
+            myIntent.putExtra("username", user.getUsername());
+            myIntent.putExtra("password", user.getPassword());
+
+            startActivity(myIntent);
+        }
     }
 
     public void serve(View v) {
@@ -117,6 +132,36 @@ public class LoginActivity extends AppCompatActivity {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;
+    }
+
+    @Override
+    public void onLoginDone(String result) throws UnsupportedEncodingException {
+
+        progressBarSpinner.setVisibility(View.INVISIBLE);
+        Log.d("TAG", "LOGIN DONE DELEGATE " + result);
+
+        if (!result.isEmpty()) {
+            User user = DataManager.getInstance().parseUser(result);
+
+            String baseAuthStr = username + ":" + password;
+            String str = "Basic " + Base64.encodeToString(baseAuthStr.getBytes("UTF-8"), Base64.DEFAULT);
+            DataManager.getInstance().setBaseAuthStr(str);
+
+            if (checkBox_RememberMe.isChecked()) {
+                // remember username and password
+                loginPrefsEditor.putBoolean("saveLogin", true);
+                loginPrefsEditor.putString("username", username);
+                loginPrefsEditor.putString("password", password);
+                loginPrefsEditor.commit();
+
+            } else {
+                loginPrefsEditor.clear();
+                loginPrefsEditor.commit();
+            }
+            startNewActivity(user);
+        } else {
+            Toast.makeText(getApplicationContext(), "Fail login", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
