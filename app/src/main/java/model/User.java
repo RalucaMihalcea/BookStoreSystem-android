@@ -3,16 +3,15 @@ package model;
 public class User {
 
     private String username;
-    private String password;
     private String firstName;
     private String lastName;
-    private String type;
+    private String password;
 
-    public User(String username, String password, String firstName, String lastName, Boolean assignedSpot) {
+    public User(String username, String firstName, String lastName, String password) {
         this.username = username;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
     }
 
     public User() {
@@ -60,11 +59,5 @@ public class User {
                 '}';
     }
 
-    public String getType() {
-        return type;
-    }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 }

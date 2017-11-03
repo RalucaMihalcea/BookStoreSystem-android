@@ -7,10 +7,9 @@ package webservice;
 import android.net.Uri;
 import android.os.AsyncTask;
 
-import com.example.raluca.storebooksystem.LoginActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,6 +17,10 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+/**
+ * Created by Andreea on 31.10.2017.
+ */
 
 public class LoginTask extends AsyncTask<String, String, String> implements CredentialInterface {
 
@@ -36,8 +39,9 @@ public class LoginTask extends AsyncTask<String, String, String> implements Cred
     }
 
     private String callLoginService() throws IOException, JSONException {
-
-        Uri uri = Uri.parse(BASE_URL).buildUpon().appendPath("login").build();
+        String modelString = BASE_URL + "login?user_name=" + username + "&password=" + password;
+        Uri uri = Uri.parse(modelString).buildUpon().build();
+        //Uri uri = Uri.parse(BASE_URL).buildUpon().appendPath("login").build();
         HttpURLConnection connection = (HttpURLConnection) new URL(uri.toString()).openConnection();
 
         connection.setRequestProperty("Content-Type", "application/json");
@@ -68,6 +72,7 @@ public class LoginTask extends AsyncTask<String, String, String> implements Cred
             return "";
         }
         return sb.toString();
+
     }
 
     public LoginTask(String username, String password) {
@@ -75,7 +80,9 @@ public class LoginTask extends AsyncTask<String, String, String> implements Cred
         this.username = username;
         this.password = password;
 
-        Uri uri = Uri.parse(BASE_URL).buildUpon().appendPath("login").build();
+        String modelString = BASE_URL + "login?user_name=" + username + "&password=" + password;
+        Uri uri = Uri.parse(modelString).buildUpon().build();
+        //Uri uri = Uri.parse(BASE_URL).buildUpon().appendPath("login").build();
         this.execute(uri.toString());
     }
 
@@ -97,8 +104,7 @@ public class LoginTask extends AsyncTask<String, String, String> implements Cred
         return loginDelegate;
     }
 
-
-    public void setLoginDelegate(LoginActivity loginActivity) {
+    public void setLoginDelegate(LoginDelegate loginDelegate) {
         this.loginDelegate = loginDelegate;
     }
 }

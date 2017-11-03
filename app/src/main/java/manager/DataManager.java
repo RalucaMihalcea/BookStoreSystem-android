@@ -53,7 +53,7 @@ public class DataManager {
 
             user.setFirstName(jsonObject.getString("firstName"));
             user.setLastName(jsonObject.getString("lastName"));
-            user.setType(jsonObject.getString("type"));
+            user.setPassword(jsonObject.getString("password"));
 
         } catch (JSONException e) {
             e.printStackTrace();

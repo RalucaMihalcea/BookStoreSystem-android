@@ -93,14 +93,14 @@
         tools:layout_editor_absoluteY="425dp" />
 
     <TextView
-        android:id="@+id/txt"
+        android:id="@+id/textViewSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:onClick="serve"
         android:layout_alignBaseline="@+id/textView26"
         android:layout_alignBottom="@+id/textView26"
         android:layout_alignEnd="@+id/buttonSignIn"
+        android:clickable="true"
+        android:onClick="serve"
         android:text="SignUp"
         android:textColor="@android:color/holo_red_dark" />
 

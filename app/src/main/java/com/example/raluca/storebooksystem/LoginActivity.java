@@ -23,22 +23,20 @@ import model.User;
 import webservice.LoginDelegate;
 import webservice.LoginTask;
 
-
 public class LoginActivity extends AppCompatActivity implements LoginDelegate {
 
     private ProgressBar progressBarSpinner;
     private CheckBox checkBox_RememberMe;
     private Button btnSignIn;
-    private String username;
-    private String password;
     private EditText editTextUsername;
     private EditText editTextPassword;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
     private LoginActivity loginActivity;
-    private TextView m_txt;
-
+    private TextView m_textViewSignUp;
+    private String username;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
         progressBarSpinner = (ProgressBar) findViewById(R.id.progressBar);
         btnSignIn = (Button) findViewById(R.id.buttonSignIn);
         progressBarSpinner.setVisibility(View.GONE);
-        m_txt = (TextView) findViewById(R.id.txt);
+        m_textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
 
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -66,26 +64,37 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
 
                     progressBarSpinner.setVisibility(View.VISIBLE);
 
+//                    if (checkBox_RememberMe.isChecked()) {
+//                        // remember username and password
+//                        loginPrefsEditor.putBoolean("saveLogin", true);
+//                        loginPrefsEditor.putString("username", username);
+//                        loginPrefsEditor.putString("password", password);
+//                        loginPrefsEditor.commit();
+//
+//                    } else {
+//                        loginPrefsEditor.clear();
+//                        loginPrefsEditor.commit();
+//                    }
+
                     LoginTask loginTask = new LoginTask(username, password);
                     loginTask.setLoginDelegate(loginActivity);
-
-                    if (checkBox_RememberMe.isChecked()) {
-                        // remember username and password
-                        loginPrefsEditor.putBoolean("saveLogin", true);
-                        loginPrefsEditor.putString("username", username);
-                        loginPrefsEditor.putString("password", password);
-                        loginPrefsEditor.commit();
-
-                    } else {
-                        loginPrefsEditor.clear();
-                        loginPrefsEditor.commit();
-                    }
-
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    intent.putExtra("Username", username);
-                    startActivity(intent);
+//
+//                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//                    intent.putExtra("Username", username);
+//                    startActivity(intent);
 
                 }
+            }
+        });
+
+
+        m_textViewSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+
+                //Toast.makeText(getApplicationContext(), "Am intrat in actiune", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -96,20 +105,19 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
 
         if (!user.getUsername().isEmpty() && !user.getFirstName().isEmpty()) {
             myIntent = new Intent(LoginActivity.this, HomeActivity.class);
-
             myIntent.putExtra("username", user.getUsername());
             myIntent.putExtra("password", user.getPassword());
 
             startActivity(myIntent);
         }
     }
-
-    public void serve(View v) {
-        // m_textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
-        Intent intentt = new Intent(LoginActivity.this, SignUpActivity.class);
-        startActivity(intentt);
-        // Toast.makeText(getApplicationContext(), "Am intrat in actiune", Toast.LENGTH_SHORT).show();
-    }
+//
+//    public void serve(View v)
+//    {
+//        m_textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
+//        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+//        startActivity(intent);
+//    }
 
     public void getLoginPreferences() {
 
@@ -159,9 +167,10 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
                 loginPrefsEditor.commit();
             }
             startNewActivity(user);
+            Toast.makeText(getApplicationContext(), "Success login", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(), "Fail login", Toast.LENGTH_SHORT).show();
         }
     }
-}
 
+}

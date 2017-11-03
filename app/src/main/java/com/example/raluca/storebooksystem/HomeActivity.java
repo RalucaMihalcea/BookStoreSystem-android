@@ -19,7 +19,7 @@ public class HomeActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
         if (bundle != null) {
-            String username = (String) bundle.get("Username");
+            String username = (String) bundle.get("username");
             textEdit.setText("Hello " + username + "!");
         }
     }
