@@ -102,6 +102,6 @@
         android:clickable="true"
         android:onClick="serve"
         android:text="SignUp"
-        android:textColor="@android:color/holo_red_dark" />
+        android:textColor="@android:color/holo_green_dark" />
 
 </RelativeLayout>

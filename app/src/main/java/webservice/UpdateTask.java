@@ -16,16 +16,15 @@ import java.net.URL;
 import manager.DataManager;
 
 /**
- * Created by Raluca on 30.10.2017.
+ * Created by Raluca on 07.11.2017.
  */
 
-public class RegisterTask extends AsyncTask<String, String, String> implements CredentialInterface {
-
-    private RegisterDelegate registerDelegate;
+public class UpdateTask extends AsyncTask<String, String, String> implements CredentialInterface {
+    private UpdateDelegate updateDelegate;
     private String username;
+    private String password;
     private String firstName;
     private String lastName;
-    private String password;
     private String email;
     private String contactNo;
     private String address;
@@ -41,7 +40,7 @@ public class RegisterTask extends AsyncTask<String, String, String> implements C
     }
 
     private String callRegisterService() throws IOException, JSONException {
-        String modelString = BASE_URL + "register/add?username=" + username + "&firstName=" + firstName + "&lastName=" + lastName + "&password=" + password + "&email=" + "" + "&contactNo=" + "" + "&address=" + "";
+        String modelString = BASE_URL + "update/update?username=" + username + "&password=" + password + "&firstName=" + firstName + "&lastName=" + lastName + "&email=" + email + "&contactNo=" + contactNo + "&address=" + address;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
 
@@ -55,12 +54,13 @@ public class RegisterTask extends AsyncTask<String, String, String> implements C
 
         JSONObject object = new JSONObject();
         object.put("username", username);
+        object.put("password", password);
         object.put("firstName", firstName);
         object.put("lastName", lastName);
-        object.put("password", password);
         object.put("email", email);
         object.put("contactNo", contactNo);
         object.put("address", address);
+
 
         connection.addRequestProperty("Authorization", DataManager.getInstance().getBaseAuthStr());
 
@@ -84,19 +84,20 @@ public class RegisterTask extends AsyncTask<String, String, String> implements C
         return sb.toString();
     }
 
-    public RegisterTask(String username, String firstName, String lastName, String password, String email, String contactNo, String address) {
-        this.registerDelegate = registerDelegate;
+    public UpdateTask(String username, String password, String firstName, String lastName, String email, String contactNo, String address) {
+
         this.username = username;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.password = password;
         this.email = email;
         this.contactNo = contactNo;
         this.address = address;
 
-        String modelString = BASE_URL + "register/add?username=" + username + "&firstName=" + firstName + "&lastName=" + lastName + "&password=" + password + "&email=" + "" + "&contactNo=" + "" + "&address=" + "";
-        Uri uri = Uri.parse(modelString).buildUpon().build();
 
+        String modelString = BASE_URL + "update/update?username=" + username + "&password=" + password + "&firstName=" + firstName + "&lastName=" + lastName + "&email=" + email + "&contactNo=" + contactNo + "&address=" + address;
+
+        Uri uri = Uri.parse(modelString).buildUpon().build();
         this.execute(uri.toString());
     }
 
@@ -105,20 +106,20 @@ public class RegisterTask extends AsyncTask<String, String, String> implements C
         super.onPostExecute(o);
         String response = String.valueOf(o);
 
-        if (registerDelegate != null) {
-            registerDelegate.onRegisterDone(response);
+        if (updateDelegate != null) {
+            updateDelegate.onUpdateDone(response);
         }
         if (response == null) {
-            registerDelegate.onRegisterError(response);
+            updateDelegate.onUpdateError(response);
         }
-
     }
 
-    public RegisterDelegate getDelegate() {
-        return registerDelegate;
+    public UpdateDelegate getDelegate() {
+        return updateDelegate;
     }
 
-    public void setRegisterDelegate(RegisterDelegate releaseDelegate) {
-        this.registerDelegate = releaseDelegate;
+
+    public void setUpdateDelegate(UpdateDelegate updateDelegate) {
+        this.updateDelegate = updateDelegate;
     }
 }

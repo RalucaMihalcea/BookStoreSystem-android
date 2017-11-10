@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
     private TextView m_textViewSignUp;
     private String username;
     private String password;
+    private User userAfterLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,9 +105,13 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
         Intent myIntent;
 
         if (!user.getUsername().isEmpty() && !user.getFirstName().isEmpty()) {
+//            myIntent = new Intent(LoginActivity.this, HomeActivity.class);
+//            myIntent.putExtra("username", user.getUsername());
+//            myIntent.putExtra("password", user.getPassword());
+
+            userAfterLogin = user;
             myIntent = new Intent(LoginActivity.this, HomeActivity.class);
-            myIntent.putExtra("username", user.getUsername());
-            myIntent.putExtra("password", user.getPassword());
+            myIntent.putExtra("userAfterLogin", userAfterLogin);
 
             startActivity(myIntent);
         }

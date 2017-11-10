@@ -46,15 +46,13 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
                 lastName = m_editTextLastName.getText().toString();
                 password = m_editTextPassword.getText().toString();
 
-                RegisterTask registerTask = new RegisterTask(username, firstName, lastName, password);
+                RegisterTask registerTask = new RegisterTask(username, firstName, lastName, password, " ", " ", " ");
                 registerTask.setRegisterDelegate(signUpActivity);
 
                 Toast.makeText(SignUpActivity.this, "Your have registered! ", Toast.LENGTH_SHORT).show();
 
             }
         });
-
-
     }
 
     @Override
