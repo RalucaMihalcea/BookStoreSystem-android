@@ -6,10 +6,10 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
 
     private ProgressBar progressBarSpinner;
     private CheckBox checkBox_RememberMe;
-    private Button btnSignIn;
+    private CardView btnSignIn;
     private EditText editTextUsername;
     private EditText editTextPassword;
     private SharedPreferences loginPreferences;
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
 
         getLoginPreferences();
         progressBarSpinner = (ProgressBar) findViewById(R.id.progressBar);
-        btnSignIn = (Button) findViewById(R.id.buttonSignIn);
+        btnSignIn = (CardView) findViewById(R.id.cardViewLogin);
         progressBarSpinner.setVisibility(View.GONE);
         m_textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
 

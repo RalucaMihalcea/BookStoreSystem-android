@@ -2,8 +2,8 @@ package com.example.raluca.storebooksystem;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,7 +17,7 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
     private EditText m_editTextLastName;
     private EditText m_editTextPassword;
     private EditText m_editTextRetypePassword;
-    private Button m_buttonSubmit;
+    private CardView m_buttonSubmit;
     private String username;
     private String firstName;
     private String lastName;
@@ -35,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
         m_editTextLastName = (EditText) findViewById(R.id.editTextLastName);
         m_editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         m_editTextRetypePassword = (EditText) findViewById(R.id.editTextRetypePassword);
-        m_buttonSubmit = (Button) findViewById(R.id.buttonSubmit);
+        m_buttonSubmit = (CardView) findViewById(R.id.cardViewSubmit);
 
         m_buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,8 +3,8 @@ package com.example.raluca.storebooksystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,7 +19,7 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
     private EditText m_editTextEmail;
     private EditText m_editTextContactNo;
     private EditText m_editTextAddress;
-    private Button m_buttonUpdate;
+    private CardView m_buttonUpdate;
     private User userAfterLogin;
 
     private ProfileActivity profileActivity;
@@ -35,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
         m_editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         m_editTextContactNo = (EditText) findViewById(R.id.editTextContactNumber);
         m_editTextAddress = (EditText) findViewById(R.id.editTextAddress);
-        m_buttonUpdate = (Button) findViewById(R.id.updateButton);
+        m_buttonUpdate = (CardView) findViewById(R.id.cardViewUpdate);
 
         Intent intent = getIntent();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");

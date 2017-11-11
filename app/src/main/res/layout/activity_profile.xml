@@ -15,94 +15,94 @@
         android:layout_marginTop="22dp"
         android:text="Username"
         android:textColor="?attr/colorPrimaryDark"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
         android:fontFamily="serif"
         android:text="My Details"
         android:textColor="?attr/colorAccent"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="117dp"
-        tools:layout_editor_absoluteY="16dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editTextUsername"
+        android:layout_below="@+id/editTextUsername"
         android:text="First Name"
         android:textColor="?attr/colorPrimaryDark"
-        android:textSize="14sp"
-        android:layout_below="@+id/editTextUsername"
-        android:layout_alignStart="@+id/editTextUsername" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/editTextLastName"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView22"
         android:layout_below="@+id/textView22"
         android:ems="10"
         android:inputType="textPersonName"
         android:selectAllOnFocus="false"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/editTextFirstName"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView17"
         android:layout_below="@+id/textView17"
         android:ems="10"
         android:inputType="textPersonName"
         android:selectAllOnFocus="false"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/editTextUsername"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView21"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="textPersonName"
         android:selectAllOnFocus="false"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editTextFirstName"
+        android:layout_below="@+id/editTextFirstName"
         android:text="Last Name"
         android:textColor="?attr/actionModeSplitBackground"
-        android:textSize="14sp"
-        android:layout_below="@+id/editTextFirstName"
-        android:layout_alignStart="@+id/editTextFirstName" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editTextLastName"
+        android:layout_below="@+id/editTextLastName"
         android:text="Email"
         android:textColor="@android:color/holo_green_light"
-        android:textSize="14sp"
-        android:layout_below="@+id/editTextLastName"
-        android:layout_alignStart="@+id/editTextLastName" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/editTextEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView24"
         android:layout_below="@+id/textView24"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView3"
@@ -111,47 +111,64 @@
         android:layout_alignStart="@+id/editTextEmail"
         android:layout_below="@+id/editTextEmail"
         android:text="Contact Number"
-        android:textColor="@android:color/holo_green_light" />
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/editTextContactNumber"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/editTextEmail"
         android:layout_alignStart="@+id/textView3"
         android:layout_below="@+id/textView3"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editTextContactNumber"
+        android:layout_below="@+id/editTextContactNumber"
         android:text="Address"
         android:textColor="@android:color/holo_green_light"
-        android:layout_below="@+id/editTextContactNumber"
-        android:layout_alignStart="@+id/editTextContactNumber" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/editTextAddress"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/editTextContactNumber"
         android:layout_below="@+id/textView4"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/updateButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewUpdate"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp"
         android:layout_below="@+id/editTextAddress"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:text="Button"
-        android:textColor="@android:color/holo_green_dark"
-        tools:text="Update" />
+        android:layout_marginTop="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="UPDATE"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>
