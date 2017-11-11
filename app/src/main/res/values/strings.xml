@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StoreBookSystem</string>
+    <string name="app_name">BookStoreSystem</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
 
