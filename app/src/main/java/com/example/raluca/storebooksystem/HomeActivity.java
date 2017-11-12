@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,12 +18,17 @@ public class HomeActivity extends AppCompatActivity {
     private User userAfterLogin;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    private Toolbar mToolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mToolbar=(Toolbar)findViewById(R.id.nav_action);
+        setSupportActionBar(mToolbar);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
@@ -30,6 +36,8 @@ public class HomeActivity extends AppCompatActivity {
         mToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+      // NavigationView navigationView=(NavigationView)findViewById(R.id.nav_action);
 
         //textEdit = (TextView) findViewById(R.id.textViewH);
 
@@ -53,7 +61,8 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_activity_menu, menu);
+        // menuInflater.inflate(R.menu.main_activity_menu, menu);
+        menuInflater.inflate(R.menu.navigation_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -61,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mToggle.onOptionsItemSelected(item))
             return true;
-        else {
+       // else {
             switch (item.getItemId()) {
                 case R.id.profile_id:
                     //Toast.makeText(getApplicationContext(), "Profile icon is selected", Toast.LENGTH_SHORT).show();
@@ -90,7 +99,13 @@ public class HomeActivity extends AppCompatActivity {
                     return super.onOptionsItemSelected(item);
 
             }
-        }
+       // }
 
     }
+
+
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        return false;
+//    }
 }
