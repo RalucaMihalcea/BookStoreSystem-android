@@ -1,9 +1,5 @@
 package webservice;
 
-/**
- * Created by Raluca on 31.10.2017.
- */
-
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -19,30 +15,26 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by Andreea on 31.10.2017.
+ * Created by Raluca on 26.11.2017.
  */
 
-public class
-LoginTask extends AsyncTask<String, String, String> implements CredentialInterface {
-
-    private LoginDelegate loginDelegate;
-    private String username;
-    private String password;
+public class SelectBookByCategoryTask extends AsyncTask<String, String, String> implements CredentialInterface {
+    private SelectBookByCategoryDelegate selectBookByCategoryDelegate;
+    private String category;
 
     @Override
     protected String doInBackground(String... params) {
         try {
-            return callLoginService();
+            return callSelectBookByCategoryService();
         } catch (IOException | JSONException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private String callLoginService() throws IOException, JSONException {
-       // String modelString = BASE_URL + "login?user_name=" + username + "&password=" + password;
-      //  Uri uri = Uri.parse(modelString).buildUpon().build();
-        Uri uri = Uri.parse(BASE_URL).buildUpon().appendPath("login").build();
+    private String callSelectBookByCategoryService() throws IOException, JSONException {
+        String modelString = BASE_URL + "book/searchBookByCategory";
+        Uri uri = Uri.parse(modelString).buildUpon().build();
         HttpURLConnection connection = (HttpURLConnection) new URL(uri.toString()).openConnection();
 
         connection.setRequestProperty("Content-Type", "application/json");
@@ -52,8 +44,8 @@ LoginTask extends AsyncTask<String, String, String> implements CredentialInterfa
         connection.setReadTimeout(1000000);
 
         JSONObject object = new JSONObject();
-        object.put("username", username);
-        object.put("password", password);
+        object.put("category", category);
+
 
         OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
         out.write(object.toString());
@@ -76,14 +68,11 @@ LoginTask extends AsyncTask<String, String, String> implements CredentialInterfa
 
     }
 
-    public LoginTask(String username, String password) {
+    public SelectBookByCategoryTask(String category) {
 
-        this.username = username;
-        this.password = password;
-
-        String modelString = BASE_URL + "login?user_name=" + username + "&password=" + password;
+        this.category=category;
+        String modelString = BASE_URL + "book/searchBookByCategory";
         Uri uri = Uri.parse(modelString).buildUpon().build();
-        //Uri uri = Uri.parse(BASE_URL).buildUpon().appendPath("login").build();
         this.execute(uri.toString());
     }
 
@@ -92,21 +81,20 @@ LoginTask extends AsyncTask<String, String, String> implements CredentialInterfa
         super.onPostExecute(o);
         String response = String.valueOf(o);
 
-        if (loginDelegate != null) {
+        if (selectBookByCategoryDelegate != null) {
             try {
-                loginDelegate.onLoginDone(response);
+                selectBookByCategoryDelegate.onSelectBookByCategoryDone(response);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public LoginDelegate getDelegate() {
-        return loginDelegate;
+    public SelectBookByCategoryDelegate getDelegate() {
+        return selectBookByCategoryDelegate;
     }
 
-    public void setLoginDelegate(LoginDelegate loginDelegate) {
-        this.loginDelegate = loginDelegate;
+    public void setSelectBookByCategoryDelegate(SelectBookByCategoryDelegate selectBookByCategoryDelegate) {
+        this.selectBookByCategoryDelegate = selectBookByCategoryDelegate;
     }
 }
-

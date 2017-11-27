@@ -1,63 +1,50 @@
 package webservice;
 
-/**
- * Created by Raluca on 31.10.2017.
- */
-
 import android.net.Uri;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import manager.DataManager;
+
 /**
- * Created by Andreea on 31.10.2017.
+ * Created by Raluca on 26.11.2017.
  */
 
-public class
-LoginTask extends AsyncTask<String, String, String> implements CredentialInterface {
+public class SelectBookTask extends AsyncTask<String, String, String> implements CredentialInterface {
 
-    private LoginDelegate loginDelegate;
-    private String username;
-    private String password;
+    private SelectBookDelegate selectBookDelegate;
 
     @Override
     protected String doInBackground(String... params) {
         try {
-            return callLoginService();
+            return callSelectBookService();
         } catch (IOException | JSONException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private String callLoginService() throws IOException, JSONException {
-       // String modelString = BASE_URL + "login?user_name=" + username + "&password=" + password;
-      //  Uri uri = Uri.parse(modelString).buildUpon().build();
-        Uri uri = Uri.parse(BASE_URL).buildUpon().appendPath("login").build();
+    private String callSelectBookService() throws IOException, JSONException {
+        String modelString = BASE_URL + "book/allBooks";
+        Uri uri = Uri.parse(modelString).buildUpon().build();
         HttpURLConnection connection = (HttpURLConnection) new URL(uri.toString()).openConnection();
 
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
-        connection.setRequestMethod("POST");
+        connection.setRequestMethod("GET");
         connection.setConnectTimeout(1000000);
         connection.setReadTimeout(1000000);
 
-        JSONObject object = new JSONObject();
-        object.put("username", username);
-        object.put("password", password);
+        connection.addRequestProperty("Authorization", DataManager.getInstance().getBaseAuthStr());
 
-        OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-        out.write(object.toString());
-        out.close();
 
         StringBuilder sb = new StringBuilder();
         int httpResult = connection.getResponseCode();
@@ -76,14 +63,11 @@ LoginTask extends AsyncTask<String, String, String> implements CredentialInterfa
 
     }
 
-    public LoginTask(String username, String password) {
+    public SelectBookTask() {
 
-        this.username = username;
-        this.password = password;
 
-        String modelString = BASE_URL + "login?user_name=" + username + "&password=" + password;
+        String modelString = BASE_URL + "book/allBooks";
         Uri uri = Uri.parse(modelString).buildUpon().build();
-        //Uri uri = Uri.parse(BASE_URL).buildUpon().appendPath("login").build();
         this.execute(uri.toString());
     }
 
@@ -92,21 +76,20 @@ LoginTask extends AsyncTask<String, String, String> implements CredentialInterfa
         super.onPostExecute(o);
         String response = String.valueOf(o);
 
-        if (loginDelegate != null) {
+        if (selectBookDelegate != null) {
             try {
-                loginDelegate.onLoginDone(response);
+                selectBookDelegate.onSelectBookDone(response);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public LoginDelegate getDelegate() {
-        return loginDelegate;
+    public SelectBookDelegate getDelegate() {
+        return selectBookDelegate;
     }
 
-    public void setLoginDelegate(LoginDelegate loginDelegate) {
-        this.loginDelegate = loginDelegate;
+    public void setSelectBookDelegate(SelectBookDelegate selectBookDelegate) {
+        this.selectBookDelegate = selectBookDelegate;
     }
 }
-

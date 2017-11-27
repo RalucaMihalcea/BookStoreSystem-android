@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable {
 
@@ -11,6 +13,7 @@ public class User implements Serializable {
     private String email;
     private String contactNumber;
     private String address;
+    private List<Book> books;
 
     public User(String username, String firstName, String lastName, String password) {
         this.username = username;
@@ -27,7 +30,20 @@ public class User implements Serializable {
         this.email = email;
         this.contactNumber = contactNumber;
         this.address = address;
+        this.books= new ArrayList<Book>();
     }
+
+    public User(String username, String firstName, String lastName, String password, String email, String contactNumber, String address, List<Book> books) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.contactNumber = contactNumber;
+        this.address = address;
+        this.books = books;
+    }
+
 
     public User() {
     }
@@ -88,6 +104,14 @@ public class User implements Serializable {
         this.address = address;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -98,6 +122,7 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", contactNumber='" + contactNumber + '\'' +
                 ", address='" + address + '\'' +
+                ", books=" + books +
                 '}';
     }
 }

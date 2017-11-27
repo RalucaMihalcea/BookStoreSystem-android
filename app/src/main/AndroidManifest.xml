@@ -19,13 +19,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".HomeActivity"
-            android:label="Home" />
         <activity android:name=".SignUpActivity" />
         <activity
             android:name=".ProfileActivity"
-            android:label="Profile"></activity>
+            android:label="Profile" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="Home" />
+        <activity android:name=".NextActivity" />
+        <activity android:name=".ShoppingActivity" />
+        <activity android:name=".CategoryActivity" />
+        <activity android:name=".BookActivity"></activity>
     </application>
 
 </manifest>

@@ -3,7 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#7bc535</color>
     <color name="colorAccent">#2d009f</color>
+    <color name="colorAccent2">#dd3870</color>
     <color name="blue">#589bdf</color>
     <color name="greenLight">#C5E1A5</color>
+    <color name="deeppurple">#7c4dff</color>
+    <color name="green">#00bfa5</color>
+    <color name="lightgray">#ededed</color>
+    <color name="dark_light">#808B96</color>
+    <color name="fantasy_color">#D7CCC8</color>
+
 
 </resources>
