@@ -111,7 +111,6 @@ public class CategoryActivity extends AppCompatActivity implements SelectBookDel
             // putNameBooksInVector();
             Toast.makeText(getApplicationContext(), "Get all books from database", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
