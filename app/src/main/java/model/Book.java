@@ -13,15 +13,10 @@ public class Book {
 
     private double price;
 
-    private long idPicture;
+    private String namePicture;
 
     private String category;
 
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
 
     public Book() {
 
@@ -31,47 +26,31 @@ public class Book {
         this.title = title;
         this.author = author;
         this.price = price;
-        this.user = new User();
     }
 
-    public Book(String title, String author, double price, User user) {
-        this.title = title;
-        this.author = author;
-        this.price = price;
-        this.user = user;
-    }
-
-    public Book(Long id, String title, String author, double price, long idPicture) {
+    public Book(Long id, String title, String author, double price, String namePicture) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.price = price;
-        this.idPicture = idPicture;
-        this.user = new User();
+        this.namePicture = namePicture;
+
     }
 
-    public Book(String title, String author, double price, long idPicture) {
+    public Book(String title, String author, double price, String namePicture) {
         this.title = title;
         this.author = author;
         this.price = price;
-        this.idPicture = idPicture;
-        this.user = new User();
+        this.namePicture = namePicture;
+
     }
 
-    public Book(String title, String author, double price, long idPicture, String category, User user) {
-        this.title = title;
-        this.author = author;
-        this.price = price;
-        this.idPicture = idPicture;
-        this.category = category;
-        this.user = user;
-    }
-    public Book(String title, String author, String category, double price, long idPicture) {
+    public Book(String title, String author, String category, double price, String namePicture) {
         this.title = title;
         this.author = author;
         this.category = category;
         this.price = price;
-        this.idPicture = idPicture;
+        this.namePicture = namePicture;
     }
 
     public Long getId() {
@@ -106,16 +85,12 @@ public class Book {
         this.price = price;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public String getNamePicture() {
+        return namePicture;
     }
 
-    public long getIdPicture() {
-        return idPicture;
-    }
-
-    public void setIdPicture(long idPicture) {
-        this.idPicture = idPicture;
+    public void setNamePicture(String namePicture) {
+        this.namePicture = namePicture;
     }
 
     public String getCategory() {

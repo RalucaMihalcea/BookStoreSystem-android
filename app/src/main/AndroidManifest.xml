@@ -28,8 +28,11 @@
             android:label="Home" />
         <activity android:name=".NextActivity" />
         <activity android:name=".ShoppingActivity" />
-        <activity android:name=".CategoryActivity" />
-        <activity android:name=".BookActivity"></activity>
+        <activity
+            android:name=".MainCategory"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".BooksAdapter" />
     </application>
 
 </manifest>

@@ -18,4 +18,9 @@
     <string name="second">second</string>
     <string name="HHome">HHome</string>
 
+    <string name="action_add_favourite">Add to Favourites</string>
+    <string name="action_play_next">Play Next</string>
+    <string name="backdrop_title">LOVE MUSICS</string>
+    <string name="backdrop_subtitle">This season top 20 music</string>
+
 </resources>

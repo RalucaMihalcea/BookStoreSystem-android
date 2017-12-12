@@ -75,15 +75,7 @@ public class DataManager {
             JSONObject jsonObject = new JSONObject(inputJSON);
             Log.d("TAG", "jsonObject - " + String.valueOf(jsonObject));
 
-            JSONArray jsonArray = jsonObject.getJSONArray("books");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject2 = jsonArray.getJSONObject(i);
-                book = new Book(jsonObject2.getString("title"), jsonObject2.getString("author"), jsonObject2.getDouble("price"));
-
-                books.add(book);
-            }
-
-            user = new User(jsonObject.getString("username"), jsonObject.getString("firstName"), jsonObject.getString("lastName"), jsonObject.getString("password"), jsonObject.getString("email"), jsonObject.getString("contactNo"), jsonObject.getString("address"), books);
+            user = new User(jsonObject.getString("username"), jsonObject.getString("firstName"), jsonObject.getString("lastName"), jsonObject.getString("password"), jsonObject.getString("email"), jsonObject.getString("contactNo"), jsonObject.getString("address"));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -95,7 +87,7 @@ public class DataManager {
     public List<Book> parseBooks(String inputJSON) {
 
         booksList = new ArrayList<Book>();
-        User user;
+
 
         try {
             JSONArray jsonArray = new JSONArray(inputJSON);
@@ -105,7 +97,7 @@ public class DataManager {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                Book book = new Book(jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getInt("idPicture"));
+                Book book = new Book(jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"));
 
                 booksList.add(book);
 

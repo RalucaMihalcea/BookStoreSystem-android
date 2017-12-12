@@ -111,7 +111,9 @@ public class HomeActivity extends AppCompatActivity {
         m_cardCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent4 = new Intent(HomeActivity.this, CategoryActivity.class);
+
+                Intent intent4 = new Intent(HomeActivity.this, MainCategory.class);
+                intent4.putExtra("userAfterLogin", userAfterLogin);
                 startActivity(intent4);
             }
         });
