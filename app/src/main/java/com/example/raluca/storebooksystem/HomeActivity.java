@@ -31,20 +31,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //textEdit = (TextView) findViewById(R.id.textViewH);
-//        PieChart pieChart = (PieChart) findViewById(R.id.piechart);
         m_cardMyOrders = (CardView) findViewById(R.id.cardMyOrders);
         m_cardCartShopping = (CardView) findViewById(R.id.cardCartShopping);
         m_cardCategory = (CardView) findViewById(R.id.cardCategory);
 
-//        m_buttonFoodSuggestion = (Button) findViewById(R.id.buttonFoodSuggestion);
-//        m_buttonConsulting = (Button) findViewById(R.id.buttonConsulting);
-//        m_buttonStartWalking = (Button) findViewById(R.id.buttonStartWalking);
-//        m_buttonNeareastHospital = (Button) findViewById(R.id.buttonNeareastHospital);
-//        m_buttonML = (Button) findViewById(R.id.buttonML);
-
-
-//        pieChart.setUsePercentValues(true);
         Intent intent = getIntent();
         //Bundle bundle = intent.getExtras();
 
@@ -53,49 +43,12 @@ public class HomeActivity extends AppCompatActivity {
         //User userAfterLogin= (User) bundle.get("userAfterLogin");
 
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
-        //textEdit.setText("Hello " + userAfterLogin.getUsername() + "!");
-        //}
-
-//        ArrayList<Entry> yvalues = new ArrayList<Entry>();
-//        yvalues.add(new Entry(8f, 0));
-//        yvalues.add(new Entry(15f, 1));
-//        yvalues.add(new Entry(12f, 2));
-////        yvalues.add(new Entry(25f, 3));
-////        yvalues.add(new Entry(23f, 4));
-////        yvalues.add(new Entry(17f, 5));
-//
-//        PieDataSet dataSet = new PieDataSet(yvalues, "Election Results");
-//
-//        ArrayList<String> xVals = new ArrayList<String>();
-//
-//        xVals.add("January");
-//        xVals.add("February");
-//        xVals.add("March");
-////        xVals.add("April");
-////        xVals.add("May");
-////        xVals.add("June");
-//
-//        PieData data = new PieData(xVals, dataSet);
-//
-//        // In percentage Term
-//        data.setValueFormatter(new PercentFormatter());
-//// Default value
-////data.setValueFormatter(new DefaultValueFormatter(0));
-//
-//        pieChart.setData(data);
-//        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
 
         m_cardMyOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, NextActivity.class);
+                Intent intent = new Intent(HomeActivity.this, OrdersActivity.class);
                 startActivity(intent);
-//
-//                intent.putExtra("userAfterLogin", userAfterLogin);
-                startActivity(intent);
-
-                //Toast.makeText(getApplicationContext(), "Am intrat in actiune", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -112,7 +65,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent4 = new Intent(HomeActivity.this, MainCategory.class);
+                //Intent intent4 = new Intent(HomeActivity.this, BooksByCategory.class);
+                Intent intent4 = new Intent(HomeActivity.this, CategoryMenu.class);
                 intent4.putExtra("userAfterLogin", userAfterLogin);
                 startActivity(intent4);
             }

@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.raluca.storebooksystem.CategoryMenu">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:weightSum="1">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewNonfiction"
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/checkBoxRememberMe"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="21dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="21dp"
+                app:cardBackgroundColor="@color/green"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="10dp"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:id="@+id/buttonSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="NONFICTION"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="17dp"
+                        app:srcCompat="@drawable/arrow"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewFiction"
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/checkBoxRememberMe"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="21dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="21dp"
+                app:cardBackgroundColor="@color/A200"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="10dp"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:id="@+id/buttonSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="FICTION"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="17dp"
+                        app:srcCompat="@drawable/arrow"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewLove"
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/checkBoxRememberMe"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="21dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="21dp"
+                app:cardBackgroundColor="@color/green"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="10dp"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:id="@+id/buttonSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="LOVE &amp; ROMANCE"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="17dp"
+                        app:srcCompat="@drawable/arrow"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewLiterature"
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/checkBoxRememberMe"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="21dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="21dp"
+                app:cardBackgroundColor="@color/A200"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="10dp"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:id="@+id/buttonSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="LITERATURE"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="17dp"
+                        app:srcCompat="@drawable/arrow"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewDrama"
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/checkBoxRememberMe"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="21dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="21dp"
+                app:cardBackgroundColor="@color/green"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="10dp"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:id="@+id/buttonSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="DRAMA"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="17dp"
+                        app:srcCompat="@drawable/arrow"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewPsychology"
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/checkBoxRememberMe"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="21dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="21dp"
+                app:cardBackgroundColor="@color/A200"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="10dp"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:id="@+id/buttonSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="PSYCHOLOGY"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="17dp"
+                        app:srcCompat="@drawable/arrow"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewAction"
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/checkBoxRememberMe"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="21dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="21dp"
+                app:cardBackgroundColor="@color/green"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="10dp"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:id="@+id/buttonSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="ACTION &amp; ADVENTURE"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="17dp"
+                        app:srcCompat="@drawable/arrow"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewComedy"
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/checkBoxRememberMe"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="21dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="21dp"
+                app:cardBackgroundColor="@color/A200"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="10dp"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:id="@+id/buttonSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="COMEDY"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="17dp"
+                        app:srcCompat="@drawable/arrow"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewChildren"
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/checkBoxRememberMe"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="21dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="21dp"
+                app:cardBackgroundColor="@color/green"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="10dp"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:id="@+id/buttonSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="CHILDREN"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="17dp"
+                        app:srcCompat="@drawable/arrow"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

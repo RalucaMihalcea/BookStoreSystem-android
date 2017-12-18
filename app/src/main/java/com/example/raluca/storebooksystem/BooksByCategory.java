@@ -25,39 +25,52 @@ import java.util.List;
 import manager.DataManager;
 import model.Book;
 import model.User;
-import webservice.SelectBookDelegate;
-import webservice.SelectBookTask;
+import webservice.SelectBookByCategoryTask;
+import webservice.SelectBookByCategoryDelegate;
 
-public class MainCategory extends AppCompatActivity implements SelectBookDelegate {
+public class BooksByCategory extends AppCompatActivity implements SelectBookByCategoryDelegate {
 
     private RecyclerView recyclerView;
     private BooksAdapter adapter;
-    private List<Book> books = new ArrayList<>();;
-    private MainCategory mainCategory;
+    private List<Book> books = new ArrayList<>();
+    private BooksByCategory booksByCategory;
     private User userAfterLogin;
-    private List<Integer>  covers = new ArrayList<>();;
+    private List<Integer> covers = new ArrayList<>();
     private Resources resources;
+    private String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainCategory = this;
+        booksByCategory = this;
+        
+        Intent intent = getIntent();
+        userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
+        resources = this.getResources();
+        
+        Bundle bundle = intent.getExtras();
+        
+        if(bundle!=null)
+        {
+            category =(String) bundle.get("category");
+        }
 
-        SelectBookTask selectBookTask = new SelectBookTask();
-        selectBookTask.setSelectBookDelegate(mainCategory);
+//        SelectBookTask selectBookTask = new SelectBookTask();
+//        selectBookTask.setSelectBookDelegate(mainCategory);
+        
+        SelectBookByCategoryTask selectBookByCategoryTask = new SelectBookByCategoryTask(category);
+        selectBookByCategoryTask.setSelectBookByCategoryDelegate(booksByCategory);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Intent intent = getIntent();
-        userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
-        resources = this.getResources();
+       
+       
 
         initCollapsingToolbar();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
 
     }
 
@@ -100,7 +113,6 @@ public class MainCategory extends AppCompatActivity implements SelectBookDelegat
     private void preparePresentationBooks() {
         int idCover;
         for (Book book : books) {
-            // idCovers.add(R.drawable.(i.getN));
             idCover = resources.getIdentifier(book.getNamePicture(), "drawable", this.getPackageName());
             covers.add(idCover);
 
@@ -156,11 +168,11 @@ public class MainCategory extends AppCompatActivity implements SelectBookDelegat
     }
 
     @Override
-    public void onSelectBookDone(String result) throws UnsupportedEncodingException {
+    public void onSelectBookByCategoryDone(String result) throws UnsupportedEncodingException {
         if (!result.isEmpty()) {
             books = DataManager.getInstance().parseBooks(result);
             DataManager.getInstance().setBooksList(books);
-            adapter = new BooksAdapter(getApplicationContext(), books, covers);
+            adapter = new BooksAdapter(this, books, covers);
 
             RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
             recyclerView.setLayoutManager(mLayoutManager);
