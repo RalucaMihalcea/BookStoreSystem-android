@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -25,8 +26,8 @@ import java.util.List;
 import manager.DataManager;
 import model.Book;
 import model.User;
-import webservice.SelectBookByCategoryTask;
 import webservice.SelectBookByCategoryDelegate;
+import webservice.SelectBookByCategoryTask;
 
 public class BooksByCategory extends AppCompatActivity implements SelectBookByCategoryDelegate {
 
@@ -38,15 +39,23 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
     private List<Integer> covers = new ArrayList<>();
     private Resources resources;
     private String category;
+    private String nameOfCover;
+    private TextView titleTextView;
+    private String titleCover;
+    private ImageView m_imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_books_by_category);
         booksByCategory = this;
+
+        titleTextView=(TextView)findViewById(R.id.love_music);
         
         Intent intent = getIntent();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
+        //nameOfCover = (String) intent.getSerializableExtra("nameOfCovers");
+       // m_imageView=(ImageView)findViewById(R.id.backdrop);
         resources = this.getResources();
         
         Bundle bundle = intent.getExtras();
@@ -54,7 +63,14 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
         if(bundle!=null)
         {
             category =(String) bundle.get("category");
+            titleCover=(String) bundle.get("titleCover");
+            //nameOfCover=(String)bundle.get("nameOfCover");
         }
+
+        titleTextView.setText(titleCover);
+//        int resID = getResources().getIdentifier(nameOfCover, "drawable",  getPackageName());
+//        m_imageView.setImageResource(resID);
+       // m_imageView.setBackgroundResource(R.drawable.);
 
 //        SelectBookTask selectBookTask = new SelectBookTask();
 //        selectBookTask.setSelectBookDelegate(mainCategory);
@@ -65,8 +81,6 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       
-       
 
         initCollapsingToolbar();
 
@@ -105,7 +119,6 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
             }
         });
     }
-
 
     /**
      * Adding few albums for testing
@@ -183,13 +196,13 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
             preparePresentationBooks();
 
             try {
-                Glide.with(this).load(R.drawable.cover).into((ImageView) findViewById(R.id.backdrop));
+                //Glide.with(this).load(R.drawable.cover).into((ImageView) findViewById(R.id.backdrop));
+                Glide.with(this).load(nameOfCover).into((ImageView) findViewById(R.id.backdrop));
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             Toast.makeText(getApplicationContext(), "Get all books from database", Toast.LENGTH_SHORT).show();
         }
-
     }
 }

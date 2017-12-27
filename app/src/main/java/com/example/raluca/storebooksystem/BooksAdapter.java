@@ -1,6 +1,7 @@
 package com.example.raluca.storebooksystem;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -15,33 +16,59 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.io.Serializable;
 import java.util.List;
 
 import model.Book;
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder>{
+public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<Book> booksList;
     private Resources resources;
     private int idCover;
     private List<Integer> covers;
+    private int imageNumber;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title, price;
         public ImageView thumbnail, overflow;
 
         public MyViewHolder(View view) {
             super(view);
+            view.setOnClickListener(this);
             title = (TextView) view.findViewById(R.id.title);
             price = (TextView) view.findViewById(R.id.price);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             overflow = (ImageView) view.findViewById(R.id.overflow);
+            thumbnail.setOnClickListener(this);
+            title.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            Toast.makeText(mContext, "Nutrition", Toast.LENGTH_SHORT).show();
+
+
+            for(Book book: booksList)
+            {
+                String titleAndAuthor=book.getTitle()+" - "+book.getAuthor();
+                if(titleAndAuthor.equals(title.getText()))
+                {
+                    Toast.makeText(mContext, "Nutrition: "+imageNumber, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, BookActivity.class);
+                    intent.putExtra("book", (Serializable) book);
+                    intent.putExtra("imageNumber",imageNumber);
+                   // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    mContext.startActivity(intent);
+                }
+            }
         }
     }
 
-
     public BooksAdapter(Context mContext, List<Book> booksList, List<Integer>covers) {
+
         this.mContext = mContext;
         this.booksList = booksList;
         this.covers=covers;
@@ -52,7 +79,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.album_card, parent, false);
 
-
         return new MyViewHolder(itemView);
     }
 
@@ -61,7 +87,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         Book bookk = booksList.get(position);
         holder.title.setText(bookk.getTitle()+" - "+bookk.getAuthor());
         holder.price.setText(bookk.getPrice() + " RON");
-
+        imageNumber=covers.get(position);
 
         // loading album cover using Glide library
         Glide.with(mContext).load(covers.get(position)).into(holder.thumbnail);

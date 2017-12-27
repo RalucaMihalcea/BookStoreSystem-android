@@ -1,10 +1,12 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by Raluca on 26.11.2017.
  */
 
-public class Book {
+public class Book implements Serializable {
     private Long id;
 
     private String title;

@@ -33,7 +33,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".BooksAdapter" />
         <activity android:name=".OrdersActivity" />
-        <activity android:name=".CategoryMenu"></activity>
+        <activity android:name=".CategoryMenu" />
+        <activity android:name=".BookActivity"></activity>
     </application>
 
 </manifest>

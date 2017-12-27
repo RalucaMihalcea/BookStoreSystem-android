@@ -20,7 +20,16 @@
 
     <string name="action_add_favourite">Add to Favourites</string>
     <string name="action_play_next">Play Next</string>
-    <string name="backdrop_title">LOVE MUSICS</string>
-    <string name="backdrop_subtitle">This season top 20 music</string>
+    <string name="backdrop_title">LOVE BOOKS</string>
+    <string name="nonfiction_title">NONFICION</string>
+    <string name="fiction_title">FICTION</string>
+    <string name="love_title">LOVE &amp; ROMANCE</string>
+    <string name="literature_title">LITERATURE</string>
+    <string name="drama_title">DRAMA</string>
+    <string name="psychology_title">PSYCHOLOGY</string>
+    <string name="action_title">ACTION &amp; ADVENTURE</string>
+    <string name="comedy_title">COMEDY</string>
+    <string name="children_title">CHILDREN</string>
+    <string name="backdrop_subtitle">This season top 20 books</string>
 
 </resources>
