@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
+    <color name="white">#FFFFFF</color>
     <color name="colorPrimaryDark">#7bc535</color>
     <color name="colorAccent">#2d009f</color>
     <color name="colorAccent2">#dd3870</color>
@@ -13,6 +14,9 @@
     <color name="lightgray">#ededed</color>
     <color name="dark_light">#808B96</color>
     <color name="fantasy_color">#D7CCC8</color>
+    <color name="bruno">#827717</color>
+    <color name="black">#000000</color>
+    <color name="orange">#FFD740</color>
     <!--<color name="colorPrimary">#F50057</color>-->
     <!--<color name="colorPrimaryDark">#F50057</color>-->
     <!--<color name="colorAccent">#FF4081</color>-->
