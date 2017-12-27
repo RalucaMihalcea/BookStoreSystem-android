@@ -73,6 +73,7 @@ public class CategoryMenu extends AppCompatActivity {
                 Intent intent = new Intent(CategoryMenu.this, BooksByCategory.class);
                 intent.putExtra("userAfterLogin", userAfterLogin);
                 intent.putExtra("category", "Love");
+                intent.putExtra("nameOfCover", "love");
                 intent.putExtra("titleCover", "LOVE & ROMANCE");
                 startActivity(intent);
             }
@@ -83,6 +84,7 @@ public class CategoryMenu extends AppCompatActivity {
                 Intent intent = new Intent(CategoryMenu.this, BooksByCategory.class);
                 intent.putExtra("userAfterLogin", userAfterLogin);
                 intent.putExtra("category", "Literature");
+                intent.putExtra("nameOfCover", "literature");
                 intent.putExtra("titleCover", "LITERATURE");
                 startActivity(intent);
             }
@@ -93,6 +95,7 @@ public class CategoryMenu extends AppCompatActivity {
                 Intent intent = new Intent(CategoryMenu.this, BooksByCategory.class);
                 intent.putExtra("userAfterLogin", userAfterLogin);
                 intent.putExtra("category", "Drama");
+                intent.putExtra("nameOfCover", "drama");
                 intent.putExtra("titleCover", "DRAMA");
                 startActivity(intent);
             }
@@ -103,6 +106,7 @@ public class CategoryMenu extends AppCompatActivity {
                 Intent intent = new Intent(CategoryMenu.this, BooksByCategory.class);
                 intent.putExtra("userAfterLogin", userAfterLogin);
                 intent.putExtra("category", "Psychology");
+                intent.putExtra("nameOfCover", "psychology");
                 intent.putExtra("titleCover", "PSYCHOLOGY");
                 startActivity(intent);
             }
@@ -113,6 +117,7 @@ public class CategoryMenu extends AppCompatActivity {
                 Intent intent = new Intent(CategoryMenu.this, BooksByCategory.class);
                 intent.putExtra("userAfterLogin", userAfterLogin);
                 intent.putExtra("category", "Action");
+                intent.putExtra("nameOfCover", "action");
                 intent.putExtra("titleCover", "ACTION & ADVENTURE");
                 startActivity(intent);
             }
@@ -123,6 +128,7 @@ public class CategoryMenu extends AppCompatActivity {
                 Intent intent = new Intent(CategoryMenu.this, BooksByCategory.class);
                 intent.putExtra("userAfterLogin", userAfterLogin);
                 intent.putExtra("category", "Comedy");
+                intent.putExtra("nameOfCover", "comedy");
                 intent.putExtra("titleCover", "COMEDY");
                 startActivity(intent);
             }
@@ -133,6 +139,7 @@ public class CategoryMenu extends AppCompatActivity {
                 Intent intent = new Intent(CategoryMenu.this, BooksByCategory.class);
                 intent.putExtra("userAfterLogin", userAfterLogin);
                 intent.putExtra("category", "Children");
+                intent.putExtra("nameOfCover", "children");
                 intent.putExtra("titleCover", "CHILDREN");
                 startActivity(intent);
             }

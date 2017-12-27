@@ -33,7 +33,7 @@ public class SelectBookByCategoryTask extends AsyncTask<String, String, String> 
     }
 
     private String callSelectBookByCategoryService() throws IOException, JSONException {
-        String modelString = BASE_URL + "book/searchBookByCategory";
+        String modelString = BASE_URL + "book/searchBookByCategory2?category="+category;
         Uri uri = Uri.parse(modelString).buildUpon().build();
         HttpURLConnection connection = (HttpURLConnection) new URL(uri.toString()).openConnection();
 
@@ -71,7 +71,7 @@ public class SelectBookByCategoryTask extends AsyncTask<String, String, String> 
     public SelectBookByCategoryTask(String category) {
 
         this.category=category;
-        String modelString = BASE_URL + "book/searchBookByCategory";
+        String modelString = BASE_URL + "book/searchBookByCategory2?category="+category;
         Uri uri = Uri.parse(modelString).buildUpon().build();
         this.execute(uri.toString());
     }

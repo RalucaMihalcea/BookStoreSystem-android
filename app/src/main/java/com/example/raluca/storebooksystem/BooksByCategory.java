@@ -54,8 +54,8 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
         
         Intent intent = getIntent();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
-        //nameOfCover = (String) intent.getSerializableExtra("nameOfCovers");
-       // m_imageView=(ImageView)findViewById(R.id.backdrop);
+        //nameOfCover = (String) intent.getSerializableExtra("nameOfCover");
+        m_imageView=(ImageView)findViewById(R.id.backdrop);
         resources = this.getResources();
         
         Bundle bundle = intent.getExtras();
@@ -64,11 +64,11 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
         {
             category =(String) bundle.get("category");
             titleCover=(String) bundle.get("titleCover");
-            //nameOfCover=(String)bundle.get("nameOfCover");
+            nameOfCover=(String)bundle.get("nameOfCover");
         }
 
         titleTextView.setText(titleCover);
-//        int resID = getResources().getIdentifier(nameOfCover, "drawable",  getPackageName());
+//        int resID = getResources().getIdentifier(nameOfCover.toString(), "drawable",  getPackageName());
 //        m_imageView.setImageResource(resID);
        // m_imageView.setBackgroundResource(R.drawable.);
 
@@ -197,7 +197,28 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
             try {
                 //Glide.with(this).load(R.drawable.cover).into((ImageView) findViewById(R.id.backdrop));
-                Glide.with(this).load(nameOfCover).into((ImageView) findViewById(R.id.backdrop));
+
+                switch (nameOfCover)
+                {
+                    case "nonfiction": Glide.with(this).load(R.drawable.nonfiction).into((ImageView) findViewById(R.id.backdrop));
+                        break;
+                    case "fiction": Glide.with(this).load(R.drawable.fiction).into((ImageView) findViewById(R.id.backdrop));
+                        break;
+                    case "love": Glide.with(this).load(R.drawable.romance).into((ImageView) findViewById(R.id.backdrop));
+                        break;
+                    case "literature": Glide.with(this).load(R.drawable.literature).into((ImageView) findViewById(R.id.backdrop));
+                        break;
+                    case "drama": Glide.with(this).load(R.drawable.drama).into((ImageView) findViewById(R.id.backdrop));
+                        break;
+                    case "psychology": Glide.with(this).load(R.drawable.psychology).into((ImageView) findViewById(R.id.backdrop));
+                        break;
+                    case "action": Glide.with(this).load(R.drawable.adventure).into((ImageView) findViewById(R.id.backdrop));
+                        break;
+                    case "comedy": Glide.with(this).load(R.drawable.comedy).into((ImageView) findViewById(R.id.backdrop));
+                        break;
+                    case "children": Glide.with(this).load(R.drawable.children).into((ImageView) findViewById(R.id.backdrop));
+                        break;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
