@@ -19,6 +19,8 @@ public class Book implements Serializable {
 
     private String category;
 
+    private int stars;
+
 
     public Book() {
 
@@ -30,12 +32,14 @@ public class Book implements Serializable {
         this.price = price;
     }
 
-    public Book(Long id, String title, String author, double price, String namePicture) {
+
+    public Book(Long id, String title, String author, double price, String namePicture, int stars) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.price = price;
         this.namePicture = namePicture;
+        this.stars = stars;
 
     }
 
@@ -47,12 +51,13 @@ public class Book implements Serializable {
 
     }
 
-    public Book(String title, String author, String category, double price, String namePicture) {
+    public Book(String title, String author, String category, double price, String namePicture, int stars) {
         this.title = title;
         this.author = author;
         this.category = category;
         this.price = price;
         this.namePicture = namePicture;
+        this.stars=stars;
     }
 
     public Long getId() {
@@ -101,5 +106,13 @@ public class Book implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getStars() {
+        return stars;
+    }
+
+    public void setStars(int stars) {
+        this.stars = stars;
     }
 }

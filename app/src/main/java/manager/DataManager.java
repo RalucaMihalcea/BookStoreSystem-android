@@ -97,7 +97,7 @@ public class DataManager {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                Book book = new Book(jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"));
+                Book book = new Book(jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"));
 
                 booksList.add(book);
 
