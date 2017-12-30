@@ -9,13 +9,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
 
 import model.Book;
 import model.User;
+import webservice.AddReviewDelegate;
+import webservice.AddReviewTask;
 
-public class AddReviewActivity extends AppCompatActivity {
+public class AddReviewActivity extends AppCompatActivity implements AddReviewDelegate {
 
+    private AddReviewActivity addReviewActivity;
     private User userAfterLogin;
     private Book book;
     private TextView m_titleBookForReview;
@@ -139,35 +143,10 @@ public class AddReviewActivity extends AppCompatActivity {
         addReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // m_textViewNote.setText(ratingBar.getRating() + "hh");
-                Toast.makeText(AddReviewActivity.this, m_editText.getText().toString(), Toast.LENGTH_SHORT).show();
-//                //RatingBar bar = (RatingBar) v;
-//                switch ((int) ratingBar.getRating()) {
-//
-//                    case 1:
-//                        m_textViewNote.setText("Not recommend");
-//                        return;
-//
-//                    case 2:
-//                        m_textViewNote.setText("Weak");
-//                        return;
-//
-//                    case 3:
-//                        m_textViewNote.setText("Acceptable");
-//                        return;
-//
-//                    case 4:
-//                        m_textViewNote.setText("Good");
-//                        return;
-//
-//                    case 5:
-//                        m_textViewNote.setText("Excellent");
-//                        return;
-//
-//                    default:
-//                        return;
-//                }
 
+              //  Toast.makeText(AddReviewActivity.this, m_editText.getText().toString(), Toast.LENGTH_SHORT).show();
+                AddReviewTask addReviewTask = new AddReviewTask(book.getId(), userAfterLogin.getUsername(), m_editText.getText().toString(),starNumber);
+                addReviewTask.setAddReviewDelegate(addReviewActivity);
             }
         });
 
@@ -182,4 +161,13 @@ public class AddReviewActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onAddReviewDone(String result) throws UnsupportedEncodingException {
+
+    }
+
+    @Override
+    public void onAddReviewError(String response) {
+
+    }
 }
