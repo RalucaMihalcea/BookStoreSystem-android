@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import manager.DataManager;
 import model.Book;
 import model.Review;
+import model.User;
 import webservice.SelectReviewsByIdBookDelegate;
 import webservice.SelectReviewsByIdBookTask;
 
@@ -35,7 +37,8 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     private ImageView star1Review2, star2Review2, star3Review2, star4Review2, star5Review2, star1Review3, star2Review3, star3Review3, star4Review3, star5Review3;
     private TextView textReview1, textReview2, textReview3, textReviewUser1, textReviewUser2, textReviewUser3;
     //ListView listView;
-    //private Button button;
+    private Button m_buttonAddReview;
+    private User userAfterLogin;
 
 
     @Override
@@ -84,12 +87,13 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         star4Review3 = (ImageView) findViewById(R.id.star4Review3);
         star5Review3 = (ImageView) findViewById(R.id.star5Review3);
 
-        // button=(Button)findViewById(R.id.buttonOrange);
+        m_buttonAddReview=(Button)findViewById(R.id.buttonAddReview);
 
         Intent intent = getIntent();
         book = (Book) intent.getSerializableExtra("book");
         numberOfStars = book.getStars();
         idBook = book.getId();
+        userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
 
         Bundle bundle = intent.getExtras();
 
@@ -111,12 +115,23 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         SelectReviewsByIdBookTask selectReviewsByIdBookTask = new SelectReviewsByIdBookTask(idBook);
         selectReviewsByIdBookTask.setSelectReviewsByIdBookDelegate(bookActivity);
 
+        m_buttonAddReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BookActivity.this, AddReviewActivity.class);
+                intent.putExtra("book", book);
+                intent.putExtra("userAfterLogin", userAfterLogin);
+                startActivity(intent);
+
+            }
+        });
+
         m_textViewShowMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentt = new Intent(BookActivity.this, DescriptionActivity.class);
-                intentt.putExtra("book", book);
-                startActivity(intentt);
+                Intent intent = new Intent(BookActivity.this, DescriptionActivity.class);
+                intent.putExtra("book", book);
+                startActivity(intent);
 
             }
         });

@@ -185,7 +185,7 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
         if (!result.isEmpty()) {
             books = DataManager.getInstance().parseBooks(result);
             DataManager.getInstance().setBooksList(books);
-            adapter = new BooksAdapter(this, books, covers);
+            adapter = new BooksAdapter(this, books, covers, userAfterLogin);
 
             RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
             recyclerView.setLayoutManager(mLayoutManager);

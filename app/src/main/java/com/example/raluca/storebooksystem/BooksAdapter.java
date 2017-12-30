@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import model.Book;
+import model.User;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder> {
 
@@ -29,6 +30,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     private int idCover;
     private List<Integer> covers;
     private int imageNumber;
+    private User userAfterLogin;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title, price;
@@ -60,6 +62,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                     Intent intent = new Intent(mContext, BookActivity.class);
                     intent.putExtra("book", (Serializable) book);
                     intent.putExtra("imageNumber",imageNumber);
+                    intent.putExtra("userAfterLogin", userAfterLogin);
                    // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     mContext.startActivity(intent);
                 }
@@ -67,11 +70,12 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         }
     }
 
-    public BooksAdapter(Context mContext, List<Book> booksList, List<Integer>covers) {
+    public BooksAdapter(Context mContext, List<Book> booksList, List<Integer>covers, User userAfterLogin) {
 
         this.mContext = mContext;
         this.booksList = booksList;
         this.covers=covers;
+        this.userAfterLogin=userAfterLogin;
     }
 
     @Override

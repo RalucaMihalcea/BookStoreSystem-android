@@ -36,7 +36,8 @@
         <activity android:name=".CategoryMenu" />
         <activity android:name=".BookActivity" />
         <activity android:name=".DescriptionActivity" />
-        <activity android:name=".ReviewsActivity"></activity>
+        <activity android:name=".ReviewsActivity" />
+        <activity android:name=".AddReviewActivity"></activity>
     </application>
 
 </manifest>
