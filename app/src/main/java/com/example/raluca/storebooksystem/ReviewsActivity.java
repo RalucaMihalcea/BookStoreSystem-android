@@ -74,9 +74,7 @@ public class ReviewsActivity extends AppCompatActivity {
 
             setStars(position);
             return view;
-
         }
-
 
     }
 
@@ -85,25 +83,25 @@ public class ReviewsActivity extends AppCompatActivity {
             case 1:
                 starRev1.setImageResource(R.drawable.iconstar);
 
-                break;
+                return;
             case 2:
                 starRev1.setImageResource(R.drawable.iconstar);
                 starRev2.setImageResource(R.drawable.iconstar);
 
-                break;
+                return;
             case 3:
                 starRev1.setImageResource(R.drawable.iconstar);
                 starRev2.setImageResource(R.drawable.iconstar);
                 starRev3.setImageResource(R.drawable.iconstar);
 
-                break;
+                return;
             case 4:
                 starRev1.setImageResource(R.drawable.iconstar);
                 starRev2.setImageResource(R.drawable.iconstar);
                 starRev3.setImageResource(R.drawable.iconstar);
                 starRev4.setImageResource(R.drawable.iconstar);
 
-                break;
+                return;
             case 5:
                 starRev1.setImageResource(R.drawable.iconstar);
                 starRev2.setImageResource(R.drawable.iconstar);
@@ -111,10 +109,10 @@ public class ReviewsActivity extends AppCompatActivity {
                 starRev4.setImageResource(R.drawable.iconstar);
                 starRev5.setImageResource(R.drawable.iconstar);
 
-                break;
+                return;
             default:
 
-                break;
+                return;
         }
     }
 }
