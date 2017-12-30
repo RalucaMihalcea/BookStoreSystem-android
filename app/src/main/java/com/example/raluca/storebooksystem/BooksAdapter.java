@@ -48,7 +48,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         @Override
         public void onClick(View v) {
 
-            Toast.makeText(mContext, "Nutrition", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mContext, "Nutrition", Toast.LENGTH_SHORT).show();
 
 
             for(Book book: booksList)
@@ -56,7 +56,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                 String titleAndAuthor=book.getTitle()+" - "+book.getAuthor();
                 if(titleAndAuthor.equals(title.getText()))
                 {
-                    Toast.makeText(mContext, "Nutrition: "+imageNumber, Toast.LENGTH_SHORT).show();
+                   //Toast.makeText(mContext, "Nutrition: "+imageNumber, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mContext, BookActivity.class);
                     intent.putExtra("book", (Serializable) book);
                     intent.putExtra("imageNumber",imageNumber);

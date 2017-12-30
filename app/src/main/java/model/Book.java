@@ -21,6 +21,10 @@ public class Book implements Serializable {
 
     private int stars;
 
+    private String description;
+
+
+
 
     public Book() {
 
@@ -33,13 +37,14 @@ public class Book implements Serializable {
     }
 
 
-    public Book(Long id, String title, String author, double price, String namePicture, int stars) {
+    public Book(Long id, String title, String author, double price, String namePicture, int stars, String description) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.price = price;
         this.namePicture = namePicture;
         this.stars = stars;
+        this.description = description;
 
     }
 
@@ -51,13 +56,25 @@ public class Book implements Serializable {
 
     }
 
-    public Book(String title, String author, String category, double price, String namePicture, int stars) {
+    public Book(String title, String author, String category, double price, String namePicture, int stars, String description) {
         this.title = title;
         this.author = author;
         this.category = category;
         this.price = price;
         this.namePicture = namePicture;
-        this.stars=stars;
+        this.stars = stars;
+        this.description = description;
+    }
+
+    public Book(Long id, String title, String author, String category, double price, String namePicture, int stars, String description) {
+        this.id=id;
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.price = price;
+        this.namePicture = namePicture;
+        this.stars = stars;
+        this.description = description;
     }
 
     public Long getId() {
@@ -114,5 +131,13 @@ public class Book implements Serializable {
 
     public void setStars(int stars) {
         this.stars = stars;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

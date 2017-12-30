@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Book;
+import model.Review;
 import model.User;
 
 /**
@@ -29,6 +30,8 @@ public class DataManager {
     private List<Book> books;
 
     private List<Book> booksList;
+
+    private List<Review> reviewsList;
 
     private DataManager() {
         Log.d("TAG", "DataManager()");
@@ -66,6 +69,14 @@ public class DataManager {
         this.booksList = booksList;
     }
 
+    public List<Review> getReviewsList() {
+        return reviewsList;
+    }
+
+    public void setReviewsList(List<Review> reviewsList) {
+        this.reviewsList = reviewsList;
+    }
+
     public User parseUser(String inputJSON) {
 
         User user = new User();
@@ -88,6 +99,29 @@ public class DataManager {
 
         booksList = new ArrayList<Book>();
 
+        try {
+            JSONArray jsonArray = new JSONArray(inputJSON);
+            Log.d("TAG", "JSONArray - " + String.valueOf(jsonArray));
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                Book book = new Book(jsonObject.getLong("id"), jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"), jsonObject.getString("description"));
+
+                booksList.add(book);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return booksList;
+    }
+
+    public List<Review> parseReviews(String inputJSON) {
+
+        reviewsList = new ArrayList<Review>();
+
 
         try {
             JSONArray jsonArray = new JSONArray(inputJSON);
@@ -97,14 +131,14 @@ public class DataManager {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                Book book = new Book(jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"));
+                Review review = new Review(jsonObject.getLong("idBook"), jsonObject.getString("username"), jsonObject.getString("textReview"), jsonObject.getInt("starReview"));
 
-                booksList.add(book);
+                reviewsList.add(review);
 
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return booksList;
+        return reviewsList;
     }
 }
