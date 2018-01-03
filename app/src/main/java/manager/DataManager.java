@@ -86,7 +86,7 @@ public class DataManager {
             JSONObject jsonObject = new JSONObject(inputJSON);
             Log.d("TAG", "jsonObject - " + String.valueOf(jsonObject));
 
-            user = new User(jsonObject.getString("username"), jsonObject.getString("firstName"), jsonObject.getString("lastName"), jsonObject.getString("password"), jsonObject.getString("email"), jsonObject.getString("contactNo"), jsonObject.getString("address"));
+            user = new User(jsonObject.getString("username"), jsonObject.getString("firstName"), jsonObject.getString("lastName"), jsonObject.getString("password"), jsonObject.getString("email"), jsonObject.getString("contactNo"));
 
         } catch (JSONException e) {
             e.printStackTrace();

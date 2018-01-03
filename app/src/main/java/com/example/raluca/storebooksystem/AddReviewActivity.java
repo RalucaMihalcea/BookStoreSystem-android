@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 
@@ -30,6 +31,7 @@ public class AddReviewActivity extends AppCompatActivity implements AddReviewDel
     private ImageView stea1, stea2, stea3, stea4, stea5;
     private int starNumber;
     private EditText m_editText;
+    private Boolean reviewSent = false;
 
 
     @Override
@@ -40,11 +42,11 @@ public class AddReviewActivity extends AppCompatActivity implements AddReviewDel
         //addListenerOnButton();
 
         m_titleBookForReview = (TextView) findViewById(R.id.titleBookForReview);
-       // m_textReview = (TextView) findViewById(R.id.textReview);
+        // m_textReview = (TextView) findViewById(R.id.textReview);
         m_textViewNote = (TextView) findViewById(R.id.textViewNote);
         addReviewButton = (Button) findViewById(R.id.AddReview);
-        m_editText=(EditText)findViewById(R.id.editText);
-       // ratingBar = (RatingBar) findViewById(R.id.ra);
+        m_editText = (EditText) findViewById(R.id.editText);
+        // ratingBar = (RatingBar) findViewById(R.id.ra);
 
         stea1 = (ImageView) findViewById(R.id.stea1);
         stea2 = (ImageView) findViewById(R.id.stea2);
@@ -144,9 +146,30 @@ public class AddReviewActivity extends AppCompatActivity implements AddReviewDel
             @Override
             public void onClick(View v) {
 
-              //  Toast.makeText(AddReviewActivity.this, m_editText.getText().toString(), Toast.LENGTH_SHORT).show();
-                AddReviewTask addReviewTask = new AddReviewTask(book.getId(), userAfterLogin.getUsername(), m_editText.getText().toString(),starNumber);
+                //  Toast.makeText(AddReviewActivity.this, m_editText.getText().toString(), Toast.LENGTH_SHORT).show();
+                String textReview = m_editText.getText().toString();
+                if (textReview.contains(" "))
+                    textReview = textReview.replaceAll(" ", "+");
+
+                AddReviewTask addReviewTask = new AddReviewTask(book.getId(), userAfterLogin.getUsername(), textReview, starNumber);
                 addReviewTask.setAddReviewDelegate(addReviewActivity);
+//                LoginTask loginTask = new LoginTask(userAfterLogin.getUsername(), userAfterLogin.getPassword());
+//                loginTask.setLoginDelegate(addReviewActivity);
+                reviewSent = true;
+
+                Toast.makeText(AddReviewActivity.this, "Review successfully registered! ", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(AddReviewActivity.this, BookActivity.class);
+                intent.putExtra("reviewSent", reviewSent);
+                intent.putExtra("book", book);
+                intent.putExtra("userAfterLogin", userAfterLogin);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+                addReviewButton.setVisibility(View.INVISIBLE);
+                finish();
+
+
             }
         });
 
@@ -160,6 +183,17 @@ public class AddReviewActivity extends AppCompatActivity implements AddReviewDel
 //            }});
     }
 
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent intent = new Intent(this, BookActivity.class);
+//        intent.putExtra("reviewSent", reviewSent);
+//        intent.putExtra("book", book);
+//        intent.putExtra("userAfterLogin", userAfterLogin);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+//
+//    }
 
     @Override
     public void onAddReviewDone(String result) throws UnsupportedEncodingException {
@@ -170,4 +204,12 @@ public class AddReviewActivity extends AppCompatActivity implements AddReviewDel
     public void onAddReviewError(String response) {
 
     }
+
+//    @Override
+//    public void onLoginDone(String result) throws UnsupportedEncodingException {
+//        if (!result.isEmpty()) {
+//            User user = DataManager.getInstance().parseUser(result);
+//            userAfterLogin = user;
+//        }
+//    }
 }

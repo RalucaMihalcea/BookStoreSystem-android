@@ -22,7 +22,9 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
     private String firstName;
     private String lastName;
     private String password;
+    private String repeatPassword;
     private SignUpActivity signUpActivity;
+    private EditText m_errorInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +33,14 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
         setContentView(R.layout.activity_sign_up);
 
         m_editTextUsername = (EditText) findViewById(R.id.editTextUsername);
-        m_editTextFirstName = (EditText) findViewById(R.id.editTextUsername);
+        m_editTextFirstName = (EditText) findViewById(R.id.editTextFirstName);
         m_editTextLastName = (EditText) findViewById(R.id.editTextLastName);
         m_editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         m_editTextRetypePassword = (EditText) findViewById(R.id.editTextRetypePassword);
         m_buttonSubmit = (CardView) findViewById(R.id.cardViewSubmit);
+        m_errorInfo = (EditText) findViewById(R.id.errorInfo);
+        m_errorInfo.setVisibility(View.INVISIBLE);
+        m_errorInfo.setEnabled(false);
 
         m_buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,12 +50,31 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
                 firstName = m_editTextFirstName.getText().toString();
                 lastName = m_editTextLastName.getText().toString();
                 password = m_editTextPassword.getText().toString();
+                repeatPassword = m_editTextRetypePassword.getText().toString();
 
-                RegisterTask registerTask = new RegisterTask(username, firstName, lastName, password, " ", " ", " ");
-                registerTask.setRegisterDelegate(signUpActivity);
 
-                Toast.makeText(SignUpActivity.this, "Your have registered! ", Toast.LENGTH_SHORT).show();
+                if (username.isEmpty() || password.isEmpty() || repeatPassword.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
+                    m_errorInfo.setText("Complete all fields!!");
+                    m_errorInfo.setVisibility(View.VISIBLE);
 
+                } else {
+
+                    if (password.equals(repeatPassword)) {
+
+                        m_errorInfo.setVisibility(View.INVISIBLE);
+                        RegisterTask registerTask = new RegisterTask(username, firstName, lastName, password, "", "", "");
+                        registerTask.setRegisterDelegate(signUpActivity);
+
+                    } else {
+                        m_errorInfo.setText("These password don't match!! Try again!!");
+                        m_errorInfo.setVisibility(View.VISIBLE);
+                        m_editTextPassword.setText("");
+                        m_editTextRetypePassword.setText("");
+                    }
+
+                    Toast.makeText(SignUpActivity.this, "Your have registered! ", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
     }

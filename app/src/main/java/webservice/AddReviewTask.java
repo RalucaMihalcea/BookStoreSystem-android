@@ -86,6 +86,8 @@ public class AddReviewTask extends AsyncTask<String, String, String> implements 
         this.textReview = textReview;
         this.starReview = starReview;
 
+
+
         String modelString = BASE_URL + "review/addReviewParameters?idBook=" + idBook + "&username=" + username + "&textReview=" + textReview + "&starReview=" + starReview;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();

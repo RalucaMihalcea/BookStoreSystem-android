@@ -10,7 +10,6 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String contactNumber;
-    private String address;
 
     public User(String username, String firstName, String lastName, String password) {
         this.username = username;
@@ -19,14 +18,21 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(String username, String firstName, String lastName, String password, String email, String contactNumber, String address) {
+    public User(String username, String firstName, String lastName, String password, String email, String contactNumber) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.contactNumber = contactNumber;
-        this.address = address;
+    }
+
+    public User(String username, String firstName, String lastName, String email, String contactNumber) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.contactNumber = contactNumber;
     }
 
     public User() {
@@ -80,24 +86,5 @@ public class User implements Serializable {
         this.contactNumber = contactNumber;
     }
 
-    public String getAddress() {
-        return address;
-    }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", contactNumber='" + contactNumber + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
 }

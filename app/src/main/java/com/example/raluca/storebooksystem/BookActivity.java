@@ -39,6 +39,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     //ListView listView;
     private Button m_buttonAddReview;
     private User userAfterLogin;
+    private Boolean reviewSent;
 
 
     @Override
@@ -46,6 +47,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         super.onCreate(savedInstanceState);
 
         bookActivity = this;
+       // m_buttonAddReview.setVisibility(View.INVISIBLE);
 
         setContentView(R.layout.activity_book_activity);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -90,10 +92,15 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         m_buttonAddReview=(Button)findViewById(R.id.buttonAddReview);
 
         Intent intent = getIntent();
+        reviewSent=(Boolean)intent.getSerializableExtra("reviewSent");
         book = (Book) intent.getSerializableExtra("book");
         numberOfStars = book.getStars();
         idBook = book.getId();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
+
+        if(reviewSent!=null && reviewSent.equals(Boolean.TRUE))
+            m_buttonAddReview.setVisibility(View.INVISIBLE);
+
 
         Bundle bundle = intent.getExtras();
 
@@ -190,10 +197,14 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
             reviews = DataManager.getInstance().parseReviews(result);
             DataManager.getInstance().setReviewsList(reviews);
 
-//            for (Review review : reviews) {
-//                reviewsWithNameOfUsers.add(review.getUsername() + "\n" + review.getTextReview());
-//
-//            }
+            for (Review review : reviews) {
+                if(review.getUsername().equals(userAfterLogin.getUsername()))
+                {
+                    m_buttonAddReview.setVisibility(View.INVISIBLE);
+                    break;
+                }
+
+            }
 
             if (reviews.get(0) != null) {
 
