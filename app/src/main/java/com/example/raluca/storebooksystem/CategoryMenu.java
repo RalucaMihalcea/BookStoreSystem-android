@@ -61,7 +61,7 @@ public class CategoryMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CategoryMenu.this, BooksByCategory.class);
                 intent.putExtra("userAfterLogin", userAfterLogin);
-                intent.putExtra("category", "Fiction");
+                intent.putExtra("category", "SF/Fantasy");
                 intent.putExtra("nameOfCover", "fiction");
                 intent.putExtra("titleCover", "FICTION");
                 startActivity(intent);

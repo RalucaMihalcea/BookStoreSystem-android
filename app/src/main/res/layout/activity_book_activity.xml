@@ -84,13 +84,13 @@
                         android:textSize="12dp" />
 
                     <Button
-                        android:id="@+id/buttonOrange"
+                        android:id="@+id/buttonRead"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="257dp"
                         android:layout_marginTop="90dp"
                         android:background="@drawable/button_style"
-                        android:text="DOWNLOAD"
+                        android:text="READ"
                         android:textColor="@color/black"
                         android:textSize="12dp" />
 
@@ -170,8 +170,7 @@
                         android:layout_height="110dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="50dp"
-                        android:text="Text
-"
+                        android:text="There is no description for the moment"
                         android:textAlignment="viewStart"
                         android:textColor="@color/white"
                         android:textSize="14dp" />
@@ -220,7 +219,7 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="text1"
+                    android:text="No avaible review"
                     android:textColor="@color/white"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -231,7 +230,7 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="-350dp"
                     android:layout_marginTop="32dp"
-                    android:text="erererere"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="12dp" />
             </LinearLayout>
@@ -281,7 +280,7 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="text2"
+                    android:text="No avaible review"
                     android:textColor="@color/white"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -292,7 +291,7 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="-350dp"
                     android:layout_marginTop="32dp"
-                    android:text="erererere"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="12dp" />
             </LinearLayout>
@@ -343,7 +342,7 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="text3"
+                    android:text="No avaible review"
                     android:textColor="@color/white"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -354,7 +353,7 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="-350dp"
                     android:layout_marginTop="32dp"
-                    android:text="erererere"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="12dp" />
             </LinearLayout>

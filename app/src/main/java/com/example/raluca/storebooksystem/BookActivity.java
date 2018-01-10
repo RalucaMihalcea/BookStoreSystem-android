@@ -37,7 +37,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     private ImageView star1Review2, star2Review2, star3Review2, star4Review2, star5Review2, star1Review3, star2Review3, star3Review3, star4Review3, star5Review3;
     private TextView textReview1, textReview2, textReview3, textReviewUser1, textReviewUser2, textReviewUser3;
     //ListView listView;
-    private Button m_buttonAddReview;
+    private Button m_buttonAddReview, m_buttonRead;
     private User userAfterLogin;
     private Boolean reviewSent;
 
@@ -47,7 +47,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         super.onCreate(savedInstanceState);
 
         bookActivity = this;
-       // m_buttonAddReview.setVisibility(View.INVISIBLE);
+        // m_buttonAddReview.setVisibility(View.INVISIBLE);
 
         setContentView(R.layout.activity_book_activity);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -89,16 +89,17 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         star4Review3 = (ImageView) findViewById(R.id.star4Review3);
         star5Review3 = (ImageView) findViewById(R.id.star5Review3);
 
-        m_buttonAddReview=(Button)findViewById(R.id.buttonAddReview);
+        m_buttonAddReview = (Button) findViewById(R.id.buttonAddReview);
+        m_buttonRead = (Button) findViewById(R.id.buttonRead);
 
         Intent intent = getIntent();
-        reviewSent=(Boolean)intent.getSerializableExtra("reviewSent");
+        reviewSent = (Boolean) intent.getSerializableExtra("reviewSent");
         book = (Book) intent.getSerializableExtra("book");
         numberOfStars = book.getStars();
         idBook = book.getId();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
 
-        if(reviewSent!=null && reviewSent.equals(Boolean.TRUE))
+        if (reviewSent != null && reviewSent.equals(Boolean.TRUE))
             m_buttonAddReview.setVisibility(View.INVISIBLE);
 
 
@@ -112,7 +113,9 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
 
         m_textViewTitle.setText(book.getTitle());
         m_textViewAuthor.setText(book.getAuthor());
-        m_textViewDescription.setText(book.getDescription());
+
+        if (!book.getDescription().isEmpty())
+            m_textViewDescription.setText(book.getDescription());
         //Toast.makeText(this, "Hellllo "+book.getStars(), Toast.LENGTH_SHORT).show();
 
 
@@ -128,6 +131,16 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
                 Intent intent = new Intent(BookActivity.this, AddReviewActivity.class);
                 intent.putExtra("book", book);
                 intent.putExtra("userAfterLogin", userAfterLogin);
+                startActivity(intent);
+
+            }
+        });
+
+        m_buttonRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BookActivity.this, PdfViewer.class);
+                intent.putExtra("nameBook", book.getTitle());
                 startActivity(intent);
 
             }
@@ -193,17 +206,16 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     @Override
     public void onSelectReviewsByIdBookDone(String result) throws UnsupportedEncodingException {
 
-        if (!result.isEmpty()) {
+        if (!result.equals("[]\n")) {
             reviews = DataManager.getInstance().parseReviews(result);
             DataManager.getInstance().setReviewsList(reviews);
 
+            //if (!reviews.isEmpty())
             for (Review review : reviews) {
-                if(review.getUsername().equals(userAfterLogin.getUsername()))
-                {
+                if (review.getUsername().equals(userAfterLogin.getUsername())) {
                     m_buttonAddReview.setVisibility(View.INVISIBLE);
                     break;
                 }
-
             }
 
             if (reviews.get(0) != null) {
