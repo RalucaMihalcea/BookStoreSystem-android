@@ -11,9 +11,11 @@
     tools:context="com.example.raluca.storebooksystem.PdfViewer">
 
     <com.github.barteksc.pdfviewer.PDFView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/pdfViewer"/>
+        android:layout_width="336dp"
+        android:layout_height="463dp"
+        android:id="@+id/pdfViewer"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Book;
+import model.FavoriteBook;
 import model.Review;
 import model.User;
 
@@ -32,6 +33,8 @@ public class DataManager {
     private List<Book> booksList;
 
     private List<Review> reviewsList;
+
+    private List<FavoriteBook> favoriteBooksList;
 
     private DataManager() {
         Log.d("TAG", "DataManager()");
@@ -75,6 +78,14 @@ public class DataManager {
 
     public void setReviewsList(List<Review> reviewsList) {
         this.reviewsList = reviewsList;
+    }
+
+    public List<FavoriteBook> getFavoriteBooksList() {
+        return favoriteBooksList;
+    }
+
+    public void setFavoriteBooksList(List<FavoriteBook> favoriteBooksList) {
+        this.favoriteBooksList = favoriteBooksList;
     }
 
     public User parseUser(String inputJSON) {
@@ -140,5 +151,28 @@ public class DataManager {
             e.printStackTrace();
         }
         return reviewsList;
+    }
+
+    public List<FavoriteBook> parseFavoriteBooks(String inputJSON) {
+
+        favoriteBooksList = new ArrayList<FavoriteBook>();
+
+        try {
+            JSONArray jsonArray = new JSONArray(inputJSON);
+            Log.d("TAG", "JSONArray - " + String.valueOf(jsonArray));
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                FavoriteBook favoriteBook = new FavoriteBook(jsonObject.getLong("idBook"),jsonObject.getString("title"),jsonObject.getString("author"),jsonObject.getString("category"), jsonObject.getString("namePicture"), jsonObject.getString("username"));
+
+                favoriteBooksList.add(favoriteBook);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return favoriteBooksList;
     }
 }

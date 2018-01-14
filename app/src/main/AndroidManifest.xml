@@ -33,7 +33,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".BooksAdapter" />
-        <activity android:name=".OrdersActivity" />
+        <activity android:name=".FavoriteBooksActivity" />
         <activity android:name=".CategoryMenu" />
         <activity android:name=".BookActivity" />
         <activity android:name=".DescriptionActivity" />

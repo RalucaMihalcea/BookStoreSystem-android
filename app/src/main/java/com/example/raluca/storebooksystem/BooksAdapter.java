@@ -17,13 +17,17 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import model.Book;
 import model.User;
+import webservice.AddFavoriteBookDelegate;
+import webservice.AddFavoriteBookTask;
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder> {
+public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder> implements AddFavoriteBookDelegate {
 
+    private BooksAdapter booksAdapter;
     private Context mContext;
     private List<Book> booksList;
     private Resources resources;
@@ -31,10 +35,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     private List<Integer> covers;
     private int imageNumber;
     private User userAfterLogin;
+    private Book bookk;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title, price;
         public ImageView thumbnail, overflow;
+
 
         public MyViewHolder(View view) {
             super(view);
@@ -50,32 +57,32 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         @Override
         public void onClick(View v) {
 
-           // Toast.makeText(mContext, "Nutrition", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(mContext, "Nutrition", Toast.LENGTH_SHORT).show();
 
 
-            for(Book book: booksList)
-            {
-                String titleAndAuthor=book.getTitle()+" - "+book.getAuthor();
-                if(titleAndAuthor.equals(title.getText()))
-                {
-                   //Toast.makeText(mContext, "Nutrition: "+imageNumber, Toast.LENGTH_SHORT).show();
+            for (Book book : booksList) {
+                String titleAndAuthor = book.getTitle() + " - " + book.getAuthor();
+                if (titleAndAuthor.equals(title.getText())) {
+                    //Toast.makeText(mContext, "Nutrition: "+imageNumber, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mContext, BookActivity.class);
                     intent.putExtra("book", (Serializable) book);
-                    intent.putExtra("imageNumber",imageNumber);
+                    intent.putExtra("imageNumber", imageNumber);
                     intent.putExtra("userAfterLogin", userAfterLogin);
-                   // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     mContext.startActivity(intent);
                 }
             }
         }
+
+
     }
 
-    public BooksAdapter(Context mContext, List<Book> booksList, List<Integer>covers, User userAfterLogin) {
+    public BooksAdapter(Context mContext, List<Book> booksList, List<Integer> covers, User userAfterLogin) {
 
         this.mContext = mContext;
         this.booksList = booksList;
-        this.covers=covers;
-        this.userAfterLogin=userAfterLogin;
+        this.covers = covers;
+        this.userAfterLogin = userAfterLogin;
     }
 
     @Override
@@ -88,10 +95,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Book bookk = booksList.get(position);
-        holder.title.setText(bookk.getTitle()+" - "+bookk.getAuthor());
+        bookk = booksList.get(position);
+        holder.title.setText(bookk.getTitle() + " - " + bookk.getAuthor());
         holder.price.setText(bookk.getPrice() + " RON");
-        imageNumber=covers.get(position);
+        imageNumber = covers.get(position);
 
         // loading album cover using Glide library
         Glide.with(mContext).load(covers.get(position)).into(holder.thumbnail);
@@ -129,7 +136,28 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
             switch (menuItem.getItemId()) {
                 case R.id.action_add_favourite:
                     Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
+
+                    String author = bookk.getAuthor();
+                    if (author.contains(" "))
+                        author = author.replaceAll(" ", "+");
+
+                    String title = bookk.getTitle();
+                    if (title.contains(" "))
+                        title = title.replaceAll(" ", "+");
+
+                    String category = bookk.getCategory();
+                    if (category.contains(" "))
+                        category = category.replaceAll(" ", "+");
+
+                    String namePicture = bookk.getNamePicture();
+                    if (namePicture.contains(" "))
+                        namePicture = namePicture.replaceAll(" ", "+");
+
+
+                    AddFavoriteBookTask addFavoriteBookTask = new AddFavoriteBookTask(bookk.getId(), title, author, category, namePicture, userAfterLogin.getUsername());
+                    addFavoriteBookTask.setAddFavoriteBookDelegate(booksAdapter);
                     return true;
+
                 case R.id.action_play_next:
                     Toast.makeText(mContext, "Play next", Toast.LENGTH_SHORT).show();
                     return true;
@@ -142,5 +170,15 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     @Override
     public int getItemCount() {
         return booksList.size();
+    }
+
+    @Override
+    public void onAddFavoriteBookDone(String result) throws UnsupportedEncodingException {
+
+    }
+
+    @Override
+    public void onAddFavoriteBookError(String response) {
+
     }
 }
