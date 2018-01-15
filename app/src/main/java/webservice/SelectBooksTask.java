@@ -18,9 +18,9 @@ import manager.DataManager;
  * Created by Raluca on 26.11.2017.
  */
 
-public class SelectBookTask extends AsyncTask<String, String, String> implements CredentialInterface {
+public class SelectBooksTask extends AsyncTask<String, String, String> implements CredentialInterface {
 
-    private SelectBookDelegate selectBookDelegate;
+    private SelectBooksDelegate selectBookDelegate;
 
     @Override
     protected String doInBackground(String... params) {
@@ -63,7 +63,7 @@ public class SelectBookTask extends AsyncTask<String, String, String> implements
 
     }
 
-    public SelectBookTask() {
+    public SelectBooksTask() {
 
 
         String modelString = BASE_URL + "book/allBooks";
@@ -78,18 +78,18 @@ public class SelectBookTask extends AsyncTask<String, String, String> implements
 
         if (selectBookDelegate != null) {
             try {
-                selectBookDelegate.onSelectBookDone(response);
+                selectBookDelegate.onSelectBooksDone(response);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public SelectBookDelegate getDelegate() {
+    public SelectBooksDelegate getDelegate() {
         return selectBookDelegate;
     }
 
-    public void setSelectBookDelegate(SelectBookDelegate selectBookDelegate) {
+    public void setSelectBooksDelegate(SelectBooksDelegate selectBookDelegate) {
         this.selectBookDelegate = selectBookDelegate;
     }
 }

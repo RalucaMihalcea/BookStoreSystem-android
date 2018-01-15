@@ -23,11 +23,8 @@ import manager.DataManager;
 public class AddFavoriteBookTask extends AsyncTask<String, String, String> implements CredentialInterface {
 
     private AddFavoriteBookDelegate addFavoriteBookDelegate;
-    private Long idBook;
     private String title;
     private String author;
-    private String category;
-    private String namePicture;
     private String username;
 
     @Override
@@ -41,7 +38,7 @@ public class AddFavoriteBookTask extends AsyncTask<String, String, String> imple
     }
 
     private String callRegisterService() throws IOException, JSONException {
-        String modelString = BASE_URL + "favoriteBook/addFavoriteBookParameters?idBook=" + idBook + "&title=" + title + "&author=" + author + "&category=" + category + "&namePicture=" + namePicture + "&username=" + username;
+        String modelString = BASE_URL + "favoriteBook/addFavoriteBookParameters?title=" + title + "&author=" + author + "&username=" + username;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
 
@@ -54,11 +51,8 @@ public class AddFavoriteBookTask extends AsyncTask<String, String, String> imple
         connection.setReadTimeout(1000000);
 
         JSONObject object = new JSONObject();
-        object.put("idBook", idBook);
         object.put("title", title);
         object.put("author", author);
-        object.put("category", category);
-        object.put("namePicture", namePicture);
         object.put("username", username);
 
         connection.addRequestProperty("Authorization", DataManager.getInstance().getBaseAuthStr());
@@ -83,17 +77,14 @@ public class AddFavoriteBookTask extends AsyncTask<String, String, String> imple
         return sb.toString();
     }
 
-    public AddFavoriteBookTask(Long idBook, String title, String author, String category, String namePicture, String username) {
+    public AddFavoriteBookTask(String title, String author, String username) {
 
-        this.idBook = idBook;
         this.title = title;
         this.author = author;
-        this.category = category;
-        this.namePicture = namePicture;
         this.username = username;
 
 
-        String modelString = BASE_URL + "favoriteBook/addFavoriteBookParameters?idBook=" + idBook + "&title=" + title + "&author=" + author + "&category=" + category + "&namePicture=" + namePicture + "&username=" + username;
+        String modelString = BASE_URL + "favoriteBook/addFavoriteBookParameters?title=" + title + "&author=" + author + "&category=" + "&username=" + username;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
         this.execute(uri.toString());

@@ -145,16 +145,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                     if (title.contains(" "))
                         title = title.replaceAll(" ", "+");
 
-                    String category = bookk.getCategory();
-                    if (category.contains(" "))
-                        category = category.replaceAll(" ", "+");
-
-                    String namePicture = bookk.getNamePicture();
-                    if (namePicture.contains(" "))
-                        namePicture = namePicture.replaceAll(" ", "+");
-
-
-                    AddFavoriteBookTask addFavoriteBookTask = new AddFavoriteBookTask(bookk.getId(), title, author, category, namePicture, userAfterLogin.getUsername());
+                    AddFavoriteBookTask addFavoriteBookTask = new AddFavoriteBookTask(title, author, userAfterLogin.getUsername());
                     addFavoriteBookTask.setAddFavoriteBookDelegate(booksAdapter);
                     return true;
 

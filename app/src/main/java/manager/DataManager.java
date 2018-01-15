@@ -165,7 +165,7 @@ public class DataManager {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                FavoriteBook favoriteBook = new FavoriteBook(jsonObject.getLong("idBook"),jsonObject.getString("title"),jsonObject.getString("author"),jsonObject.getString("category"), jsonObject.getString("namePicture"), jsonObject.getString("username"));
+                FavoriteBook favoriteBook = new FavoriteBook(jsonObject.getLong("id"), jsonObject.getLong("idBook"),jsonObject.getLong("idUser"));
 
                 favoriteBooksList.add(favoriteBook);
 

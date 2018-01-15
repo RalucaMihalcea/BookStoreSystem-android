@@ -8,32 +8,15 @@ public class FavoriteBook {
 
     private Long id;
     private Long idBook;
-    private String title;
-    private String author;
-    private String category;
-    private String namePicture;
-    private String username;
+    private Long idUser;
 
     public FavoriteBook() {
     }
 
-    public FavoriteBook(Long idBook, String title, String author, String category, String namePicture, String username) {
-        this.idBook = idBook;
-        this.title = title;
-        this.author = author;
-        this.category = category;
-        this.namePicture = namePicture;
-        this.username = username;
-    }
-
-    public FavoriteBook(Long id, Long idBook, String title, String author, String category, String namePicture, String username) {
+    public FavoriteBook(Long id, Long idBook, Long idUser) {
         this.id = id;
         this.idBook = idBook;
-        this.title = title;
-        this.author = author;
-        this.category = category;
-        this.namePicture = namePicture;
-        this.username = username;
+        this.idUser = idUser;
     }
 
     public Long getId() {
@@ -52,43 +35,11 @@ public class FavoriteBook {
         this.idBook = idBook;
     }
 
-    public String getTitle() {
-        return title;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getNamePicture() {
-        return namePicture;
-    }
-
-    public void setNamePicture(String namePicture) {
-        this.namePicture = namePicture;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 }

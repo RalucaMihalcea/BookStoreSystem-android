@@ -72,7 +72,7 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 //        m_imageView.setImageResource(resID);
        // m_imageView.setBackgroundResource(R.drawable.);
 
-//        SelectBookTask selectBookTask = new SelectBookTask();
+//        SelectBooksTask selectBookTask = new SelectBooksTask();
 //        selectBookTask.setSelectBookDelegate(mainCategory);
         
         SelectBookByCategoryTask selectBookByCategoryTask = new SelectBookByCategoryTask(category);

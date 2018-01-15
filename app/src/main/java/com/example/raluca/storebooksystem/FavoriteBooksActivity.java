@@ -12,25 +12,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import manager.DataManager;
+import model.Book;
 import model.FavoriteBook;
 import model.User;
+import webservice.DeleteFavoriteBookDelegate;
+import webservice.DeleteFavoriteBookTask;
+import webservice.SelectBooksDelegate;
+import webservice.SelectBooksTask;
 import webservice.SelectFavoriteBooksByUserDelegate;
 import webservice.SelectFavoriteBooksByUserTask;
 
-public class FavoriteBooksActivity extends AppCompatActivity implements SelectFavoriteBooksByUserDelegate {
+public class FavoriteBooksActivity extends AppCompatActivity implements SelectFavoriteBooksByUserDelegate, SelectBooksDelegate, DeleteFavoriteBookDelegate {
 
     private FavoriteBooksActivity favoriteBooksActivity;
     private User userAfterLogin;
     private ListView m_listViewFavoriteBooks;
     private CustomAdaptor customAdaptorr = new CustomAdaptor();
     private ImageView imageViewFavoriteBook;
+    private ImageView m_trashImageView;
     private TextView titleText;
     private TextView authorText;
     private TextView categoryText;
     private List<FavoriteBook> favoriteBooks;
+    private List<Book> favoriteBooksForActualUser= new ArrayList<>();
+    private List<Book> booksList;
 
 
     @Override
@@ -57,13 +66,49 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
             favoriteBooks = DataManager.getInstance().parseFavoriteBooks(result);
             DataManager.getInstance().setFavoriteBooksList(favoriteBooks);
 
-            int a=favoriteBooks.size();
-            Toast.makeText(this, "eeeeeeeeet"+a, Toast.LENGTH_SHORT).show();
+            SelectBooksTask selectBooksTask = new SelectBooksTask();
+            selectBooksTask.setSelectBooksDelegate(favoriteBooksActivity);
 
-
-            m_listViewFavoriteBooks.setAdapter(customAdaptorr);
+            // m_listViewFavoriteBooks.setAdapter(customAdaptorr);
 
         }
+    }
+
+    @Override
+    public void onSelectBooksDone(String result) throws UnsupportedEncodingException {
+        if (!result.equals("[]\n")) {
+            booksList = DataManager.getInstance().parseBooks(result);
+
+            for (FavoriteBook favBook : favoriteBooks)
+                for (Book book : booksList)
+                    if (favBook.getIdBook() == book.getId()) {
+                        favoriteBooksForActualUser.add(book);
+                        break;
+                    }
+            m_listViewFavoriteBooks.setAdapter(customAdaptorr);
+
+
+        }
+
+    }
+
+    @Override
+    public void onDeleteFavoriteBookDone(String result) throws UnsupportedEncodingException {
+        if (!result.equals("")) {
+            Toast.makeText(getApplicationContext(), "The book has been removed from favorites!", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, FavoriteBooksActivity.class);
+            intent.putExtra("userAfterLogin", userAfterLogin);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+
+        }
+
+    }
+
+    @Override
+    public void onDeleteFavoriteBookError(String response) {
+
     }
 
     private class CustomAdaptor extends BaseAdapter {
@@ -83,21 +128,36 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             View view = getLayoutInflater().inflate(R.layout.template_for_favorite_books, null);
 
             imageViewFavoriteBook = (ImageView) view.findViewById(R.id.imageViewFavoriteBook);
+            m_trashImageView=(ImageView)view.findViewById(R.id.trashImageView);
             titleText = (TextView) view.findViewById(R.id.titleText);
             authorText = (TextView) view.findViewById(R.id.authorText);
             categoryText = (TextView) view.findViewById(R.id.categoryText);
 
-            int resID = getResources().getIdentifier(favoriteBooks.get(position).getNamePicture(), "drawable", getPackageName());
+            int resID = getResources().getIdentifier(favoriteBooksForActualUser.get(position).getNamePicture(), "drawable", getPackageName());
             imageViewFavoriteBook.setImageResource(resID);
 
-            titleText.setText(favoriteBooks.get(position).getTitle());
-            authorText.setText(favoriteBooks.get(position).getAuthor());
-            categoryText.setText(favoriteBooks.get(position).getCategory());
+            titleText.setText(favoriteBooksForActualUser.get(position).getTitle());
+            authorText.setText(favoriteBooksForActualUser.get(position).getAuthor());
+            categoryText.setText(favoriteBooksForActualUser.get(position).getCategory());
+
+            m_trashImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Toast.makeText(getApplicationContext(), "Click!"+position, Toast.LENGTH_SHORT).show();
+                    DeleteFavoriteBookTask deleteFavoriteBookTask = new DeleteFavoriteBookTask(favoriteBooksForActualUser.get(position).getId(), userAfterLogin.getUsername());
+                    deleteFavoriteBookTask.setDeleteFavoriteBookDelegate(favoriteBooksActivity);
+
+
+                }
+            });
+
             return view;
         }
+
     }
 }
