@@ -9,10 +9,28 @@
     tools:context="com.delaroystudios.cardview.MainCategory"
     tools:showIn="@layout/activity_books_by_category">
 
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="90dp"
+        android:background="@drawable/text_view_shape"
+        android:drawableLeft="@drawable/search"
+        android:hint="Search Books here..." />
+
+    <ImageView
+        android:id="@+id/refreshImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="290dp"
+        android:background="@drawable/refresh" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -15,12 +16,19 @@ import java.util.List;
 
 import manager.DataManager;
 import model.Book;
+import model.BookViews;
 import model.Review;
 import model.User;
+import webservice.AddBookViewsDelegate;
+import webservice.AddBookViewsTask;
+import webservice.SelectBookViewsDelegate;
+import webservice.SelectBookViewsTask;
 import webservice.SelectReviewsByIdBookDelegate;
 import webservice.SelectReviewsByIdBookTask;
+import webservice.UpdateBookViewsDelegate;
+import webservice.UpdateBookViewsTask;
 
-public class BookActivity extends AppCompatActivity implements SelectReviewsByIdBookDelegate {
+public class BookActivity extends AppCompatActivity implements SelectReviewsByIdBookDelegate, SelectBookViewsDelegate, AddBookViewsDelegate, UpdateBookViewsDelegate {
     private BookActivity bookActivity;
     private Book book;
     private ImageView imageView;
@@ -40,6 +48,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     private Button m_buttonAddReview, m_buttonRead;
     private User userAfterLogin;
     private Boolean reviewSent;
+    private BookViews bookViews;
 
 
     @Override
@@ -98,6 +107,9 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         numberOfStars = book.getStars();
         idBook = book.getId();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
+
+        SelectBookViewsTask selectBookViewsTask = new SelectBookViewsTask(idBook, userAfterLogin.getUsername());
+        selectBookViewsTask.setSelectBookViewsDelegate(bookActivity);
 
         if (reviewSent != null && reviewSent.equals(Boolean.TRUE))
             m_buttonAddReview.setVisibility(View.INVISIBLE);
@@ -348,6 +360,36 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
 //                    android.R.layout.simple_list_item_1, android.R.id.text1, reviewsWithNameOfUsers);
             // listView.setAdapter(adapter);
         }
+    }
+
+    @Override
+    public void onSelectBookViewsDone(String result) throws UnsupportedEncodingException {
+
+        if(result.isEmpty())
+        {
+            AddBookViewsTask addBookViewsTask = new AddBookViewsTask(idBook, 1, userAfterLogin.getUsername());
+            addBookViewsTask.setAddBookViewsDelegate(bookActivity);
+            Toast.makeText(getApplicationContext(),"Am inserat prima vizionare a cartii",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            bookViews = DataManager.getInstance().parseBookViews(result);
+            int number=bookViews.getViews();
+            number++;
+            UpdateBookViewsTask updateBookViewsTask = new UpdateBookViewsTask(idBook, number, userAfterLogin.getUsername());
+            updateBookViewsTask.setUpdateBookViewsDelegate(bookActivity);
+            Toast.makeText(getApplicationContext(),"Am crescut numarul de vizionari a cartii si s-a updatat in baza de date",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void onAddBookViewsDone(String result) throws UnsupportedEncodingException {
+
+    }
+
+    @Override
+    public void onUpdateBookViewsDone(String result) {
+
     }
 }
 

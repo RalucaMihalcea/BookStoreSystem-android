@@ -148,4 +148,17 @@ public class CategoryMenu extends AppCompatActivity {
 
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("userAfterLogin", userAfterLogin);
+//        intent.putExtra("foodToSend", foodReceived);
+//        intent.putExtra("quantityFromHolderSelected", currentQuantity);
+//        intent.putExtra("calendarString", stringDate);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 }

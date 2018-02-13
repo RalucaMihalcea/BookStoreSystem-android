@@ -8,39 +8,56 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import model.User;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
-    private TextView textEdit;
-    //private Button m_buttonFoodDiary;
-//    private Button m_buttonFoodSuggestion;
-//    private Button m_buttonConsulting;
-//    private Button m_buttonStartWalking;
+import manager.DataManager;
+import model.Book;
+import model.BookViews;
+import model.User;
+import webservice.SelectBookByIdDelegate;
+import webservice.SelectBookByIdTask;
+import webservice.SelectBookViewsByUsernameDelegate;
+import webservice.SelectBookViewsByUsernameTask;
+
+public class HomeActivity extends AppCompatActivity implements SelectBookViewsByUsernameDelegate, SelectBookByIdDelegate {
+
+    private HomeActivity homeActivity;
+    private TextView textEdit, text1, text3;
     private CardView m_cardMyFavoriteBooks;
-    //    private Button m_buttonML;
     private User userAfterLogin;
     private CardView m_cardCartShopping;
     private CardView m_cardCategory;
-
+    private List<BookViews>bookViewsList= new ArrayList<>();
+    private BookViews theMostViewedBook;
+    private ImageView m_imageViewBanner;
+    private Book book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        homeActivity=this;
+
         m_cardMyFavoriteBooks = (CardView) findViewById(R.id.cardMyFavoriteBooks);
         m_cardCartShopping = (CardView) findViewById(R.id.cardCartShopping);
         m_cardCategory = (CardView) findViewById(R.id.cardCategory);
+       // m_imageViewBanner=(ImageView)findViewById(R.id.imageViewBanner);
+        //text1=(TextView)findViewById(R.id.text1);
+        text3=(TextView)findViewById(R.id.text3);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        //if (bundle != null) {
-        //String username = (String) bundle.get("username");
-        //User userAfterLogin= (User) bundle.get("userAfterLogin");
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
+
+        SelectBookViewsByUsernameTask selectBookViewsByUsernameTask = new SelectBookViewsByUsernameTask(userAfterLogin.getUsername());
+        selectBookViewsByUsernameTask.setSelectBookViewsByUsernameDelegate(homeActivity);
 
         m_cardMyFavoriteBooks.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +73,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, ShoppingActivity.class);
                 startActivity(intent);
-                //Toast.makeText(getApplicationContext(), "Am intrat in actiune", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -64,7 +80,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //Intent intent4 = new Intent(HomeActivity.this, BooksByCategory.class);
                 Intent intent4 = new Intent(HomeActivity.this, CategoryMenu.class);
                 intent4.putExtra("userAfterLogin", userAfterLogin);
                 startActivity(intent4);
@@ -82,33 +97,62 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.profile_id:
-                //Toast.makeText(getApplicationContext(), "Profile icon is selected", Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                 Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                 intent.putExtra("userAfterLogin", userAfterLogin);
                 startActivity(intent);
-                //startActivity(intent);
                 return true;
+
             case R.id.home_id:
-                //Toast.makeText(getApplicationContext(), "Profile icon is selected", Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-//                Intent intent2 = new Intent(HomeActivity.this, ProfileActivity.class);
-//                intent2.putExtra("userAfterLogin", userAfterLogin);
-//                startActivity(intent2);
-                //startActivity(intent);
                 return true;
 
             case R.id.LogOut_id:
-                //Toast.makeText(getApplicationContext(), "Log Out icon is selected", Toast.LENGTH_SHORT).show();
                 Intent intent3 = new Intent(HomeActivity.this, LoginActivity.class);
                 startActivity(intent3);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
-
         }
-
     }
+
+    @Override
+    public void onSelectBookViewsByUsernameDone(String result) throws UnsupportedEncodingException {
+
+        int max=-1;
+
+        if( !result.equals("[]\n"))
+        {
+            bookViewsList = DataManager.getInstance().parseBookViewsList(result);
+
+            for (BookViews bookViews:bookViewsList)
+                if(bookViews.getViews()>max)
+                {
+                    max=bookViews.getViews();
+                    theMostViewedBook=bookViews;
+                }
+
+            SelectBookByIdTask selectBookByIdTask = new SelectBookByIdTask(theMostViewedBook.getIdBook());
+            selectBookByIdTask.setSelectBookByIdDelegate(homeActivity);
+        }
+    }
+
+    @Override
+    public void onSelectBookByIdDone(String result) throws UnsupportedEncodingException {
+
+        if( !result.equals(""))
+        {
+            book = DataManager.getInstance().parseBook(result);
+
+            //int resID = getResources().getIdentifier(book.getNamePicture(), "drawable", this.getPackageName());
+            //m_imageViewBanner.setImageResource(resID);
+
+            text3.setText(book.getTitle());
+        }
+    }
+
+
+
+
 }

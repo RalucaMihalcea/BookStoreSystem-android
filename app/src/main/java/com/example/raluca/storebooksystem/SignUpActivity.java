@@ -9,8 +9,10 @@ import android.widget.Toast;
 
 import webservice.RegisterDelegate;
 import webservice.RegisterTask;
+import webservice.SelectUserDelegate;
+import webservice.SelectUserTask;
 
-public class SignUpActivity extends AppCompatActivity implements RegisterDelegate {
+public class SignUpActivity extends AppCompatActivity implements RegisterDelegate, SelectUserDelegate {
 
     private EditText m_editTextUsername;
     private EditText m_editTextFirstName;
@@ -32,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        signUpActivity=this;
         m_editTextUsername = (EditText) findViewById(R.id.editTextUsername);
         m_editTextFirstName = (EditText) findViewById(R.id.editTextFirstName);
         m_editTextLastName = (EditText) findViewById(R.id.editTextLastName);
@@ -62,8 +65,8 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
                     if (password.equals(repeatPassword)) {
 
                         m_errorInfo.setVisibility(View.INVISIBLE);
-                        RegisterTask registerTask = new RegisterTask(username, firstName, lastName, password, "", "", "");
-                        registerTask.setRegisterDelegate(signUpActivity);
+                        SelectUserTask selectUserTask = new SelectUserTask(username);
+                        selectUserTask.setSelectUserDelegate(signUpActivity);
 
                     } else {
                         m_errorInfo.setText("These password don't match!! Try again!!");
@@ -72,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
                         m_editTextRetypePassword.setText("");
                     }
 
-                    Toast.makeText(SignUpActivity.this, "Your have registered! ", Toast.LENGTH_SHORT).show();
+
 
                 }
             }
@@ -88,4 +91,14 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
         Toast.makeText(SignUpActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onSelectUserDone(String result) {
+        if (!result.isEmpty())
+            Toast.makeText(SignUpActivity.this, "This username already exists. Please try with another username!", Toast.LENGTH_SHORT).show();
+        else {
+            RegisterTask registerTask = new RegisterTask(username, firstName, lastName, password, "", "", "");
+            registerTask.setRegisterDelegate(signUpActivity);
+            Toast.makeText(SignUpActivity.this, "Your have registered! ", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

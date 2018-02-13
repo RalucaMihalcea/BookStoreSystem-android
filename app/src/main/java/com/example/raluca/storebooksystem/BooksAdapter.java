@@ -18,14 +18,19 @@ import com.bumptech.glide.Glide;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
+import manager.DataManager;
 import model.Book;
+import model.FavoriteBook;
 import model.User;
 import webservice.AddFavoriteBookDelegate;
 import webservice.AddFavoriteBookTask;
+import webservice.SelectFavoriteBooksByUserDelegate;
+import webservice.SelectFavoriteBooksByUserTask;
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder> implements AddFavoriteBookDelegate {
+public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder> implements AddFavoriteBookDelegate, SelectFavoriteBooksByUserDelegate {
 
     private BooksAdapter booksAdapter;
     private Context mContext;
@@ -36,6 +41,9 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     private int imageNumber;
     private User userAfterLogin;
     private Book bookk;
+    private Book selectedBook;
+    private List<FavoriteBook> favoriteBooks = new ArrayList<>();
+    private Boolean ok = true;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -68,13 +76,14 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                     intent.putExtra("book", (Serializable) book);
                     intent.putExtra("imageNumber", imageNumber);
                     intent.putExtra("userAfterLogin", userAfterLogin);
+
+
+
                     // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     mContext.startActivity(intent);
                 }
             }
         }
-
-
     }
 
     public BooksAdapter(Context mContext, List<Book> booksList, List<Integer> covers, User userAfterLogin) {
@@ -89,13 +98,14 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.album_card, parent, false);
-
+        booksAdapter = this;
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         bookk = booksList.get(position);
+        booksAdapter = this;
         holder.title.setText(bookk.getTitle() + " - " + bookk.getAuthor());
         holder.price.setText(bookk.getPrice() + " RON");
         imageNumber = covers.get(position);
@@ -106,6 +116,15 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                ok=true;
+                for (Book book : booksList) {
+                    String titleAuthorString=book.getTitle() + " - " + book.getAuthor();
+                    if (titleAuthorString.equals(holder.title.getText())) {
+                        selectedBook = book;
+                    }
+                }
+
                 showPopupMenu(holder.overflow);
             }
         });
@@ -114,8 +133,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     /**
      * Showing popup menu when tapping on 3 dots
      */
+
     private void showPopupMenu(View view) {
         // inflate menu
+        booksAdapter = this;
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_album, popup.getMenu());
@@ -135,18 +156,21 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_add_favourite:
-                    Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
 
-                    String author = bookk.getAuthor();
-                    if (author.contains(" "))
-                        author = author.replaceAll(" ", "+");
+//                    String author = bookk.getAuthor();
+//                    if (author.contains(" "))
+//                        author = author.replaceAll(" ", "+");
+//
+//                    String title = bookk.getTitle();
+//                    if (title.contains(" "))
+//                        title = title.replaceAll(" ", "+");
+//
+//                    AddFavoriteBookTask addFavoriteBookTask = new AddFavoriteBookTask(title, author, userAfterLogin.getUsername());
+//                    addFavoriteBookTask.setAddFavoriteBookDelegate(booksAdapter);
+//                    Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
 
-                    String title = bookk.getTitle();
-                    if (title.contains(" "))
-                        title = title.replaceAll(" ", "+");
-
-                    AddFavoriteBookTask addFavoriteBookTask = new AddFavoriteBookTask(title, author, userAfterLogin.getUsername());
-                    addFavoriteBookTask.setAddFavoriteBookDelegate(booksAdapter);
+                    SelectFavoriteBooksByUserTask selectFavoriteBooksByUserTask = new SelectFavoriteBooksByUserTask(userAfterLogin.getUsername());
+                    selectFavoriteBooksByUserTask.setSelectFavoriteBooksByUserDelegate(booksAdapter);
                     return true;
 
                 case R.id.action_play_next:
@@ -156,6 +180,36 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
             }
             return false;
         }
+    }
+
+    @Override
+    public void onSelectFavoriteBooksByUserDone(String result) throws UnsupportedEncodingException {
+        if (!result.equals("[]\n"))
+            favoriteBooks = DataManager.getInstance().parseFavoriteBooks(result);
+
+            if (!favoriteBooks.isEmpty())
+                for (FavoriteBook favBook : favoriteBooks)
+                    if (favBook.getIdBook() == selectedBook.getId()) {
+                        ok = false;
+                        break;
+                    }
+
+            if (ok.equals(Boolean.TRUE)) {
+
+                String author = selectedBook.getAuthor();
+                if (author.contains(" "))
+                    author = author.replaceAll(" ", "+");
+
+                String title = selectedBook.getTitle();
+                if (title.contains(" "))
+                    title = title.replaceAll(" ", "+");
+
+                AddFavoriteBookTask addFavoriteBookTask = new AddFavoriteBookTask(title, author, userAfterLogin.getUsername());
+                addFavoriteBookTask.setAddFavoriteBookDelegate(booksAdapter);
+                Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(mContext, "You have already added this book to your favorites!", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

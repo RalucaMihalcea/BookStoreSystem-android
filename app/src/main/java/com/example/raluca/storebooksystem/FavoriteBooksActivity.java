@@ -30,7 +30,7 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
 
     private FavoriteBooksActivity favoriteBooksActivity;
     private User userAfterLogin;
-    private ListView m_listViewFavoriteBooks;
+
     private CustomAdaptor customAdaptorr = new CustomAdaptor();
     private ImageView imageViewFavoriteBook;
     private ImageView m_trashImageView;
@@ -40,6 +40,7 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
     private List<FavoriteBook> favoriteBooks;
     private List<Book> favoriteBooksForActualUser= new ArrayList<>();
     private List<Book> booksList;
+    private ListView m_listViewFavoriteBooks;
 
 
     @Override

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Book;
+import model.BookViews;
 import model.FavoriteBook;
 import model.Review;
 import model.User;
@@ -29,6 +30,8 @@ public class DataManager {
     private String baseAuthStr;
 
     private List<Book> books;
+
+    private List<BookViews> bookViewsList;
 
     private List<Book> booksList;
 
@@ -106,6 +109,41 @@ public class DataManager {
         return user;
     }
 
+    public Book parseBook(String inputJSON) {
+
+        Book book = new Book();
+
+        try {
+            JSONObject jsonObject = new JSONObject(inputJSON);
+            Log.d("TAG", "jsonObject - " + String.valueOf(jsonObject));
+
+            book = new Book(jsonObject.getLong("id"), jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"), jsonObject.getString("description"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return book;
+    }
+
+    public BookViews parseBookViews(String inputJSON) {
+
+        BookViews bookViews = new BookViews();
+
+
+        try {
+            JSONObject jsonObject = new JSONObject(inputJSON);
+            Log.d("TAG", "jsonObject - " + String.valueOf(jsonObject));
+
+            bookViews = new BookViews(jsonObject.getLong("idBook"), jsonObject.getInt("views"), jsonObject.getString("username"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return bookViews;
+    }
+
     public List<Book> parseBooks(String inputJSON) {
 
         booksList = new ArrayList<Book>();
@@ -165,7 +203,7 @@ public class DataManager {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                FavoriteBook favoriteBook = new FavoriteBook(jsonObject.getLong("id"), jsonObject.getLong("idBook"),jsonObject.getLong("idUser"));
+                FavoriteBook favoriteBook = new FavoriteBook(jsonObject.getLong("id"), jsonObject.getLong("idBook"), jsonObject.getLong("idUser"));
 
                 favoriteBooksList.add(favoriteBook);
 
@@ -174,5 +212,29 @@ public class DataManager {
             e.printStackTrace();
         }
         return favoriteBooksList;
+    }
+
+    public List<BookViews> parseBookViewsList(String inputJSON) {
+
+        bookViewsList = new ArrayList<BookViews>();
+
+        try {
+            JSONArray jsonArray = new JSONArray(inputJSON);
+            Log.d("TAG", "JSONArray - " + String.valueOf(jsonArray));
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                BookViews bookViews = new BookViews(jsonObject.getLong("id"), jsonObject.getLong("idBook"), jsonObject.getInt("views"), jsonObject.getString("username"));
+
+                bookViewsList.add(bookViews);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return bookViewsList;
     }
 }
