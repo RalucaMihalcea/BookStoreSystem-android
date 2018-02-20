@@ -65,7 +65,6 @@ public class SelectBooksTask extends AsyncTask<String, String, String> implement
 
     public SelectBooksTask() {
 
-
         String modelString = BASE_URL + "book/allBooks";
         Uri uri = Uri.parse(modelString).buildUpon().build();
         this.execute(uri.toString());

@@ -31,15 +31,16 @@ import model.Book;
 import model.User;
 import webservice.SelectBookByCategoryDelegate;
 import webservice.SelectBookByCategoryTask;
+import webservice.SelectBooksDelegate;
+import webservice.SelectBooksTask;
 
-public class BooksByCategory extends AppCompatActivity implements SelectBookByCategoryDelegate {
+public class BooksByCategory extends AppCompatActivity implements SelectBookByCategoryDelegate, SelectBooksDelegate {
 
     private RecyclerView recyclerView;
     private BooksAdapter adapter;
     private List<Book> books = new ArrayList<>();
     private List<Book> books2;
     private List<String> titleBooks = new ArrayList<>();
-    ;
     private List<String> titleBooks2;
     private BooksByCategory booksByCategory;
     private User userAfterLogin;
@@ -87,12 +88,16 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
         titleTextView.setText(titleCover);
 
-        SelectBookByCategoryTask selectBookByCategoryTask = new SelectBookByCategoryTask(category);
-        selectBookByCategoryTask.setSelectBookByCategoryDelegate(booksByCategory);
+        if (!category.equals("All")) {
+            SelectBookByCategoryTask selectBookByCategoryTask = new SelectBookByCategoryTask(category);
+            selectBookByCategoryTask.setSelectBookByCategoryDelegate(booksByCategory);
+        } else {
+            SelectBooksTask selectBooksTask = new SelectBooksTask();
+            selectBooksTask.setSelectBooksDelegate(booksByCategory);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         initCollapsingToolbar();
 
@@ -116,7 +121,6 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
                 adapter = new BooksAdapter(getApplicationContext(), books2, covers2, userAfterLogin);
 
                 recyclerView.setAdapter(adapter);
-
             }
 
         });
@@ -135,7 +139,6 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
             }
         });
-
     }
 
     /**
@@ -306,6 +309,37 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
             Toast.makeText(getApplicationContext(), "Get all books from database", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    @Override
+    public void onSelectBooksDone(String result) throws UnsupportedEncodingException {
+
+        if (!result.isEmpty() && !result.equals("[]\n")) {
+            m_autoCompleteTextView.setVisibility(View.VISIBLE);
+            m_refresh.setVisibility(View.VISIBLE);
+
+            books = DataManager.getInstance().parseBooks(result);
+
+            DataManager.getInstance().setBooksList(books);
+            adapter = new BooksAdapter(this, books, covers, userAfterLogin);
+
+            mLayoutManager = new GridLayoutManager(this, 2);
+            recyclerView.setLayoutManager(mLayoutManager);
+            recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setAdapter(adapter);
+
+            preparePresentationBooks();
+
+            adapterTitleBooks = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, titleBooks);
+            m_autoCompleteTextView.setAdapter(adapterTitleBooks);
+
+            Glide.with(this).load(R.drawable.allbooks).into((ImageView) findViewById(R.id.backdrop));
+
+            Toast.makeText(getApplicationContext(), "Get all books from database", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }

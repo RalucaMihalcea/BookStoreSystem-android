@@ -65,9 +65,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         @Override
         public void onClick(View v) {
 
-            // Toast.makeText(mContext, "Nutrition", Toast.LENGTH_SHORT).show();
-
-
             for (Book book : booksList) {
                 String titleAndAuthor = book.getTitle() + " - " + book.getAuthor();
                 if (titleAndAuthor.equals(title.getText())) {
