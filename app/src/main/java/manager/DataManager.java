@@ -6,11 +6,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import model.Book;
 import model.BookViews;
+import model.BookViewsAndDate;
 import model.FavoriteBook;
 import model.Review;
 import model.User;
@@ -29,9 +34,15 @@ public class DataManager {
 
     private String baseAuthStr;
 
+    private String email = "raluca.mihalcea.e@gmail.com";
+
+    private String password = "galben1q2w3e";
+
     private List<Book> books;
 
     private List<BookViews> bookViewsList;
+
+    private List<BookViewsAndDate> bookViewsAndDateList;
 
     private List<Book> booksList;
 
@@ -91,6 +102,14 @@ public class DataManager {
         this.favoriteBooksList = favoriteBooksList;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public User parseUser(String inputJSON) {
 
         User user = new User();
@@ -117,7 +136,7 @@ public class DataManager {
             JSONObject jsonObject = new JSONObject(inputJSON);
             Log.d("TAG", "jsonObject - " + String.valueOf(jsonObject));
 
-            book = new Book(jsonObject.getLong("id"), jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"), jsonObject.getString("description"));
+            book = new Book(jsonObject.getLong("id"), jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"), jsonObject.getString("description"), jsonObject.getInt("notified"));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -129,19 +148,45 @@ public class DataManager {
     public BookViews parseBookViews(String inputJSON) {
 
         BookViews bookViews = new BookViews();
-
-
         try {
             JSONObject jsonObject = new JSONObject(inputJSON);
             Log.d("TAG", "jsonObject - " + String.valueOf(jsonObject));
+
 
             bookViews = new BookViews(jsonObject.getLong("idBook"), jsonObject.getInt("views"), jsonObject.getString("username"));
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return bookViews;
+    }
+
+    public BookViewsAndDate parseBookViewsAndDate(String inputJSON) {
+
+        BookViewsAndDate bookViewsAndDate = new BookViewsAndDate();
+
+
+        try {
+            JSONObject jsonObject = new JSONObject(inputJSON);
+            Log.d("TAG", "jsonObject - " + String.valueOf(jsonObject));
+
+            String date = jsonObject.getString("date");
+
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+            Calendar cal = Calendar.getInstance();
+
+            cal.setTime(df.parse(date));
+
+            bookViewsAndDate = new BookViewsAndDate(jsonObject.getLong("idBook"), jsonObject.getInt("views"), cal, jsonObject.getString("username"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return bookViewsAndDate;
     }
 
     public List<Book> parseBooks(String inputJSON) {
@@ -156,7 +201,7 @@ public class DataManager {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                Book book = new Book(jsonObject.getLong("id"), jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"), jsonObject.getString("description"));
+                Book book = new Book(jsonObject.getLong("id"), jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"), jsonObject.getString("description"), jsonObject.getInt("notified"));
 
                 booksList.add(book);
 
@@ -166,6 +211,7 @@ public class DataManager {
         }
         return booksList;
     }
+
 
     public List<Review> parseReviews(String inputJSON) {
 
@@ -236,5 +282,40 @@ public class DataManager {
         }
 
         return bookViewsList;
+    }
+
+    public List<BookViewsAndDate> parseBookViewsAndDateList(String inputJSON) {
+
+        bookViewsAndDateList = new ArrayList<BookViewsAndDate>();
+
+        try {
+            JSONArray jsonArray = new JSONArray(inputJSON);
+            Log.d("TAG", "JSONArray - " + String.valueOf(jsonArray));
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                String date = jsonObject.getString("date");
+
+                DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+                Calendar cal = Calendar.getInstance();
+
+                cal.setTime(df.parse(date));
+
+
+                BookViewsAndDate bookViewsAndDate = new BookViewsAndDate(jsonObject.getLong("id"), jsonObject.getLong("idBook"), jsonObject.getInt("views"), cal, jsonObject.getString("username"));
+
+                bookViewsAndDateList.add(bookViewsAndDate);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return bookViewsAndDateList;
     }
 }

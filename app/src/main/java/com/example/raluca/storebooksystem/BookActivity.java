@@ -7,28 +7,36 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import manager.DataManager;
 import model.Book;
-import model.BookViews;
+import model.BookViewsAndDate;
 import model.Review;
 import model.User;
+import webservice.AddBookViewsAndDateDelegate;
+import webservice.AddBookViewsAndDateTask;
 import webservice.AddBookViewsDelegate;
 import webservice.AddBookViewsTask;
+import webservice.SelectBookViewsAndDateDelegate;
+import webservice.SelectBookViewsAndDateTask;
 import webservice.SelectBookViewsDelegate;
-import webservice.SelectBookViewsTask;
 import webservice.SelectReviewsByIdBookDelegate;
 import webservice.SelectReviewsByIdBookTask;
+import webservice.UpdateBookViewsAndDateDelegate;
+import webservice.UpdateBookViewsAndDateTask;
 import webservice.UpdateBookViewsDelegate;
 import webservice.UpdateBookViewsTask;
 
-public class BookActivity extends AppCompatActivity implements SelectReviewsByIdBookDelegate, SelectBookViewsDelegate, AddBookViewsDelegate, UpdateBookViewsDelegate {
+public class BookActivity extends AppCompatActivity implements SelectReviewsByIdBookDelegate, SelectBookViewsDelegate, SelectBookViewsAndDateDelegate, AddBookViewsDelegate, AddBookViewsAndDateDelegate, UpdateBookViewsDelegate, UpdateBookViewsAndDateDelegate {
     private BookActivity bookActivity;
     private Book book;
     private ImageView imageView;
@@ -48,7 +56,12 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     private Button m_buttonAddReview, m_buttonRead;
     private User userAfterLogin;
     private Boolean reviewSent;
-    private BookViews bookViews;
+    private BookViewsAndDate bookViewsAndDate;
+
+    private String calendarString;
+    private int number;
+    private Calendar data;
+    private Calendar calendarDate;
 
 
     @Override
@@ -59,6 +72,19 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         // m_buttonAddReview.setVisibility(View.INVISIBLE);
 
         setContentView(R.layout.activity_book_activity);
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        calendarString = df.format(c.getTime());
+
+        DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy");
+        calendarDate = Calendar.getInstance();
+        try {
+            calendarDate.setTime(df2.parse(calendarString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         imageView = (ImageView) findViewById(R.id.imageView);
         m_textViewTitle = (TextView) findViewById(R.id.textViewTitle);
         m_textViewAuthor = (TextView) findViewById(R.id.textViewAuthor);
@@ -108,12 +134,11 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         idBook = book.getId();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
 
-        SelectBookViewsTask selectBookViewsTask = new SelectBookViewsTask(idBook, userAfterLogin.getUsername());
-        selectBookViewsTask.setSelectBookViewsDelegate(bookActivity);
+        SelectBookViewsAndDateTask selectBookViewsAndDateTask = new SelectBookViewsAndDateTask(idBook, userAfterLogin.getUsername());
+        selectBookViewsAndDateTask.setSelectBookViewsAndDateDelegate(bookActivity);
 
         if (reviewSent != null && reviewSent.equals(Boolean.TRUE))
             m_buttonAddReview.setVisibility(View.INVISIBLE);
-
 
         Bundle bundle = intent.getExtras();
 
@@ -365,30 +390,67 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     @Override
     public void onSelectBookViewsDone(String result) throws UnsupportedEncodingException {
 
-        if(result.isEmpty())
-        {
+//        if (result.isEmpty()) {
+//            AddBookViewsTask addBookViewsTask = new AddBookViewsTask(idBook, 1, userAfterLogin.getUsername());
+//            addBookViewsTask.setAddBookViewsDelegate(bookActivity);
+//            //Toast.makeText(getApplicationContext(),"Am inserat prima vizionare a cartii",Toast.LENGTH_SHORT).show();
+//        } else {
+//            bookViews = DataManager.getInstance().parseBookViews(result);
+//            number = bookViews.getViews();
+//            number++;
+//            UpdateBookViewsTask updateBookViewsTask = new UpdateBookViewsTask(idBook, number, userAfterLogin.getUsername());
+//            updateBookViewsTask.setUpdateBookViewsDelegate(bookActivity);
+//            //Toast.makeText(getApplicationContext(),"Am crescut numarul de vizionari a cartii si s-a updatat in baza de date",Toast.LENGTH_SHORT).show();
+//        }
+    }
+    @Override
+    public void onSelectBookViewsAndDateDone(String result) throws UnsupportedEncodingException, ParseException {
+
+        if (result.isEmpty()) {
             AddBookViewsTask addBookViewsTask = new AddBookViewsTask(idBook, 1, userAfterLogin.getUsername());
             addBookViewsTask.setAddBookViewsDelegate(bookActivity);
-            Toast.makeText(getApplicationContext(),"Am inserat prima vizionare a cartii",Toast.LENGTH_SHORT).show();
-        }
-        else {
-            bookViews = DataManager.getInstance().parseBookViews(result);
-            int number=bookViews.getViews();
+            //Toast.makeText(getApplicationContext(),"Am inserat prima vizionare a cartii",Toast.LENGTH_SHORT).show();
+        } else {
+            bookViewsAndDate = DataManager.getInstance().parseBookViewsAndDate(result);
+            number = bookViewsAndDate.getViews();
             number++;
+            data = bookViewsAndDate.getDate();
+
             UpdateBookViewsTask updateBookViewsTask = new UpdateBookViewsTask(idBook, number, userAfterLogin.getUsername());
             updateBookViewsTask.setUpdateBookViewsDelegate(bookActivity);
-            Toast.makeText(getApplicationContext(),"Am crescut numarul de vizionari a cartii si s-a updatat in baza de date",Toast.LENGTH_SHORT).show();
+
+            if (!calendarDate.equals(data)) {
+
+            }
         }
-
-    }
-
-    @Override
-    public void onAddBookViewsDone(String result) throws UnsupportedEncodingException {
 
     }
 
     @Override
     public void onUpdateBookViewsDone(String result) {
+
+        UpdateBookViewsAndDateTask updateBookViewsAndDateTask = new UpdateBookViewsAndDateTask(idBook, number, userAfterLogin.getUsername());
+        updateBookViewsAndDateTask.setUpdateBookViewsAndDateDelegate(bookActivity);
+    }
+
+
+    @Override
+    public void onUpdateBookViewsAndDateDone(String result) {
+
+    }
+
+    @Override
+    public void onAddBookViewsDone(String result) throws UnsupportedEncodingException {
+        if (result.isEmpty()) {
+            AddBookViewsAndDateTask addBookViewsAndDateTask = new AddBookViewsAndDateTask(idBook, 1, calendarString, userAfterLogin.getUsername());
+            addBookViewsAndDateTask.setAddBookViewsAndDateDelegate(bookActivity);
+        }
+
+    }
+
+
+    @Override
+    public void onAddBookViewsAndDateDone(String result) throws UnsupportedEncodingException {
 
     }
 }

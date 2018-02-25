@@ -17,8 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import manager.DataManager;
+import model.Book;
 import model.User;
 import webservice.LoginDelegate;
 import webservice.LoginTask;
@@ -38,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
     private String username;
     private String password;
     private User userAfterLogin;
+    private List<Book> books = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +118,6 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
             myIntent.putExtra("userAfterLogin", userAfterLogin);
 
 
-
             startActivity(myIntent);
         }
     }
@@ -175,9 +178,65 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
             }
             startNewActivity(user);
             Toast.makeText(getApplicationContext(), "Success login", Toast.LENGTH_SHORT).show();
+
+//            SelectBooksTask selectBooksTask = new SelectBooksTask();
+//            selectBooksTask.setSelectBooksDelegate(loginActivity);
         } else {
             Toast.makeText(getApplicationContext(), "Fail login", Toast.LENGTH_SHORT).show();
         }
     }
-
+//
+//    @Override
+//    public void onSelectBooksDone(String result) throws UnsupportedEncodingException {
+//
+//        if (!result.isEmpty() && !result.equals("[]\n")) {
+//
+//            books = DataManager.getInstance().parseBooks(result);
+//            DataManager.getInstance().setBooksList(books);
+//
+//            for (Book book : books)
+//                if (book.getNotified() == 0) {
+//                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//                    StrictMode.setThreadPolicy(policy);
+//                    Properties properties = new Properties();
+//                    //Properties pr= System.getProperties();
+//                    properties.put("mail.smtp.host", "smtp.live.com");
+//                    properties.put("mail.smtp.auth", "true");
+//                    properties.put("mail.smtp.starttls.enable", "true");
+//
+//                    try {
+//                        Session session = Session.getDefaultInstance(properties, new Authenticator() {
+//                            @Override
+//                            protected PasswordAuthentication getPasswordAuthentication() {
+//                                return new PasswordAuthentication(DataManager.getInstance().getEmail(), DataManager.getInstance().getPassword());
+//                            }
+//                        });
+//
+//                        if (session != null) {
+//                            Message message = new MimeMessage(session);
+//                            message.setFrom(new InternetAddress(DataManager.getInstance().getEmail()));
+//                            message.setSubject("Testare email trimis din android");
+//                            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("andreea.mihalcea.n@gmail.com"));
+//                            message.setContent("Hello world from android studio!", "text/html; charset=utf-8");
+//                            Transport transport = session.getTransport("smtp");
+//                            transport.connect("smtp.live.com", 587, DataManager.getInstance().getEmail(), DataManager.getInstance().getPassword());
+//                            transport.sendMessage(message, message.getAllRecipients());
+//                            transport.close();
+//                        }
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    UpdateBookTask updateBookTask = new UpdateBookTask(book.getTitle(), book.getAuthor(), 1);
+//                    updateBookTask.setUpdateBookDelegate(loginActivity);
+//                }
+//
+//        }
+//    }
+//
+//    @Override
+//    public void onUpdateBookDone(String result) {
+//
+//    }
 }

@@ -13,26 +13,32 @@ import android.widget.TextView;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import manager.DataManager;
 import model.Book;
 import model.BookViews;
+import model.BookViewsAndDate;
 import model.User;
 import webservice.SelectBookByCategoryDelegate;
 import webservice.SelectBookByCategoryTask;
 import webservice.SelectBookByIdDelegate;
 import webservice.SelectBookByIdTask;
+import webservice.SelectBookViewsAndDateByUsernameDelegate;
+import webservice.SelectBookViewsAndDateByUsernameTask;
 import webservice.SelectBookViewsByUsernameDelegate;
 import webservice.SelectBookViewsByUsernameTask;
 
-public class HomeActivity extends AppCompatActivity implements SelectBookViewsByUsernameDelegate, SelectBookByIdDelegate, SelectBookByCategoryDelegate {
+public class HomeActivity extends AppCompatActivity implements SelectBookViewsAndDateByUsernameDelegate, SelectBookViewsByUsernameDelegate, SelectBookByIdDelegate, SelectBookByCategoryDelegate {
 
     private HomeActivity homeActivity;
     private TextView textEdit, text1, text3, title1, title2, title3, title4, author1, author2, author3, author4, textViewDescriptionInterested;
-    private CardView m_cardMyFavoriteBooks;
+    private CardView m_cardMyFavoriteBooks, m_cardCartBookStatistics;
     private User userAfterLogin;
     private CardView m_cardCartAllBooks;
     private CardView m_cardCategory;
@@ -43,6 +49,21 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsBy
     private ImageView image_view1, image_view2, image_view3, image_view4;
     private Book book, randomBook;
     private View view1, view2, view3, view4;
+    private List<BookViewsAndDate> bookViewsAndDateList = new ArrayList<>();
+    List<BookViewsAndDate> ian;
+    List<BookViewsAndDate> feb;
+    List<BookViewsAndDate> mar;
+    List<BookViewsAndDate> apr;
+    List<BookViewsAndDate> may;
+    List<BookViewsAndDate> jun;
+    List<BookViewsAndDate> jul;
+    List<BookViewsAndDate> aug;
+    List<BookViewsAndDate> sep;
+    List<BookViewsAndDate> oct;
+    List<BookViewsAndDate> nov;
+    List<BookViewsAndDate> dec;
+    private String calendarString;
+    List<BookViewsAndDate> dayBookListForStatistics = new ArrayList<BookViewsAndDate>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +72,28 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsBy
 
         homeActivity = this;
 
+        ian = new ArrayList<>();
+        feb = new ArrayList<>();
+        mar = new ArrayList<>();
+        apr = new ArrayList<>();
+        may = new ArrayList<>();
+        jun = new ArrayList<>();
+        jul = new ArrayList<>();
+        aug = new ArrayList<>();
+        sep = new ArrayList<>();
+        oct = new ArrayList<>();
+        nov = new ArrayList<>();
+        dec = new ArrayList<>();
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        calendarString = df.format(c.getTime());
+
+
         m_cardMyFavoriteBooks = (CardView) findViewById(R.id.cardMyFavoriteBooks);
         m_cardCartAllBooks = (CardView) findViewById(R.id.cardCartAllBooks);
         m_cardCategory = (CardView) findViewById(R.id.cardCategory);
+        m_cardCartBookStatistics = (CardView) findViewById(R.id.cardCartBookStatistics);
         image_view1 = (ImageView) findViewById(R.id.image_view1);
         image_view2 = (ImageView) findViewById(R.id.image_view2);
         image_view3 = (ImageView) findViewById(R.id.image_view3);
@@ -186,6 +226,16 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsBy
                 startActivity(intent4);
             }
         });
+
+        m_cardCartBookStatistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SelectBookViewsAndDateByUsernameTask selectBookViewsAndDateByUsernameTask = new SelectBookViewsAndDateByUsernameTask(userAfterLogin.getUsername());
+                selectBookViewsAndDateByUsernameTask.setSelectBookViewsAndDateByUsernameDelegate(homeActivity);
+
+            }
+        });
     }
 
     @Override
@@ -270,7 +320,6 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsBy
         }
     }
 
-
     @Override
     public void onSelectBookByCategoryDone(String result) throws UnsupportedEncodingException {
 
@@ -319,17 +368,230 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsBy
         return list.get(index);
     }
 
-    public Boolean isValid(List<Book>randomBookList, Book randomBook)
-    {
-        if(!randomBookList.contains(randomBook))
+    public Boolean isValid(List<Book> randomBookList, Book randomBook) {
+        if (!randomBookList.contains(randomBook))
             return true;
         return false;
     }
 
-    public Boolean isDifferentBook(Book book, Book randomBook)
-    {
-        if(book.getTitle().toString()!=randomBook.getTitle().toString() && book.getAuthor().toString()!=randomBook.getAuthor().toString())
+    public Boolean isDifferentBook(Book book, Book randomBook) {
+        if (!book.getTitle().toString().equals(randomBook.getTitle().toString()) && !book.getAuthor().toString().equals(randomBook.getAuthor().toString()))
             return true;
         return false;
     }
+
+    @Override
+    public void onSelectBookViewsAndDateByUsernameDone(String result) throws UnsupportedEncodingException {
+
+        if (!result.isEmpty() && !result.equals("[]\n")) {
+
+            bookViewsAndDateList = DataManager.getInstance().parseBookViewsAndDateList(result);
+
+            for (BookViewsAndDate bookViewsAndDate : bookViewsAndDateList) {
+                int numberMonth = bookViewsAndDate.getDate().get(Calendar.MONTH) + 1;
+                switch (numberMonth) {
+                    case 1:
+                        ian.add(bookViewsAndDate);
+                        break;
+                    case 2:
+                        feb.add(bookViewsAndDate);
+                        break;
+                    case 3:
+                        mar.add(bookViewsAndDate);
+                        break;
+                    case 4:
+                        apr.add(bookViewsAndDate);
+                        break;
+                    case 5:
+                        may.add(bookViewsAndDate);
+                        break;
+                    case 6:
+                        jun.add(bookViewsAndDate);
+                        break;
+                    case 7:
+                        jul.add(bookViewsAndDate);
+                        break;
+                    case 8:
+                        aug.add(bookViewsAndDate);
+                        break;
+                    case 9:
+                        sep.add(bookViewsAndDate);
+                        break;
+                    case 10:
+                        oct.add(bookViewsAndDate);
+                        break;
+                    case 11:
+                        nov.add(bookViewsAndDate);
+                        break;
+                    case 12:
+                        dec.add(bookViewsAndDate);
+                        break;
+                }
+            }
+
+            for (int i = 1; i <= 12; i++) {
+                switch (i) {
+                    case 1:
+                        int sizeIan = ian.size();
+                        if (sizeIan >= 2) {
+
+                            Collections.sort(ian, new CustomComparator());
+                            dayBookListForStatistics.add(ian.get(0));
+                            dayBookListForStatistics.add(ian.get(1));
+                        } else if (sizeIan == 1) dayBookListForStatistics.add(ian.get(0));
+                        break;
+
+
+                    case 2:
+                        int sizeFeb = feb.size();
+                        if (sizeFeb >= 2) {
+
+                            Collections.sort(feb, new CustomComparator());
+                            dayBookListForStatistics.add(feb.get(0));
+                            dayBookListForStatistics.add(feb.get(1));
+                        } else  if (sizeFeb == 1)dayBookListForStatistics.add(feb.get(0));
+
+                        break;
+
+                    case 3:
+                        int sizeMar = mar.size();
+                        if (sizeMar >= 2) {
+                            Collections.sort(mar, new CustomComparator());
+                            dayBookListForStatistics.add(mar.get(0));
+                            dayBookListForStatistics.add(mar.get(1));
+                        } else  if (sizeMar == 1) dayBookListForStatistics.add(mar.get(0));
+
+                        break;
+
+                    case 4:
+                        int sizeApr = apr.size();
+                        if (sizeApr >= 2) {
+                            Collections.sort(apr, new CustomComparator());
+                            dayBookListForStatistics.add(apr.get(0));
+                            dayBookListForStatistics.add(apr.get(1));
+                        } else  if (sizeApr == 1) dayBookListForStatistics.add(apr.get(0));
+
+                        break;
+
+                    case 5:
+                        int sizeMay = may.size();
+                        if (sizeMay >= 2) {
+                            Collections.sort(may, new CustomComparator());
+                            dayBookListForStatistics.add(may.get(0));
+                            dayBookListForStatistics.add(may.get(1));
+                        } else  if (sizeMay == 1) dayBookListForStatistics.add(may.get(0));
+
+                        break;
+
+                    case 6:
+                        int sizeJun = jun.size();
+                        if (sizeJun >= 2) {
+                            Collections.sort(jun, new CustomComparator());
+                            dayBookListForStatistics.add(jun.get(0));
+                            dayBookListForStatistics.add(jun.get(1));
+                        } else  if (sizeJun == 1) dayBookListForStatistics.add(jun.get(0));
+
+                        break;
+
+                    case 7:
+                        int sizeJul = jul.size();
+                        if (sizeJul >= 2) {
+                            Collections.sort(jul, new CustomComparator());
+                            dayBookListForStatistics.add(jul.get(0));
+                            dayBookListForStatistics.add(jul.get(1));
+                        } else  if (sizeJul == 1) dayBookListForStatistics.add(jul.get(0));
+
+                        break;
+
+                    case 8:
+                        int sizeAug = aug.size();
+                        if (sizeAug >= 2) {
+                            Collections.sort(aug, new CustomComparator());
+                            dayBookListForStatistics.add(aug.get(0));
+                            dayBookListForStatistics.add(aug.get(1));
+                        } else  if (sizeAug == 1) dayBookListForStatistics.add(aug.get(0));
+
+                        break;
+
+                    case 9:
+                        int sizeSep = sep.size();
+                        if (sizeSep >= 2) {
+                            Collections.sort(sep, new CustomComparator());
+                            dayBookListForStatistics.add(sep.get(0));
+                            dayBookListForStatistics.add(sep.get(1));
+                        } else  if (sizeSep == 1) dayBookListForStatistics.add(sep.get(0));
+
+                        break;
+
+                    case 10:
+                        int sizeOct = oct.size();
+                        if (sizeOct >= 2) {
+                            Collections.sort(oct, new CustomComparator());
+                            dayBookListForStatistics.add(oct.get(0));
+                            dayBookListForStatistics.add(oct.get(1));
+                        } else  if (sizeOct == 1) dayBookListForStatistics.add(oct.get(0));
+
+                        break;
+
+                    case 11:
+                        int sizeNov = nov.size();
+                        if (sizeNov >= 2) {
+                            Collections.sort(nov, new CustomComparator());
+                            dayBookListForStatistics.add(nov.get(0));
+                            dayBookListForStatistics.add(nov.get(1));
+                        } else  if (sizeNov == 1) dayBookListForStatistics.add(nov.get(0));
+
+                        break;
+
+                    case 12:
+                        int sizeDec = dec.size();
+                        if (sizeDec >= 2) {
+                            Collections.sort(dec, new CustomComparator());
+                            dayBookListForStatistics.add(dec.get(0));
+                            dayBookListForStatistics.add(dec.get(1));
+                        } else  if (sizeDec == 1) dayBookListForStatistics.add(dec.get(0));
+
+                        break;
+                }
+            }
+
+
+            Intent intent = new Intent(HomeActivity.this, StatisticsActivity.class);
+            intent.putExtra("dayBookListForStatistics", (Serializable) dayBookListForStatistics);
+            //intent.putExtra("userAfterLogin", userAfterLogin);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+
+    }
+//
+//    public BookViewsAndDate returnTheMostViewedBook(List<BookViewsAndDate> list) {
+//        BookViewsAndDate finalBookViewsAndDate = new BookViewsAndDate();
+//        double maxViews = 0;
+//
+//        for (BookViewsAndDate book : list) {
+//            if (book.getViews() >= maxViews) {
+//                maxViews = book.getViews();
+//                finalBookViewsAndDate = book;
+//            }
+//        }
+//
+//        return finalBookViewsAndDate;
+//    }
+//
+//    public BookViewsAndDate returnSecondViewedBook(List<BookViewsAndDate> list, BookViewsAndDate firstMaxObject) {
+//        BookViewsAndDate finalBook = new BookViewsAndDate();
+//        double maxViews = 0;
+//
+//        for (BookViewsAndDate book : list) {
+//            if (book != firstMaxObject) {
+//                if (book.getViews() >= maxViews) {
+//                    maxViews = book.getViews();
+//                    finalBook = book;
+//                }
+//            }
+//        }
+//        return finalBook;
+//    }
 }
+
