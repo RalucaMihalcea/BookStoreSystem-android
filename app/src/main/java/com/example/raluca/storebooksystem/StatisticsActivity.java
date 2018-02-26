@@ -15,7 +15,6 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import model.BookViewsAndDate;
@@ -47,7 +46,7 @@ public class StatisticsActivity extends AppCompatActivity {
         barChart.setFitBars(true);
 
         for (BookViewsAndDate bookViews : bookViewsForProgress) {
-            int month = bookViews.getDate().get(Calendar.MONTH) ;
+            int month = bookViews.getMonth();
             if (checkInbarEntries(month)) {
                 barEntries1.add(new BarEntry(month, bookViews.getIdBook()));
                 //labels.add("AA");

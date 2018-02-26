@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 /**
  * Created by Raluca on 21.02.2018.
@@ -12,21 +11,21 @@ public class BookViewsAndDate implements Serializable {
     private Long id;
     private Long idBook;
     private int views;
-    private Calendar date;
+    private int month;
     private String username;
 
-    public BookViewsAndDate(Long id, Long idBook, int views, Calendar date, String username) {
+    public BookViewsAndDate(Long id, Long idBook, int views, int month, String username) {
         this.id = id;
         this.idBook = idBook;
         this.views = views;
-        this.date = date;
+        this.month = month;
         this.username = username;
     }
 
-    public BookViewsAndDate(Long idBook, int views, Calendar date, String username) {
+    public BookViewsAndDate(Long idBook, int views, int month, String username) {
         this.idBook = idBook;
         this.views = views;
-        this.date = date;
+        this.month = month;
         this.username = username;
     }
 
@@ -58,12 +57,12 @@ public class BookViewsAndDate implements Serializable {
         this.views = views;
     }
 
-    public Calendar getDate() {
-        return date;
+    public int getMonth() {
+        return month;
     }
 
-    public void setDate(Calendar date) {
-        this.date = date;
+    public void setMonth(int month) {
+        this.month = month;
     }
 
     public String getUsername() {

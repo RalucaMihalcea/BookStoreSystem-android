@@ -60,8 +60,9 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
 
     private String calendarString;
     private int number;
-    private Calendar data;
-    private Calendar calendarDate;
+    private int count;
+    private int month;
+    private int monthToday;
 
 
     @Override
@@ -78,9 +79,10 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         calendarString = df.format(c.getTime());
 
         DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy");
-        calendarDate = Calendar.getInstance();
+        Calendar calendarDate = Calendar.getInstance();
         try {
             calendarDate.setTime(df2.parse(calendarString));
+            monthToday =calendarDate.get(Calendar.MONTH) ;
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -403,6 +405,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
 //            //Toast.makeText(getApplicationContext(),"Am crescut numarul de vizionari a cartii si s-a updatat in baza de date",Toast.LENGTH_SHORT).show();
 //        }
     }
+
     @Override
     public void onSelectBookViewsAndDateDone(String result) throws UnsupportedEncodingException, ParseException {
 
@@ -414,14 +417,11 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
             bookViewsAndDate = DataManager.getInstance().parseBookViewsAndDate(result);
             number = bookViewsAndDate.getViews();
             number++;
-            data = bookViewsAndDate.getDate();
+            month = bookViewsAndDate.getMonth();
 
             UpdateBookViewsTask updateBookViewsTask = new UpdateBookViewsTask(idBook, number, userAfterLogin.getUsername());
             updateBookViewsTask.setUpdateBookViewsDelegate(bookActivity);
 
-            if (!calendarDate.equals(data)) {
-
-            }
         }
 
     }
@@ -429,10 +429,19 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     @Override
     public void onUpdateBookViewsDone(String result) {
 
-        UpdateBookViewsAndDateTask updateBookViewsAndDateTask = new UpdateBookViewsAndDateTask(idBook, number, userAfterLogin.getUsername());
-        updateBookViewsAndDateTask.setUpdateBookViewsAndDateDelegate(bookActivity);
-    }
+        if (monthToday!=month) {
 
+            AddBookViewsAndDateTask addBookViewsAndDateTask = new AddBookViewsAndDateTask(idBook, 1, monthToday, userAfterLogin.getUsername());
+            addBookViewsAndDateTask.setAddBookViewsAndDateDelegate(bookActivity);
+            count=1;
+            count++;
+
+        } else {
+            UpdateBookViewsAndDateTask updateBookViewsAndDateTask = new UpdateBookViewsAndDateTask(idBook, count, userAfterLogin.getUsername());
+            updateBookViewsAndDateTask.setUpdateBookViewsAndDateDelegate(bookActivity);
+        }
+
+    }
 
     @Override
     public void onUpdateBookViewsAndDateDone(String result) {
@@ -441,8 +450,8 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
 
     @Override
     public void onAddBookViewsDone(String result) throws UnsupportedEncodingException {
-        if (result.isEmpty()) {
-            AddBookViewsAndDateTask addBookViewsAndDateTask = new AddBookViewsAndDateTask(idBook, 1, calendarString, userAfterLogin.getUsername());
+        if (!result.isEmpty()) {
+            AddBookViewsAndDateTask addBookViewsAndDateTask = new AddBookViewsAndDateTask(idBook, 1, monthToday, userAfterLogin.getUsername());
             addBookViewsAndDateTask.setAddBookViewsAndDateDelegate(bookActivity);
         }
 

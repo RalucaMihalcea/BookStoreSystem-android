@@ -25,7 +25,7 @@ public class AddBookViewsAndDateTask extends AsyncTask<String, String, String> i
     private Long idBook;
     private String username;
     private int views;
-    private String date;
+    private int month;
 
     @Override
     protected String doInBackground(String... params) {
@@ -38,7 +38,7 @@ public class AddBookViewsAndDateTask extends AsyncTask<String, String, String> i
     }
 
     private String callAddBookViewsAndDateService() throws IOException, JSONException {
-        String modelString = BASE_URL + "bookViews/addBookViewsAndDateParameters?idBook=" + idBook + "&views=" + views + "&date=" + date + "&username=" + username;
+        String modelString = BASE_URL + "bookViews/addBookViewsAndDateParameters?idBook=" + idBook + "&views=" + views + "&month=" + month + "&username=" + username;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
 
@@ -53,7 +53,7 @@ public class AddBookViewsAndDateTask extends AsyncTask<String, String, String> i
         JSONObject object = new JSONObject();
         object.put("idBook", idBook);
         object.put("views", views);
-        object.put("date", date);
+        object.put("month", month);
         object.put("username", username);
 
         connection.addRequestProperty("Authorization", DataManager.getInstance().getBaseAuthStr());
@@ -78,14 +78,14 @@ public class AddBookViewsAndDateTask extends AsyncTask<String, String, String> i
         return sb.toString();
     }
 
-    public AddBookViewsAndDateTask(Long idBook, int views, String username, String date) {
+    public AddBookViewsAndDateTask(Long idBook, int views, int month, String username ) {
 
         this.username = username;
         this.idBook = idBook;
         this.views = views;
-        this.date = date;
+        this.month = month;
 
-        String modelString = BASE_URL + "bookViews/addBookViewsAndDateParameters?idBook=" + idBook + "&views=" + views + "&date=" + date + "&username=" + username;
+        String modelString = BASE_URL + "bookViews/addBookViewsAndDateParameters?idBook=" + idBook + "&views=" + views + "&month=" + month + "&username=" + username;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
         this.execute(uri.toString());

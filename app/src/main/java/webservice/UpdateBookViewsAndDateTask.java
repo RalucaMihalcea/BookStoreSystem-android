@@ -23,8 +23,7 @@ public class UpdateBookViewsAndDateTask extends AsyncTask<String, String, String
     private UpdateBookViewsAndDateDelegate updateBookViewsAndDateDelegate;
     private Long idBook;
     private int views;
-    private String date;
-
+    private int month;
 
     @Override
     protected String doInBackground(String... params) {
@@ -37,7 +36,7 @@ public class UpdateBookViewsAndDateTask extends AsyncTask<String, String, String
     }
 
     private String callRegisterService() throws IOException, JSONException {
-        String modelString = BASE_URL + "bookViews/updateBookViewsAndDate?idBook=" + idBook + "&views=" + views + "&date=" + date;
+        String modelString = BASE_URL + "bookViews/updateBookViewsAndDate?idBook=" + idBook + "&views=" + views + "&month=" + month;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
 
@@ -53,7 +52,7 @@ public class UpdateBookViewsAndDateTask extends AsyncTask<String, String, String
 
         object.put("idBook", idBook);
         object.put("views", views);
-        object.put("date", date);
+        object.put("month", month);
 
         connection.addRequestProperty("Authorization", DataManager.getInstance().getBaseAuthStr());
 
@@ -79,11 +78,11 @@ public class UpdateBookViewsAndDateTask extends AsyncTask<String, String, String
 
     public UpdateBookViewsAndDateTask(Long idBook, int views, String date) {
 
-        this.date = date;
+        this.month = month;
         this.idBook = idBook;
         this.views = views;
 
-        String modelString = BASE_URL + "bookViews/updateBookViewsAndDate?idBook=" + idBook + "&views=" + views + "&date=" + date;
+        String modelString = BASE_URL + "bookViews/updateBookViewsAndDate?idBook=" + idBook + "&views=" + views + "&month=" + month;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
         this.execute(uri.toString());

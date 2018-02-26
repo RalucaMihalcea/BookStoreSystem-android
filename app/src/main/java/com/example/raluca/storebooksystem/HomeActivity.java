@@ -388,7 +388,7 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsAn
             bookViewsAndDateList = DataManager.getInstance().parseBookViewsAndDateList(result);
 
             for (BookViewsAndDate bookViewsAndDate : bookViewsAndDateList) {
-                int numberMonth = bookViewsAndDate.getDate().get(Calendar.MONTH) + 1;
+                int numberMonth = bookViewsAndDate.getMonth();
                 switch (numberMonth) {
                     case 1:
                         ian.add(bookViewsAndDate);
