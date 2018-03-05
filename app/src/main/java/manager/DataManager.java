@@ -174,7 +174,7 @@ public class DataManager {
 //
 //            cal.setTime(df.parse(date));
 
-            bookViewsAndDate = new BookViewsAndDate(jsonObject.getLong("idBook"), jsonObject.getInt("views"), jsonObject.getInt("month"), jsonObject.getString("username"));
+            bookViewsAndDate = new BookViewsAndDate(jsonObject.getLong("id"), jsonObject.getLong("idBook"), jsonObject.getInt("views"), jsonObject.getInt("month"), jsonObject.getString("username"));
 
         } catch (JSONException e) {
             e.printStackTrace();

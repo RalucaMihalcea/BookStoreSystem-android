@@ -23,7 +23,9 @@ public class UpdateBookViewsAndDateTask extends AsyncTask<String, String, String
     private UpdateBookViewsAndDateDelegate updateBookViewsAndDateDelegate;
     private Long idBook;
     private int views;
+    private String username;
     private int month;
+
 
     @Override
     protected String doInBackground(String... params) {
@@ -36,7 +38,7 @@ public class UpdateBookViewsAndDateTask extends AsyncTask<String, String, String
     }
 
     private String callRegisterService() throws IOException, JSONException {
-        String modelString = BASE_URL + "bookViews/updateBookViewsAndDate?idBook=" + idBook + "&views=" + views + "&month=" + month;
+        String modelString = BASE_URL + "bookViewsAndDate/updateBookViewsAndDate?idBook=" + idBook + "&views=" + views + "&username=" + username + "&month=" + month;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
 
@@ -52,7 +54,7 @@ public class UpdateBookViewsAndDateTask extends AsyncTask<String, String, String
 
         object.put("idBook", idBook);
         object.put("views", views);
-        object.put("month", month);
+        object.put("username", username);
 
         connection.addRequestProperty("Authorization", DataManager.getInstance().getBaseAuthStr());
 
@@ -76,13 +78,14 @@ public class UpdateBookViewsAndDateTask extends AsyncTask<String, String, String
         return sb.toString();
     }
 
-    public UpdateBookViewsAndDateTask(Long idBook, int views, String date) {
+    public UpdateBookViewsAndDateTask(Long idBook, int views, String username, int month) {
 
-        this.month = month;
         this.idBook = idBook;
         this.views = views;
+        this.username = username;
+        this.month=month;
 
-        String modelString = BASE_URL + "bookViews/updateBookViewsAndDate?idBook=" + idBook + "&views=" + views + "&month=" + month;
+        String modelString = BASE_URL + "bookViews/updateBookViewsAndDate?idBook=" + idBook + "&views=" + views + "&username=" + username + "&month=" + month;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
         this.execute(uri.toString());

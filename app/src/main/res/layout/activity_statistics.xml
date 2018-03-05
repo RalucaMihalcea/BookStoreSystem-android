@@ -13,4 +13,27 @@
 
     </com.github.mikephil.charting.charts.BarChart>
 
+    <TextView
+       android:layout_marginTop="420dp"
+        android:layout_marginLeft="20dp"
+       android:id="@+id/texttView1"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="asa"/>
+    <TextView
+
+        android:layout_marginTop="440dp"
+        android:layout_marginLeft="20dp"
+       android:id="@+id/texttView2"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="asa"/>
+    <TextView
+        android:layout_marginTop="460dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/texttView3"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="asa"/>
+
 </RelativeLayout>

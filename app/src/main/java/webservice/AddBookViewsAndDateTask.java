@@ -38,7 +38,7 @@ public class AddBookViewsAndDateTask extends AsyncTask<String, String, String> i
     }
 
     private String callAddBookViewsAndDateService() throws IOException, JSONException {
-        String modelString = BASE_URL + "bookViews/addBookViewsAndDateParameters?idBook=" + idBook + "&views=" + views + "&month=" + month + "&username=" + username;
+        String modelString = BASE_URL + "bookViewsAndDate/addBookViewsAndDateParameters?idBook=" + idBook + "&views=" + views + "&month=" + month + "&username=" + username;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
 

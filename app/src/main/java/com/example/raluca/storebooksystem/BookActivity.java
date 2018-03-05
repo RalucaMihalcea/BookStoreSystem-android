@@ -82,7 +82,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         Calendar calendarDate = Calendar.getInstance();
         try {
             calendarDate.setTime(df2.parse(calendarString));
-            monthToday =calendarDate.get(Calendar.MONTH) ;
+            monthToday =calendarDate.get(Calendar.MONTH)+1 ;
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -433,14 +433,11 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
 
             AddBookViewsAndDateTask addBookViewsAndDateTask = new AddBookViewsAndDateTask(idBook, 1, monthToday, userAfterLogin.getUsername());
             addBookViewsAndDateTask.setAddBookViewsAndDateDelegate(bookActivity);
-            count=1;
-            count++;
 
         } else {
-            UpdateBookViewsAndDateTask updateBookViewsAndDateTask = new UpdateBookViewsAndDateTask(idBook, count, userAfterLogin.getUsername());
+            UpdateBookViewsAndDateTask updateBookViewsAndDateTask = new UpdateBookViewsAndDateTask(idBook, number, userAfterLogin.getUsername(), month);
             updateBookViewsAndDateTask.setUpdateBookViewsAndDateDelegate(bookActivity);
         }
-
     }
 
     @Override
