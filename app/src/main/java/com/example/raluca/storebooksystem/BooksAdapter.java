@@ -45,7 +45,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     private List<FavoriteBook> favoriteBooks = new ArrayList<>();
     private Boolean ok = true;
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title, price;
         public ImageView thumbnail, overflow;

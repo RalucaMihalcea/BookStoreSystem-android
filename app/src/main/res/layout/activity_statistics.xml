@@ -6,34 +6,197 @@
     android:layout_height="match_parent"
     tools:context="com.example.raluca.storebooksystem.StatisticsActivity">
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barchart"
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="400sp">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
-    </com.github.mikephil.charting.charts.BarChart>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-       android:layout_marginTop="420dp"
-        android:layout_marginLeft="20dp"
-       android:id="@+id/texttView1"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:text="asa"/>
-    <TextView
 
-        android:layout_marginTop="440dp"
-        android:layout_marginLeft="20dp"
-       android:id="@+id/texttView2"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:text="asa"/>
-    <TextView
-        android:layout_marginTop="460dp"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/texttView3"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:text="asa"/>
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barchart"
+                android:layout_width="match_parent"
+                android:layout_height="400sp">
+
+            </com.github.mikephil.charting.charts.BarChart>
+
+            <TextView
+                android:id="@+id/texttView1"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+
+                android:id="@+id/texttView2"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView3"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView4"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView5"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView6"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView7"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView8"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView9"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView10"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView11"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView12"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView13"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView14"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView15"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView16"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView17"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView18"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView19"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView20"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView21"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView22"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView23"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/texttView24"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
