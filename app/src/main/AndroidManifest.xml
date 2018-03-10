@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
 
     <supports-screens
         android:anyDensity="true"
@@ -50,7 +53,8 @@
         <activity android:name=".ReviewsActivity" />
         <activity android:name=".AddReviewActivity" />
         <activity android:name=".PdfViewer" />
-        <activity android:name=".StatisticsActivity"></activity>
+        <activity android:name=".StatisticsActivity" />
+        <activity android:name=".ScanActivity"></activity>
     </application>
 
 </manifest>

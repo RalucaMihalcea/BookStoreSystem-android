@@ -42,6 +42,7 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsAn
     private User userAfterLogin;
     private CardView m_cardCartAllBooks;
     private CardView m_cardCategory;
+    private CardView m_cardScan;
     private List<BookViews> bookViewsList = new ArrayList<>();
     private List<Book> booksByCategory = new ArrayList<>();
     private List<Book> randomBookList = new ArrayList<>();
@@ -94,6 +95,7 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsAn
         m_cardCartAllBooks = (CardView) findViewById(R.id.cardCartAllBooks);
         m_cardCategory = (CardView) findViewById(R.id.cardCategory);
         m_cardCartBookStatistics = (CardView) findViewById(R.id.cardCartBookStatistics);
+        m_cardScan = (CardView) findViewById(R.id.cardScan);
         image_view1 = (ImageView) findViewById(R.id.image_view1);
         image_view2 = (ImageView) findViewById(R.id.image_view2);
         image_view3 = (ImageView) findViewById(R.id.image_view3);
@@ -233,6 +235,17 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsAn
 
                 SelectBookViewsAndDateByUsernameTask selectBookViewsAndDateByUsernameTask = new SelectBookViewsAndDateByUsernameTask(userAfterLogin.getUsername());
                 selectBookViewsAndDateByUsernameTask.setSelectBookViewsAndDateByUsernameDelegate(homeActivity);
+
+            }
+        });
+
+        m_cardScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent4 = new Intent(HomeActivity.this, ScanActivity.class);
+                intent4.putExtra("userAfterLogin", userAfterLogin);
+                startActivity(intent4);
 
             }
         });
