@@ -33,8 +33,12 @@ import webservice.SelectBookViewsAndDateByUsernameDelegate;
 import webservice.SelectBookViewsAndDateByUsernameTask;
 import webservice.SelectBookViewsByUsernameDelegate;
 import webservice.SelectBookViewsByUsernameTask;
+import webservice.SelectBooksDelegate;
+import webservice.SelectBooksTask;
+import webservice.UpdateBookDelegate;
+import webservice.UpdateBookTask;
 
-public class HomeActivity extends AppCompatActivity implements SelectBookViewsAndDateByUsernameDelegate, SelectBookViewsByUsernameDelegate, SelectBookByIdDelegate, SelectBookByCategoryDelegate {
+public class HomeActivity extends AppCompatActivity implements UpdateBookDelegate, SelectBooksDelegate, SelectBookViewsAndDateByUsernameDelegate, SelectBookViewsByUsernameDelegate, SelectBookByIdDelegate, SelectBookByCategoryDelegate {
 
     private HomeActivity homeActivity;
     private TextView textEdit, text1, text3, title1, title2, title3, title4, author1, author2, author3, author4, textViewDescriptionInterested;
@@ -51,6 +55,7 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsAn
     private Book book, randomBook;
     private View view1, view2, view3, view4;
     private List<BookViewsAndDate> bookViewsAndDateList = new ArrayList<>();
+    List<Book> allBooks=new ArrayList<>();
     List<BookViewsAndDate> ian;
     List<BookViewsAndDate> feb;
     List<BookViewsAndDate> mar;
@@ -372,6 +377,11 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsAn
             author4.setText(randomBookList.get(3).getAuthor());
 
             text3.setText(book.getTitle());
+
+            SelectBooksTask selectBooksTask = new SelectBooksTask();
+            selectBooksTask.setSelectBooksDelegate(homeActivity);
+
+
         }
     }
 
@@ -575,6 +585,26 @@ public class HomeActivity extends AppCompatActivity implements SelectBookViewsAn
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
+
+    }
+
+    @Override
+    public void onSelectBooksDone(String result) throws UnsupportedEncodingException {
+        if(!result.equals("[]\n"))
+        {
+            allBooks= DataManager.getInstance().parseBooks(result);
+            for(Book book:allBooks)
+                if(book.getNotified()==0) {
+                    NotificationGenerator.openActivityNotification(getApplicationContext(), book);
+                    UpdateBookTask updateBookTask = new UpdateBookTask(book.getTitle(), book.getAuthor(),1);
+                    updateBookTask.setUpdateBookDelegate(homeActivity);
+                }
+        }
+
+    }
+
+    @Override
+    public void onUpdateBookDone(String result) {
 
     }
 //
