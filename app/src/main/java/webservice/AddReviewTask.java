@@ -46,7 +46,7 @@ public class AddReviewTask extends AsyncTask<String, String, String> implements 
         HttpURLConnection connection = (HttpURLConnection) new URL(uri.toString()).openConnection();
 
         connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Accept", "application/json");
+        //connection.setRequestProperty("Accept", "application/json");
         connection.setRequestMethod("POST");
         connection.setConnectTimeout(1000000);
         connection.setReadTimeout(1000000);
@@ -57,7 +57,7 @@ public class AddReviewTask extends AsyncTask<String, String, String> implements 
         object.put("textReview", textReview);
         object.put("starReview", starReview);
 
-        connection.addRequestProperty("Authorization", DataManager.getInstance().getBaseAuthStr());
+        //connection.addRequestProperty("Authorization", DataManager.getInstance().getBaseAuthStr());
 
         OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
         out.write(object.toString());
@@ -85,8 +85,6 @@ public class AddReviewTask extends AsyncTask<String, String, String> implements 
         this.username = username;
         this.textReview = textReview;
         this.starReview = starReview;
-
-
 
         String modelString = BASE_URL + "review/addReviewParameters?idBook=" + idBook + "&username=" + username + "&textReview=" + textReview + "&starReview=" + starReview;
 

@@ -42,7 +42,6 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
     private List<Book> booksList;
     private ListView m_listViewFavoriteBooks;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

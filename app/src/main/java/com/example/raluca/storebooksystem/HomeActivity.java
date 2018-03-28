@@ -47,6 +47,7 @@ public class HomeActivity extends AppCompatActivity implements UpdateBookDelegat
     private CardView m_cardCartAllBooks;
     private CardView m_cardCategory;
     private CardView m_cardScan;
+    private CardView m_cardAudioBooks;
     private List<BookViews> bookViewsList = new ArrayList<>();
     private List<Book> booksByCategory = new ArrayList<>();
     private List<Book> randomBookList = new ArrayList<>();
@@ -101,6 +102,7 @@ public class HomeActivity extends AppCompatActivity implements UpdateBookDelegat
         m_cardCategory = (CardView) findViewById(R.id.cardCategory);
         m_cardCartBookStatistics = (CardView) findViewById(R.id.cardCartBookStatistics);
         m_cardScan = (CardView) findViewById(R.id.cardScan);
+        m_cardAudioBooks = (CardView) findViewById(R.id.cardAudioBooks);
         image_view1 = (ImageView) findViewById(R.id.image_view1);
         image_view2 = (ImageView) findViewById(R.id.image_view2);
         image_view3 = (ImageView) findViewById(R.id.image_view3);
@@ -249,6 +251,17 @@ public class HomeActivity extends AppCompatActivity implements UpdateBookDelegat
             public void onClick(View v) {
 
                 Intent intent4 = new Intent(HomeActivity.this, ScanActivity.class);
+                intent4.putExtra("userAfterLogin", userAfterLogin);
+                startActivity(intent4);
+
+            }
+        });
+
+        m_cardAudioBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent4 = new Intent(HomeActivity.this, AudioBooksActivity.class);
                 intent4.putExtra("userAfterLogin", userAfterLogin);
                 startActivity(intent4);
 

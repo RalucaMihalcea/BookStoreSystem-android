@@ -43,14 +43,6 @@ public class SelectReviewsByIdBookTask extends AsyncTask<String, String, String>
         connection.setConnectTimeout(1000000);
         connection.setReadTimeout(1000000);
 
-        JSONObject object = new JSONObject();
-        object.put("idBook", idBook);
-
-
-        OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-        out.write(object.toString());
-        out.close();
-
         StringBuilder sb = new StringBuilder();
         int httpResult = connection.getResponseCode();
         if (httpResult == HttpURLConnection.HTTP_OK) {

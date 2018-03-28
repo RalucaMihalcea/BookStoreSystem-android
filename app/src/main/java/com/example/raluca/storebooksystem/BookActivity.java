@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -128,6 +129,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
 
         m_buttonAddReview = (Button) findViewById(R.id.buttonAddReview);
         m_buttonRead = (Button) findViewById(R.id.buttonRead);
+        m_buttonRead.setVisibility(View.INVISIBLE);
 
         Intent intent = getIntent();
         reviewSent = (Boolean) intent.getSerializableExtra("reviewSent");
@@ -135,6 +137,10 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         numberOfStars = book.getStars();
         idBook = book.getId();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
+
+        if(!book.getPdfLink().equals(""))
+            m_buttonRead.setVisibility(View.VISIBLE);
+
 
         SelectBookViewsAndDateTask selectBookViewsAndDateTask = new SelectBookViewsAndDateTask(idBook, userAfterLogin.getUsername());
         selectBookViewsAndDateTask.setSelectBookViewsAndDateDelegate(bookActivity);
@@ -179,7 +185,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BookActivity.this, PdfViewer.class);
-                intent.putExtra("nameBook", book.getTitle());
+                intent.putExtra("book", book);
                 startActivity(intent);
 
             }
@@ -299,8 +305,9 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
                 }
             }
 
-            if (reviews.get(1) != null) {
+            if (reviews.size()>1 && reviews.get(1) != null) {
 
+                Toast.makeText(bookActivity, "Hello!", Toast.LENGTH_SHORT).show();
                 textReviewUser2.setText(reviews.get(1).getUsername());
                 textReview2.setText(reviews.get(1).getTextReview());
 
@@ -341,7 +348,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
                 }
             }
 
-            if (reviews.get(2) != null) {
+            if (reviews.size()>2 && reviews.get(2) != null) {
 
                 textReviewUser3.setText(reviews.get(2).getUsername());
                 textReview3.setText(reviews.get(2).getTextReview());
@@ -423,7 +430,6 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
             updateBookViewsTask.setUpdateBookViewsDelegate(bookActivity);
 
         }
-
     }
 
     @Override
@@ -451,9 +457,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
             AddBookViewsAndDateTask addBookViewsAndDateTask = new AddBookViewsAndDateTask(idBook, 1, monthToday, userAfterLogin.getUsername());
             addBookViewsAndDateTask.setAddBookViewsAndDateDelegate(bookActivity);
         }
-
     }
-
 
     @Override
     public void onAddBookViewsAndDateDone(String result) throws UnsupportedEncodingException {

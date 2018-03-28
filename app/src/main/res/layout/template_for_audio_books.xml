@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewSound"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@color/green"
+        android:layout_marginTop="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="200dp">
+
+        <Button
+
+            android:id="@+id/buttonSound"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="150dp"
+            android:text="Play Sound"/>
+
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:id="@+id/imageViewAudioBook"
+            android:layout_width="match_parent"
+            android:layout_height="131dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toEndOf="@+id/trashImageView"
+            android:background="@color/green"/>
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

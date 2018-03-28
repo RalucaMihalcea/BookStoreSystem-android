@@ -26,11 +26,16 @@ public class Book implements Serializable {
 
     private int notified;
 
+    private String pdfLink;
+
+    private String audioLink;
+
+
     public Book() {
 
     }
 
-    public Book(Long id, String title, String author, double price, String namePicture, String category, int stars, String description, int notified) {
+    public Book(Long id, String title, String author, double price, String namePicture, String category, int stars, String description, int notified, String pdfLink, String audioLink) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -40,6 +45,8 @@ public class Book implements Serializable {
         this.stars = stars;
         this.description = description;
         this.notified = notified;
+        this.pdfLink = pdfLink;
+        this.audioLink = audioLink;
     }
 
     public Book(String title, String author, double price) {
@@ -78,7 +85,7 @@ public class Book implements Serializable {
         this.description = description;
     }
 
-    public Book(Long id, String title, String author, String category, double price, String namePicture, int stars, String description, int notified) {
+    public Book(Long id, String title, String author, String category, double price, String namePicture, int stars, String description, int notified, String pdfLink, String audioLink) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -87,7 +94,9 @@ public class Book implements Serializable {
         this.namePicture = namePicture;
         this.stars = stars;
         this.description = description;
-        this.notified=notified;
+        this.notified = notified;
+        this.pdfLink = pdfLink;
+        this.audioLink = audioLink;
     }
 
     public Long getId() {
@@ -160,5 +169,21 @@ public class Book implements Serializable {
 
     public void setNotified(int notified) {
         notified = notified;
+    }
+
+    public String getPdfLink() {
+        return pdfLink;
+    }
+
+    public void setPdfLink(String pdfLink) {
+        this.pdfLink = pdfLink;
+    }
+
+    public String getAudioLink() {
+        return audioLink;
+    }
+
+    public void setAudioLink(String audioLink) {
+        this.audioLink = audioLink;
     }
 }

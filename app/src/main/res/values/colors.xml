@@ -30,8 +30,6 @@
     <color name="red">#ea5721</color>
     <color name="greenOpen">#8dd35f</color>
     <color name="gri"> #f7f7f7</color>
-
-
-
+    <color name="blueStrong"> #0080FF</color>
 
 </resources>

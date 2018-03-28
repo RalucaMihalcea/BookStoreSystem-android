@@ -66,7 +66,6 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
 
                     username = editTextUsername.getText().toString();
                     password = editTextPassword.getText().toString();
-
                     progressBarSpinner.setVisibility(View.VISIBLE);
 
 //                    if (checkBox_RememberMe.isChecked()) {
