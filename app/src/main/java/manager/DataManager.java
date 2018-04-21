@@ -128,7 +128,7 @@ public class DataManager {
             JSONObject jsonObject = new JSONObject(inputJSON);
             Log.d("TAG", "jsonObject - " + String.valueOf(jsonObject));
 
-            book = new Book(jsonObject.getLong("id"), jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"), jsonObject.getString("description"), jsonObject.getInt("notified"), jsonObject.getString("pdfLink"), jsonObject.getString("audioLink"));
+            book = new Book(jsonObject.getLong("id"), jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"), jsonObject.getString("description"), jsonObject.getInt("notified"), jsonObject.getString("pdfLink"), jsonObject.getString("audioLink"), jsonObject.getString("imageLink"));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -183,7 +183,7 @@ public class DataManager {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                Book book = new Book(jsonObject.getLong("id"), jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"), jsonObject.getString("description"), jsonObject.getInt("notified"), jsonObject.getString("pdfLink"), jsonObject.getString("audioLink"));
+                Book book = new Book(jsonObject.getLong("id"), jsonObject.getString("title"), jsonObject.getString("author"), jsonObject.getString("category"), jsonObject.getDouble("price"), jsonObject.getString("namePicture"), jsonObject.getInt("stars"), jsonObject.getString("description"), jsonObject.getInt("notified"), jsonObject.getString("pdfLink"), jsonObject.getString("audioLink"), jsonObject.getString("imageLink"));
 
                 booksList.add(book);
 

@@ -6,12 +6,12 @@
         android:icon="@drawable/ic_account_circle_black_24dp"
         android:title="Profile"
         app:showAsAction="always"></item>
-    <item
-        android:id="@+id/home_id"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="Profile"
-        app:showAsAction="always"></item>
 
+    <item
+        android:id="@+id/myLibrary_id"
+        android:icon="@drawable/my_library_menu"
+        android:title="MyLibrary"
+        app:showAsAction="always"></item>
     <item
         android:id="@+id/LogOut_id"
         android:icon="@drawable/ic_exit_to_app_black_24dp"

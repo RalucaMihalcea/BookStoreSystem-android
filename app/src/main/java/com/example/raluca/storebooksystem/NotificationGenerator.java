@@ -23,7 +23,7 @@ public class NotificationGenerator {
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent= PendingIntent.getActivity(context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         nc.setContentIntent(pendingIntent);
-        nc.setSmallIcon(R.drawable.nonfiction);
+        nc.setSmallIcon(R.drawable.nnonfiction);
         nc.setAutoCancel(true);
         nc.setContentTitle("A new book appeared: "+book.getTitle());
         nc.setContentText("Do not miss this book, you will surely like it!");

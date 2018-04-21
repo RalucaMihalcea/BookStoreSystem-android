@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gri"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="com.example.raluca.storebooksystem.HomeActivity"
-    tools:weightSum="2"
-    android:background="@color/gri">
+    tools:context="com.example.raluca.storebooksystem.HomeActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,516 +19,586 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
-
-                android:layout_width="368dp"
-                android:layout_height="153dp"
-                android:clipToPadding="false"
-                android:gravity="center"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="0dp"
-                tools:weightSum="2">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardMyFavoriteBooks"
-                    android:layout_width="160dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
-
-                    <LinearLayout
-                        android:id="@+id/card"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/cerclebackgroundpurple"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_favorite_black_24dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="My Favorite Books"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="Check my preferences"
-                            android:textColor="@color/dark_light" />
-
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardCartAllBooks"
-                    android:layout_width="160dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/cerclebackgroundpink"
-                            android:padding="10dp"
-                            android:src="@drawable/all_books" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="All Books"
-                            android:textStyle="bold" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="Here you find all the books!"
-                            android:textColor="@color/dark_light" />
-
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="368dp"
-                android:layout_height="153dp"
-                android:clipToPadding="false"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingTop="30dp"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="0dp"
-                tools:weightSum="2">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardCategory"
-                    android:layout_width="160dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
-
-                    <LinearLayout
-                        android:id="@+id/card"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/cerclebackgroundgreen"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_stars_blaaack_24dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Category"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="See by categories"
-                            android:textColor="@color/dark_light" />
-
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardCartBookStatistics"
-                    android:layout_width="160dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-
-                        <ImageView
-                            android:id="@+id/imageView4"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/cercleorange"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_show_chart_black_24dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Book statistics"
-                            android:textStyle="bold" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="The most read books of the month"
-                            android:textColor="@color/dark_light" />
-
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="368dp"
-                android:layout_height="153dp"
-                android:clipToPadding="false"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingTop="30dp"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="0dp"
-                tools:weightSum="2">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardScan"
-                    android:layout_width="160dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
-
-                    <LinearLayout
-                        android:id="@+id/card"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/cerclebackgroundred"
-                            android:padding="10dp"
-                            android:src="@drawable/qr_code" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="QR Code"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="Scan a book!"
-                            android:textColor="@color/dark_light" />
-
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardAudioBooks"
-                    android:layout_width="160dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView4"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/cerclebackgroundblue_strong"
-                            android:padding="10dp"
-                            android:src="@drawable/audio_books" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Audio books"
-                            android:textStyle="bold" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="The best free Audiobooks!"
-                            android:textColor="@color/dark_light" />
-
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-
-            <RelativeLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="70dp">
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="Authors"
+                android:textColor="@color/brown"
+                android:textSize="17dp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textViewDescriptionInterested"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="20dp"
-                    android:text="Because you are interested in"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="17dp" />
-
-                <TextView
-                    android:id="@+id/text3"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="40dp"
-                    android:text=""
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="20dp" />
-            </RelativeLayout>
-
-            <RelativeLayout
+            <HorizontalScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dp">
+                android:layout_column="6"
+                android:layout_row="6">
 
-                <HorizontalScrollView
-                    android:id="@+id/scrollView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
+                    <de.hdodenhof.circleimageview.CircleImageView
+
+                        android:id="@+id/circleImageWells"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        />
+                    <!--android:src="@drawable/wells"-->
+
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="55dp"
+                        android:text="H.G.Wells"
+                        android:textColor="@color/black"
+                        android:id="@+id/textView4"
+                        android:layout_alignParentBottom="true"
+                        />
 
-                        <LinearLayout
-                            android:layout_width="190dp"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/circleImageWShakespeare"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginLeft="150dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_alignTop="@+id/circleImageWells"
+                        android:layout_toEndOf="@+id/circleImageWells"
+                        android:layout_marginStart="15dp" />
+                    <!--android:src="@drawable/w_shakespeare"-->
 
-                            <FrameLayout
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="165dp"
+                        android:text="W. Shakespeare"
+                        android:textColor="@color/black"
+                        android:layout_alignParentBottom="true" />
 
-                                <ImageView
-                                    android:id="@+id/image_view1"
-                                    android:layout_width="190dp"
-                                    android:layout_height="150dp"
-                                    android:scaleType="center" />
+                    <de.hdodenhof.circleimageview.CircleImageView
 
+                        android:id="@+id/circleImageJVerne"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginLeft="290dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_alignTop="@+id/circleImageWShakespeare" />
+                    <!--android:src="@drawable/j_verne"-->
 
-                                <View
-                                    android:id="@+id/view1"
-                                    android:layout_width="190dp"
-                                    android:layout_height="100dp"
-                                    android:background="@drawable/gradient_overlay" />
-
-                            </FrameLayout>
-
-                            <TextView
-                                android:id="@+id/title1"
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:text="this is the description" />
-
-                            <TextView
-                                android:id="@+id/author1"
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:text="2073/2/2" />
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="190dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="20px"
-                            android:orientation="vertical">
-
-                            <FrameLayout
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content">
-
-                                <ImageView
-                                    android:id="@+id/image_view2"
-                                    android:layout_width="190dp"
-                                    android:layout_height="150dp"
-                                    android:scaleType="center" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="320dp"
+                        android:text="J. Verne"
+                        android:textColor="@color/black"
+                        android:id="@+id/textView3"
+                        android:layout_alignParentBottom="true" />
 
 
-                                <View
-                                    android:id="@+id/view2"
-                                    android:layout_width="190dp"
-                                    android:layout_height="100dp"
-                                    android:background="@drawable/gradient_overlay" />
+                </RelativeLayout>
+            </HorizontalScrollView>
 
-                            </FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Categories"
+                android:textColor="@color/brown"
+                android:textSize="17dp"
+                android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/title2"
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:text="this is the description" />
+            <GridLayout
 
-                            <TextView
-                                android:id="@+id/author2"
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:text="2073/2/2" />
-                        </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="17"
+                android:alignmentMode="alignMargins"
+                android:columnCount="2"
+                android:columnOrderPreserved="false"
+                android:padding="14dp"
+                android:rowCount="5">
 
-                        <LinearLayout
-                            android:layout_width="190dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="20px"
-                            android:orientation="vertical">
+                <android.support.v7.widget.CardView
 
-                            <FrameLayout
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content">
+                    android:id="@+id/cardBestOf"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
 
-                                <ImageView
-                                    android:id="@+id/image_view3"
-                                    android:layout_width="190dp"
-                                    android:layout_height="150dp"
-                                    android:scaleType="center" />
+                    <RelativeLayout
+                        android:id="@+id/best_ofLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/best_of"
+                        android:orientation="vertical">
+                        <!--android:background="@drawable/best_of">-->
 
+                        <ImageView
 
-                                <View
-                                    android:id="@+id/view3"
-                                    android:layout_width="190dp"
-                                    android:layout_height="100dp"
-                                    android:background="@drawable/gradient_overlay" />
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="30dp"
+                            android:src="@drawable/best_of_logo" />
 
-                            </FrameLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="45dp"
+                            android:layout_marginTop="80dp"
+                            android:text="Best Of"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/title3"
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:text="this is the description" />
+                </android.support.v7.widget.CardView>
 
-                            <TextView
-                                android:id="@+id/author3"
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:text="2073/2/2" />
-                        </LinearLayout>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardDrama"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
 
+                    <RelativeLayout
+                        android:id="@+id/dramaLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/drama"
+                        android:orientation="vertical">
+                        <!--android:background="@drawable/drama"-->
 
-                        <LinearLayout
-                            android:layout_width="190dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="20px"
-                            android:orientation="vertical">
+                        <ImageView
 
-                            <FrameLayout
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content">
+                            android:id="@+id/imageView5"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="30dp"
+                            android:src="@drawable/drama_mask" />
 
-                                <ImageView
-                                    android:id="@+id/image_view4"
-                                    android:layout_width="190dp"
-                                    android:layout_height="150dp"
-                                    android:scaleType="center" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imageView5"
+                            android:layout_marginLeft="50dp"
+                            android:text="Drama"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
 
+                </android.support.v7.widget.CardView>
 
-                                <View
-                                    android:id="@+id/view4"
-                                    android:layout_width="190dp"
-                                    android:layout_height="100dp"
-                                    android:background="@drawable/gradient_overlay" />
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardFantasy"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
 
-                            </FrameLayout>
+                    <RelativeLayout
+                        android:id="@+id/fantasyLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/fantasy"
+                        android:orientation="vertical">
+                        <!--android:background="@drawable/fantasy"-->
 
-                            <TextView
-                                android:id="@+id/title4"
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:text="this is the description" />
+                        <ImageView
 
-                            <TextView
-                                android:id="@+id/author4"
-                                android:layout_width="190dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:text="2073/2/2" />
-                        </LinearLayout>
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="30dp"
+                            android:src="@drawable/fantasy_logo_swords" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="45dp"
+                            android:layout_marginTop="80dp"
+                            android:text="Fantasy"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
 
-                    </LinearLayout>
+                </android.support.v7.widget.CardView>
 
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardRomance"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    app:cardElevation="8dp">
 
-                </HorizontalScrollView>
+                    <RelativeLayout
+                        android:id="@+id/romanceLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:background="@drawable/rromance"
+                        android:orientation="vertical">
+                        <!--android:background="@drawable/rromance"-->
 
-            </RelativeLayout>
+                        <ImageView
+
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="30dp"
+                            android:src="@drawable/romance_logo_heart"></ImageView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="45dp"
+                            android:layout_marginTop="80dp"
+                            android:text="Romance"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold"></TextView>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+
+                    android:id="@+id/cardComedy"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <RelativeLayout
+                        android:id="@+id/comedyLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/comedy"
+                        android:orientation="vertical">
+                        <!--android:background="@drawable/comedy"-->
+
+                        <ImageView
+
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="30dp"
+                            android:src="@drawable/comedy_logo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="45dp"
+                            android:layout_marginTop="80dp"
+                            android:text="Comedy"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+
+                    android:id="@+id/cardNonfiction"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <RelativeLayout
+                        android:id="@+id/nonfictionLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/nnonfiction"
+                        android:orientation="vertical">
+                        <!--android:background="@drawable/nnonfiction"-->
+
+                        <ImageView
+
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="30dp"
+                            android:src="@drawable/nonfiction_logo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="35dp"
+                            android:layout_marginTop="80dp"
+                            android:text="Nonfiction"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+
+                    android:id="@+id/cardAction"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <RelativeLayout
+                        android:id="@+id/adventureLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/adventure"
+                        android:orientation="vertical">
+                        <!--android:background="@drawable/adventure"-->
+
+                        <ImageView
+
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="30dp"
+                            android:src="@drawable/action_logo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="80dp"
+                            android:text="Action"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+
+                    android:id="@+id/cardLiterature"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <RelativeLayout
+                        android:id="@+id/literatureLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/literature"
+                        android:orientation="vertical">
+                        <!--android:background="@drawable/literature"-->
+
+                        <ImageView
+
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="60dp"
+                            android:layout_marginTop="30dp"
+                            android:src="@drawable/literature_logo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="45dp"
+                            android:layout_marginTop="80dp"
+                            android:text="Literature"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+
+                    android:id="@+id/cardPsychology"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <RelativeLayout
+                        android:id="@+id/psychologyLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/psychology"
+                        android:orientation="vertical">
+                        <!--android:background="@drawable/psychology"-->
+
+                        <ImageView
+
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="30dp"
+                            android:src="@drawable/psychology_logo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="80dp"
+                            android:text="Psychology"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+
+                    android:id="@+id/cardChildren"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <RelativeLayout
+                        android:id="@+id/childrenLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/cchildren"
+                        android:orientation="vertical">
+                        <!--android:background="@drawable/cchildren"-->
+
+                        <ImageView
+
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="30dp"
+                            android:src="@drawable/children_logo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="80dp"
+                            android:text="Children"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </GridLayout>
 
         </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>

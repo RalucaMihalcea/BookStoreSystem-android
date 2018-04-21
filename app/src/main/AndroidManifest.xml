@@ -56,7 +56,9 @@
         <activity android:name=".PdfViewer" />
         <activity android:name=".StatisticsActivity" />
         <activity android:name=".ScanActivity" />
-        <activity android:name=".AudioBooksActivity"></activity>
+        <activity android:name=".AudioBooksActivity" />
+        <activity android:name=".MyLibraryActivity" />
+        <activity android:name=".AuthorActivity"></activity>
     </application>
 
 </manifest>

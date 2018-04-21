@@ -30,12 +30,14 @@ public class Book implements Serializable {
 
     private String audioLink;
 
+    private String imageLink;
+
 
     public Book() {
 
     }
 
-    public Book(Long id, String title, String author, double price, String namePicture, String category, int stars, String description, int notified, String pdfLink, String audioLink) {
+    public Book(Long id, String title, String author, double price, String namePicture, String category, int stars, String description, int notified, String pdfLink, String audioLink, String imageLink) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -47,6 +49,7 @@ public class Book implements Serializable {
         this.notified = notified;
         this.pdfLink = pdfLink;
         this.audioLink = audioLink;
+        this.imageLink = imageLink;
     }
 
     public Book(String title, String author, double price) {
@@ -85,7 +88,7 @@ public class Book implements Serializable {
         this.description = description;
     }
 
-    public Book(Long id, String title, String author, String category, double price, String namePicture, int stars, String description, int notified, String pdfLink, String audioLink) {
+    public Book(Long id, String title, String author, String category, double price, String namePicture, int stars, String description, int notified, String pdfLink, String audioLink, String imageLink) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -97,6 +100,7 @@ public class Book implements Serializable {
         this.notified = notified;
         this.pdfLink = pdfLink;
         this.audioLink = audioLink;
+        this.imageLink = imageLink;
     }
 
     public Long getId() {
@@ -185,5 +189,13 @@ public class Book implements Serializable {
 
     public void setAudioLink(String audioLink) {
         this.audioLink = audioLink;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 }

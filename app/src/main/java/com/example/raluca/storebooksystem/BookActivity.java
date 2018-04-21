@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
@@ -64,6 +66,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     private int count;
     private int month;
     private int monthToday;
+    private String auxString;
 
 
     @Override
@@ -71,7 +74,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         super.onCreate(savedInstanceState);
 
         bookActivity = this;
-        // m_buttonAddReview.setVisibility(View.INVISIBLE);
+
 
         setContentView(R.layout.activity_book_activity);
 
@@ -130,6 +133,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         m_buttonAddReview = (Button) findViewById(R.id.buttonAddReview);
         m_buttonRead = (Button) findViewById(R.id.buttonRead);
         m_buttonRead.setVisibility(View.INVISIBLE);
+        m_buttonAddReview.setVisibility(View.INVISIBLE);
 
         Intent intent = getIntent();
         reviewSent = (Boolean) intent.getSerializableExtra("reviewSent");
@@ -145,8 +149,8 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         SelectBookViewsAndDateTask selectBookViewsAndDateTask = new SelectBookViewsAndDateTask(idBook, userAfterLogin.getUsername());
         selectBookViewsAndDateTask.setSelectBookViewsAndDateDelegate(bookActivity);
 
-        if (reviewSent != null && reviewSent.equals(Boolean.TRUE))
-            m_buttonAddReview.setVisibility(View.INVISIBLE);
+        if (reviewSent == null || !reviewSent.equals(Boolean.TRUE))
+            m_buttonAddReview.setVisibility(View.VISIBLE);
 
         Bundle bundle = intent.getExtras();
 
@@ -164,8 +168,15 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         //Toast.makeText(this, "Hellllo "+book.getStars(), Toast.LENGTH_SHORT).show();
 
 
-        int resID = getResources().getIdentifier(book.getNamePicture(), "drawable", getPackageName());
-        imageView.setImageResource(resID);
+        //int resID = this.getResources().getIdentifier(book.getNamePicture(), "drawable", this.getPackageName());
+        //imageView.setImageResource(resID);
+
+
+       //Glide.with(this).load("http://www.rounite.com/wp-content/uploads/2010/01/eminescu1.png").into(imageView);
+        //https://drive.google.com/file/d/1tjZnUmkGOIVL9Vh4guvjvRnh8cxS0sa6/view?usp=sharing
+
+        auxString=book.getImageLink();
+        Glide.with(this).load("https://docs.google.com/uc?export=download&id="+auxString).into(imageView);
 
         SelectReviewsByIdBookTask selectReviewsByIdBookTask = new SelectReviewsByIdBookTask(idBook);
         selectReviewsByIdBookTask.setSelectReviewsByIdBookDelegate(bookActivity);
@@ -307,7 +318,6 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
 
             if (reviews.size()>1 && reviews.get(1) != null) {
 
-                Toast.makeText(bookActivity, "Hello!", Toast.LENGTH_SHORT).show();
                 textReviewUser2.setText(reviews.get(1).getUsername());
                 textReview2.setText(reviews.get(1).getTextReview());
 

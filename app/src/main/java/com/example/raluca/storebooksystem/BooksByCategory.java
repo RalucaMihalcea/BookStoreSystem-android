@@ -39,13 +39,14 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
     private RecyclerView recyclerView;
     private BooksAdapter adapter;
     private List<Book> books = new ArrayList<>();
+    private List<Book> booksListAll = new ArrayList<>();
     private List<Book> books2;
     private List<String> titleBooks = new ArrayList<>();
     private List<String> titleBooks2;
     private BooksByCategory booksByCategory;
     private User userAfterLogin;
-    private List<Integer> covers = new ArrayList<>();
-    private List<Integer> covers2;
+    private List<String> covers = new ArrayList<>();
+    private List<String> covers2;
     private Resources resources;
     private String category;
     private String nameOfCover;
@@ -88,7 +89,7 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
         titleTextView.setText(titleCover);
 
-        if (!category.equals("All")) {
+        if (!category.equals("BestOf")) {
             SelectBookByCategoryTask selectBookByCategoryTask = new SelectBookByCategoryTask(category);
             selectBookByCategoryTask.setSelectBookByCategoryDelegate(booksByCategory);
         } else {
@@ -180,9 +181,10 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
         int idCover;
 
         for (Book book : books) {
-            idCover = resources.getIdentifier(book.getNamePicture(), "drawable", this.getPackageName());
-            covers.add(idCover);
+           // idCover = resources.getIdentifier(book.getNamePicture(), "drawable", this.getPackageName());
+            //aici trebuie sa fac book.getImageLink();
 
+            covers.add(book.getImageLink());
             titleBooks.add(book.getTitle());
 
         }
@@ -195,8 +197,8 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
         titleBooks2 = new ArrayList<>();
         covers2 = new ArrayList<>();
         for (Book book : books2) {
-            idCover2 = resources.getIdentifier(book.getNamePicture(), "drawable", this.getPackageName());
-            covers2.add(idCover2);
+            //idCover2 = resources.getIdentifier(book.getNamePicture(), "drawable", this.getPackageName());
+            covers2.add(book.getImageLink());
             titleBooks2.add(book.getTitle());
 
         }
@@ -275,33 +277,43 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
             try {
 
                 switch (nameOfCover) {
-                    case "nonfiction":
-                        Glide.with(this).load(R.drawable.nonfiction).into((ImageView) findViewById(R.id.backdrop));
+                    case "nnonfiction":
+                        //Glide.with(this).load(R.drawable.nnonfiction).into((ImageView) findViewById(R.id.backdrop));
+                        Glide.with(this).load("https://docs.google.com/uc?export=download&id=10lywtsNVPMInGdZjNWAsUXL3-jrvfGmf").into((ImageView) findViewById(R.id.backdrop));
                         break;
-                    case "fiction":
-                        Glide.with(this).load(R.drawable.fiction).into((ImageView) findViewById(R.id.backdrop));
+                    case "fantasy":
+                        //Glide.with(this).load(R.drawable.fiction).into((ImageView) findViewById(R.id.backdrop));
+                        Glide.with(this).load("https://docs.google.com/uc?export=download&id=1mUJ7bhPEhr-MLjdI-icUmZOAeVny8D0j").into((ImageView) findViewById(R.id.backdrop));
                         break;
-                    case "love":
-                        Glide.with(this).load(R.drawable.romance).into((ImageView) findViewById(R.id.backdrop));
+                    case "rromance":
+                       // Glide.with(this).load(R.drawable.rromance).into((ImageView) findViewById(R.id.backdrop));
+                        Glide.with(this).load("https://docs.google.com/uc?export=download&id=1O96NFm3D0472o-XzS6KE8iKFjha-2ho9").into((ImageView) findViewById(R.id.backdrop));
                         break;
                     case "literature":
-                        Glide.with(this).load(R.drawable.literature).into((ImageView) findViewById(R.id.backdrop));
+                       // Glide.with(this).load(R.drawable.literature).into((ImageView) findViewById(R.id.backdrop));
+                        Glide.with(this).load("https://docs.google.com/uc?export=download&id=1x7T81Uul6Ayj3q_-XW_TDLD3bOQxPyWf").into((ImageView) findViewById(R.id.backdrop));
                         break;
                     case "drama":
-                        Glide.with(this).load(R.drawable.drama).into((ImageView) findViewById(R.id.backdrop));
+                       // Glide.with(this).load(R.drawable.drama).into((ImageView) findViewById(R.id.backdrop));
+                        Glide.with(this).load("https://docs.google.com/uc?export=download&id=1D_eiQypT1bT9wihiF_ASI2bdDM0wCYg3").into((ImageView) findViewById(R.id.backdrop));
                         break;
                     case "psychology":
-                        Glide.with(this).load(R.drawable.psychology).into((ImageView) findViewById(R.id.backdrop));
+                       // Glide.with(this).load(R.drawable.psychology).into((ImageView) findViewById(R.id.backdrop));
+                        Glide.with(this).load("https://docs.google.com/uc?export=download&id=10hDALI-Frk6PgocwZGC2S77rFBvX1K_r").into((ImageView) findViewById(R.id.backdrop));
                         break;
-                    case "action":
-                        Glide.with(this).load(R.drawable.adventure).into((ImageView) findViewById(R.id.backdrop));
+                    case "adventure":
+                       // Glide.with(this).load(R.drawable.adventure).into((ImageView) findViewById(R.id.backdrop));
+                        Glide.with(this).load("https://docs.google.com/uc?export=download&id=19EPmq8mNgHjHgXcIK-fyP-1hX51ZhbWt").into((ImageView) findViewById(R.id.backdrop));
                         break;
                     case "comedy":
-                        Glide.with(this).load(R.drawable.comedy).into((ImageView) findViewById(R.id.backdrop));
+                       // Glide.with(this).load(R.drawable.comedy).into((ImageView) findViewById(R.id.backdrop));
+                        Glide.with(this).load("https://docs.google.com/uc?export=download&id=1gU8q72IX4gC7lZQIVgEN-6K6IpXM4aKf").into((ImageView) findViewById(R.id.backdrop));
                         break;
-                    case "children":
-                        Glide.with(this).load(R.drawable.children).into((ImageView) findViewById(R.id.backdrop));
+                    case "cchildren":
+                       // Glide.with(this).load(R.drawable.cchildren).into((ImageView) findViewById(R.id.backdrop));
+                        Glide.with(this).load("https://docs.google.com/uc?export=download&id=1q6pz6Da3kBnK2vqC6J0wmE2ikHDCVpdn").into((ImageView) findViewById(R.id.backdrop));
                         break;
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -319,9 +331,15 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
             m_autoCompleteTextView.setVisibility(View.VISIBLE);
             m_refresh.setVisibility(View.VISIBLE);
 
-            books = DataManager.getInstance().parseBooks(result);
+            booksListAll = DataManager.getInstance().parseBooks(result);
 
-            DataManager.getInstance().setBooksList(books);
+           // DataManager.getInstance().setBooksList(booksListAll);
+
+            for (Book bk:booksListAll)
+                if(bk.getStars()==5)
+                    books.add(bk);
+
+
             adapter = new BooksAdapter(this, books, covers, userAfterLogin);
 
             mLayoutManager = new GridLayoutManager(this, 2);
@@ -335,7 +353,7 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
             adapterTitleBooks = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, titleBooks);
             m_autoCompleteTextView.setAdapter(adapterTitleBooks);
 
-            Glide.with(this).load(R.drawable.allbooks).into((ImageView) findViewById(R.id.backdrop));
+            Glide.with(this).load("https://docs.google.com/uc?export=download&id=1QzVMHfUhMMnUPK--ZLiH-xEMzbAK6TiG").into((ImageView) findViewById(R.id.backdrop));
 
             Toast.makeText(getApplicationContext(), "Get all books from database", Toast.LENGTH_SHORT).show();
         }

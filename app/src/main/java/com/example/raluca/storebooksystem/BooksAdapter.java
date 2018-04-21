@@ -37,13 +37,14 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     private List<Book> booksList;
     private Resources resources;
     private int idCover;
-    private List<Integer> covers;
-    private int imageNumber;
+    private List<String> covers;
+   // private int imageNumber;
     private User userAfterLogin;
     private Book bookk;
     private Book selectedBook;
     private List<FavoriteBook> favoriteBooks = new ArrayList<>();
     private Boolean ok = true;
+    private String auxiliarString;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title, price;
@@ -70,17 +71,18 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                     //Toast.makeText(mContext, "Nutrition: "+imageNumber, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mContext, BookActivity.class);
                     intent.putExtra("book", (Serializable) book);
-                    intent.putExtra("imageNumber", imageNumber);
+                    //intent.putExtra("imageNumber", imageNumber);
                     intent.putExtra("userAfterLogin", userAfterLogin);
 
                     // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     mContext.startActivity(intent);
+                    break;
                 }
             }
         }
     }
 
-    public BooksAdapter(Context mContext, List<Book> booksList, List<Integer> covers, User userAfterLogin) {
+    public BooksAdapter(Context mContext, List<Book> booksList, List<String> covers, User userAfterLogin) {
 
         this.mContext = mContext;
         this.booksList = booksList;
@@ -100,11 +102,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         bookk = booksList.get(position);
         booksAdapter = this;
         holder.title.setText(bookk.getTitle() + " - " + bookk.getAuthor());
-        holder.price.setText(bookk.getPrice() + " RON");
-        imageNumber = covers.get(position);
+        //holder.price.setText(bookk.getPrice() + " RON");
+        //Glide.with(mContext).load(covers.get(position)).into(holder.thumbnail);
 
         // loading album cover using Glide library
-        Glide.with(mContext).load(covers.get(position)).into(holder.thumbnail);
+        auxiliarString=covers.get(position);
+        Glide.with(mContext).load("https://docs.google.com/uc?export=download&id="+auxiliarString).into(holder.thumbnail);
+
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,9 +170,9 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                     selectFavoriteBooksByUserTask.setSelectFavoriteBooksByUserDelegate(booksAdapter);
                     return true;
 
-                case R.id.action_play_next:
-                    Toast.makeText(mContext, "Play next", Toast.LENGTH_SHORT).show();
-                    return true;
+//                case R.id.action_play_next:
+//                    Toast.makeText(mContext, "Play next", Toast.LENGTH_SHORT).show();
+//                    return true;
                 default:
             }
             return false;

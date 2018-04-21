@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
     private String password;
     private User userAfterLogin;
     private List<Book> books = new ArrayList<>();
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +53,13 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
         loginActivity = this;
 
         getLoginPreferences();
+        imageView=(ImageView)findViewById(R.id.imageView);
         progressBarSpinner = (ProgressBar) findViewById(R.id.progressBar);
         btnSignIn = (CardView) findViewById(R.id.cardViewLogin);
         progressBarSpinner.setVisibility(View.GONE);
         m_textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
 
+        //imageView.setImageDrawable("https://openclipart.org/download/98143/Mihai-Eminescu-b-w.svg");
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -179,31 +179,35 @@ public class StatisticsActivity extends AppCompatActivity implements SelectBookB
                 break;
 
             case 4:
-                textView4.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView4.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
 
             case 5:
-                textView5.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView5.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 6:
-                textView6.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView6.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 7:
-                textView7.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView7.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
@@ -215,114 +219,129 @@ public class StatisticsActivity extends AppCompatActivity implements SelectBookB
                 }
                 break;
             case 9:
-                textView9.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView9.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 10:
-                textView10.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView10.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 11:
-                textView11.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView11.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 12:
-                textView4.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView4.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 13:
-                textView13.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView13.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 14:
-                textView14.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView14.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 15:
-                textView15.setText(book.getId() + " -> " + book.getTitle());
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView15.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 16:
-                textView16.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView16.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 17:
-                textView17.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView17.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 18:
-                textView18.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView18.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 19:
-                textView19.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView19.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 20:
-                textView20.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView20.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 21:
-                textView21.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView21.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 22:
-                textView22.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView22.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 23:
-                textView23.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView23.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;
             case 24:
-                textView24.setText(book.getId() + " -> " + book.getTitle());
+
                 if (validateBook(book) == true) {
                     books.add(book);
+                    textView24.setText(book.getId() + " -> " + book.getTitle());
                     j++;
                 }
                 break;

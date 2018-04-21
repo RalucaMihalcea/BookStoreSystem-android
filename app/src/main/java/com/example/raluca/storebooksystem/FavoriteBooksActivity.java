@@ -1,8 +1,12 @@
 package com.example.raluca.storebooksystem;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -30,17 +36,20 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
 
     private FavoriteBooksActivity favoriteBooksActivity;
     private User userAfterLogin;
-
-    private CustomAdaptor customAdaptorr = new CustomAdaptor();
+    private Resources resources;
+    private CustomAdaptor customAdaptorr;
     private ImageView imageViewFavoriteBook;
     private ImageView m_trashImageView;
     private TextView titleText;
     private TextView authorText;
     private TextView categoryText;
     private List<FavoriteBook> favoriteBooks;
-    private List<Book> favoriteBooksForActualUser= new ArrayList<>();
+    private List<Book> favoriteBooksForActualUser = new ArrayList<>();
     private List<Book> booksList;
+    private List<String> imageLinkList = new ArrayList<>();
     private ListView m_listViewFavoriteBooks;
+    private Long idBookForDelete;
+    private String auxiliarString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +57,14 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
         setContentView(R.layout.activity_favorite_books);
 
         favoriteBooksActivity = this;
+        resources = this.getResources();
 
         Intent intent = getIntent();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
 
         m_listViewFavoriteBooks = (ListView) findViewById(R.id.listViewFavoriteBooks);
+
+//        customAdaptorr = new CustomAdaptor(getApplicationContext(), favoriteBooksForActualUser, imageLinkList);
 
         SelectFavoriteBooksByUserTask selectFavoriteBooksByUserTask = new SelectFavoriteBooksByUserTask(userAfterLogin.getUsername());
         selectFavoriteBooksByUserTask.setSelectFavoriteBooksByUserDelegate(favoriteBooksActivity);
@@ -62,6 +74,7 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
 
     @Override
     public void onSelectFavoriteBooksByUserDone(String result) throws UnsupportedEncodingException {
+
         if (!result.equals("[]\n")) {
             favoriteBooks = DataManager.getInstance().parseFavoriteBooks(result);
             DataManager.getInstance().setFavoriteBooksList(favoriteBooks);
@@ -71,6 +84,11 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
 
             // m_listViewFavoriteBooks.setAdapter(customAdaptorr);
 
+        }
+        else {
+
+            customAdaptorr.notifyDataSetChanged();
+            m_listViewFavoriteBooks.setAdapter(customAdaptorr);
         }
     }
 
@@ -83,11 +101,19 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
                 for (Book book : booksList)
                     if (favBook.getIdBook() == book.getId()) {
                         favoriteBooksForActualUser.add(book);
+                       // int resID = resources.getIdentifier(book.getNamePicture().toString(), "drawable", this.getPackageName());
+                        imageLinkList.add(book.getImageLink());
                         break;
                     }
+            customAdaptorr = new CustomAdaptor(getApplicationContext(), favoriteBooksForActualUser, imageLinkList);
+            customAdaptorr.notifyDataSetChanged();
             m_listViewFavoriteBooks.setAdapter(customAdaptorr);
 
+        }
+        else {
 
+            customAdaptorr.notifyDataSetChanged();
+            m_listViewFavoriteBooks.setAdapter(customAdaptorr);
         }
 
     }
@@ -97,10 +123,18 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
         if (!result.equals("")) {
             Toast.makeText(getApplicationContext(), "The book has been removed from favorites!", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(this, FavoriteBooksActivity.class);
-            intent.putExtra("userAfterLogin", userAfterLogin);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            favoriteBooksForActualUser.clear();
+            imageLinkList.clear();
+            //customAdaptorr.notifyDataSetChanged();
+           // m_listViewFavoriteBooks.setAdapter(customAdaptorr);
+
+            SelectFavoriteBooksByUserTask selectFavoriteBooksByUserTask = new SelectFavoriteBooksByUserTask(userAfterLogin.getUsername());
+            selectFavoriteBooksByUserTask.setSelectFavoriteBooksByUserDelegate(favoriteBooksActivity);
+
+//            Intent intent = new Intent(this, FavoriteBooksActivity.class);
+//            intent.putExtra("userAfterLogin", userAfterLogin);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
 
         }
 
@@ -111,10 +145,41 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
 
     }
 
+//    public class ViewHolder {
+//        private ImageView imageViewFavoriteBook;
+//        private ImageView m_trashImageView;
+//        private TextView titleText;
+//        private TextView authorText;
+//        private TextView categoryText;
+//
+//    }
+
     private class CustomAdaptor extends BaseAdapter {
+
+        Context context;
+        LayoutInflater inflater;
+        private List<Book> favoriteBooksForActualUser = new ArrayList<>();
+        private List<String> imageLinkList = new ArrayList<>();
+
+        public CustomAdaptor(@NonNull Context context, List<Book> favoriteBooksForActualUser, List<String> imageLinkList) {
+            this.context = context;
+            this.favoriteBooksForActualUser = favoriteBooksForActualUser;
+            this.imageLinkList = imageLinkList;
+        }
+
+        public class ViewHolder {
+
+            private ImageView imageViewFavoriteBook;
+            private ImageView m_trashImageView;
+            private TextView titleText;
+            private TextView authorText;
+            private TextView categoryText;
+
+        }
+
         @Override
         public int getCount() {
-            return favoriteBooks.size();
+            return favoriteBooksForActualUser.size();
         }
 
         @Override
@@ -129,34 +194,49 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            View view = getLayoutInflater().inflate(R.layout.template_for_favorite_books, null);
 
-            imageViewFavoriteBook = (ImageView) view.findViewById(R.id.imageViewFavoriteBook);
-            m_trashImageView=(ImageView)view.findViewById(R.id.trashImageView);
-            titleText = (TextView) view.findViewById(R.id.titleText);
-            authorText = (TextView) view.findViewById(R.id.authorText);
-            categoryText = (TextView) view.findViewById(R.id.categoryText);
 
-            int resID = getResources().getIdentifier(favoriteBooksForActualUser.get(position).getNamePicture(), "drawable", getPackageName());
-            imageViewFavoriteBook.setImageResource(resID);
+            if (convertView == null) {
+                inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.template_for_favorite_books, null);
+            }
 
-            titleText.setText(favoriteBooksForActualUser.get(position).getTitle());
-            authorText.setText(favoriteBooksForActualUser.get(position).getAuthor());
-            categoryText.setText(favoriteBooksForActualUser.get(position).getCategory());
+            final ViewHolder holder = new ViewHolder();
 
-            m_trashImageView.setOnClickListener(new View.OnClickListener() {
+
+            holder.imageViewFavoriteBook = (ImageView) convertView.findViewById(R.id.imageViewFavoriteBook);
+            holder.m_trashImageView = (ImageView) convertView.findViewById(R.id.trashImageView);
+            holder.titleText = (TextView) convertView.findViewById(R.id.titleText);
+            holder.authorText = (TextView) convertView.findViewById(R.id.authorText);
+            holder.categoryText = (TextView) convertView.findViewById(R.id.categoryText);
+
+            //int resID = resources.getIdentifier(favoriteBooksForActualUser.get(position).getNamePicture().toString(), "drawable", getPackageName());
+            auxiliarString=imageLinkList.get(position);
+            Glide.with(context).load("https://docs.google.com/uc?export=download&id="+auxiliarString).into(holder.imageViewFavoriteBook);
+            //holder.imageViewFavoriteBook.setImageResource(imageLinkList.get(position));
+
+            holder.titleText.setText(favoriteBooksForActualUser.get(position).getTitle());
+            holder.authorText.setText(favoriteBooksForActualUser.get(position).getAuthor());
+            holder.categoryText.setText(favoriteBooksForActualUser.get(position).getCategory());
+
+            holder.m_trashImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Toast.makeText(getApplicationContext(), "Click!"+position, Toast.LENGTH_SHORT).show();
-                    DeleteFavoriteBookTask deleteFavoriteBookTask = new DeleteFavoriteBookTask(favoriteBooksForActualUser.get(position).getId(), userAfterLogin.getUsername());
-                    deleteFavoriteBookTask.setDeleteFavoriteBookDelegate(favoriteBooksActivity);
+                   // Toast.makeText(getApplicationContext(), "Click!" + position, Toast.LENGTH_SHORT).show();
+                    for (Book favBook : favoriteBooksForActualUser)
+                        if (favBook.getTitle().equals(holder.titleText.getText().toString())) {
+                            idBookForDelete = favBook.getId();
+                            DeleteFavoriteBookTask deleteFavoriteBookTask = new DeleteFavoriteBookTask(idBookForDelete, userAfterLogin.getUsername());
+                            deleteFavoriteBookTask.setDeleteFavoriteBookDelegate(favoriteBooksActivity);
 
-
+                        }
                 }
             });
 
-            return view;
+            customAdaptorr.notifyDataSetChanged();
+            // m_listViewFavoriteBooks.setAdapter(customAdaptorr);
+            return convertView;
         }
 
     }

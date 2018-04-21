@@ -40,8 +40,8 @@ public class SelectBooksTask extends AsyncTask<String, String, String> implement
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setRequestMethod("GET");
-        connection.setConnectTimeout(1000000);
-        connection.setReadTimeout(1000000);
+        connection.setConnectTimeout(100000000);
+        connection.setReadTimeout(100000000);
 
         connection.addRequestProperty("Authorization", DataManager.getInstance().getBaseAuthStr());
 

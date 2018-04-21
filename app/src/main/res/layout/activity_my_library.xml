@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gri"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.raluca.storebooksystem.MyLibraryActivity"
+    tools:weightSum="2">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+
+                android:layout_width="368dp"
+                android:layout_height="153dp"
+                android:layout_marginTop="10dp"
+                android:clipToPadding="false"
+                android:gravity="center"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="0dp"
+                tools:weightSum="2">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardMyFavoriteBooks"
+                    android:layout_width="160dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:id="@+id/card"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/cerclebackgroundpurple"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_favorite_black_24dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="My Favorite Books"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="Check my preferences"
+                            android:textColor="@color/dark_light" />
+
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardScan"
+                    android:layout_width="160dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:id="@+id/card"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/cerclebackgroundred"
+                            android:padding="10dp"
+                            android:src="@drawable/qr_code" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="QR Code"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="Scan a book!"
+                            android:textColor="@color/dark_light" />
+
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="368dp"
+                android:layout_height="166dp"
+                android:clipToPadding="false"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="30dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="0dp"
+                tools:weightSum="2">
+
+
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardCartBookStatistics"
+                    android:layout_width="160dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/cercleorange"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_show_chart_black_24dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Book statistics"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+
+                            android:text="The most read books of the month"
+                            android:textColor="@color/dark_light" />
+
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardAudioBooks"
+                    android:layout_width="160dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/cerclebackgroundblue_strong"
+                            android:padding="10dp"
+                            android:src="@drawable/audio_books" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Audio books"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="The best free Audiobooks!"
+                            android:layout_marginBottom="20dp"
+                            android:textColor="@color/dark_light" />
+
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+
+                <TextView
+                    android:id="@+id/textViewDescriptionInterested"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Because you are interested in"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="40dp"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp">
+
+                <HorizontalScrollView
+                    android:id="@+id/scrollView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/image_view1"
+                                    android:layout_width="190dp"
+                                    android:layout_height="150dp"
+                                    android:scaleType="center" />
+
+
+                                <View
+                                    android:id="@+id/view1"
+                                    android:layout_width="190dp"
+                                    android:layout_height="100dp"
+                                    android:background="@drawable/gradient_overlay" />
+
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/title1"
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="this is the description" />
+
+                            <TextView
+                                android:id="@+id/author1"
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="2073/2/2" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20px"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/image_view2"
+                                    android:layout_width="190dp"
+                                    android:layout_height="150dp"
+                                    android:scaleType="center" />
+
+
+                                <View
+                                    android:id="@+id/view2"
+                                    android:layout_width="190dp"
+                                    android:layout_height="100dp"
+                                    android:background="@drawable/gradient_overlay" />
+
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/title2"
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="this is the description" />
+
+                            <TextView
+                                android:id="@+id/author2"
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="2073/2/2" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20px"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/image_view3"
+                                    android:layout_width="190dp"
+                                    android:layout_height="150dp"
+                                    android:scaleType="center" />
+
+
+                                <View
+                                    android:id="@+id/view3"
+                                    android:layout_width="190dp"
+                                    android:layout_height="100dp"
+                                    android:background="@drawable/gradient_overlay" />
+
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/title3"
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="this is the description" />
+
+                            <TextView
+                                android:id="@+id/author3"
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="2073/2/2" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20px"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/image_view4"
+                                    android:layout_width="190dp"
+                                    android:layout_height="150dp"
+                                    android:scaleType="center" />
+
+
+                                <View
+                                    android:id="@+id/view4"
+                                    android:layout_width="190dp"
+                                    android:layout_height="100dp"
+                                    android:background="@drawable/gradient_overlay" />
+
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/title4"
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="this is the description" />
+
+                            <TextView
+                                android:id="@+id/author4"
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="2073/2/2" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </HorizontalScrollView>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

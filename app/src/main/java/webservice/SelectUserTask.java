@@ -43,8 +43,8 @@ public class SelectUserTask extends AsyncTask<String, String, String> implements
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setRequestMethod("POST");
-        connection.setConnectTimeout(1000000);
-        connection.setReadTimeout(1000000);
+        connection.setConnectTimeout(100000000);
+        connection.setReadTimeout(100000000);
 
         JSONObject object = new JSONObject();
         object.put("username", username);

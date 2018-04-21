@@ -1,20 +1,27 @@
 package com.example.raluca.storebooksystem;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -23,23 +30,29 @@ import java.util.List;
 import manager.DataManager;
 import model.Book;
 import model.User;
+import webservice.DeleteFavoriteBookTask;
 import webservice.SelectBooksDelegate;
 import webservice.SelectBooksTask;
+import webservice.SelectFavoriteBooksByUserTask;
 
-public class AudioBooksActivity  extends AppCompatActivity implements SelectBooksDelegate {
+public class AudioBooksActivity extends AppCompatActivity implements SelectBooksDelegate {
     private User userAfterLogin;
     private AudioBooksActivity audioBooksActivity;
-    private List<Book> audioBooks= new ArrayList<>();
-    private List<Book> books= new ArrayList<>();
+    private List<Book> audioBooks = new ArrayList<>();
+    private List<Book> books = new ArrayList<>();
+    private List<String> imageLinkList = new ArrayList<>();
     private ListView m_listAudioBooks;
     private ImageView imageViewAudioBook;
     private Button button;
-    private CustomAdaptor customAdaptorr = new CustomAdaptor();
-    private boolean playPause;
+    private CustomAdaptor customAdaptorr;
+    private boolean playPause, stopButtonActivate;
     private MediaPlayer mediaPlayer;
     private ProgressDialog progressDialog;
     private boolean initialStage = true;
     private String audioLink;
+    private TextView titleAudioBook;
+    private String title = "";
+    private String auxString;
 
 
     @Override
@@ -52,7 +65,7 @@ public class AudioBooksActivity  extends AppCompatActivity implements SelectBook
         Intent intent = getIntent();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
 
-        m_listAudioBooks = (ListView) findViewById(R.id.listAudioBooks);
+        m_listAudioBooks = (ListView) findViewById(R.id.listViewAudioBooks);
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -68,15 +81,29 @@ public class AudioBooksActivity  extends AppCompatActivity implements SelectBook
         if (!result.equals("[]\n")) {
             books = DataManager.getInstance().parseBooks(result);
 
-            for(Book bk:books)
-                if(!bk.getAudioLink().toString().equals(""))
+            for (Book bk : books)
+                if (!bk.getAudioLink().toString().equals("")) {
                     audioBooks.add(bk);
+                    imageLinkList.add(bk.getImageLink());
+                }
 
+            customAdaptorr = new CustomAdaptor(getApplicationContext(), audioBooks, imageLinkList);
             m_listAudioBooks.setAdapter(customAdaptorr);
         }
     }
 
     private class CustomAdaptor extends BaseAdapter {
+
+        private Context context;
+        private List<Book> audioBooks = new ArrayList<>();
+        private List<Book> books = new ArrayList<>();
+        private List<String> imageLinkList = new ArrayList<>();
+        private ListView m_listAudioBooks;
+        private ImageView imageViewAudioBook;
+        private Button button, buttonCloseSound;
+        private TextView titleAudioBook;
+        LayoutInflater inflater;
+
         @Override
         public int getCount() {
             return audioBooks.size();
@@ -92,32 +119,70 @@ public class AudioBooksActivity  extends AppCompatActivity implements SelectBook
             return position;
         }
 
+        public CustomAdaptor(@NonNull Context context, List<Book> audioBooks, List<String> imageLinkList) {
+            this.context = context;
+            this.audioBooks = audioBooks;
+            this.imageLinkList=imageLinkList;
+        }
+
+        public class ViewHolder {
+            ImageView imageViewAudioBook;
+            TextView titleAudioBook;
+            Button button, buttonCloseSound;
+        }
+
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            View view = getLayoutInflater().inflate(R.layout.template_for_audio_books, null);
-            RecyclerView.ViewHolder holder;
 
-            imageViewAudioBook = (ImageView) view.findViewById(R.id.imageViewAudioBook);
-            button=(Button)view.findViewById(R.id.buttonSound);
-            //button.setTag(position);
+            if (convertView == null) {
+                inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.template_for_audio_books, null);
+            }
 
-            int resID = getResources().getIdentifier(audioBooks.get(position).getNamePicture(), "drawable", getPackageName());
-            imageViewAudioBook.setImageResource(resID);
+            final ViewHolder holder = new ViewHolder();
+            holder.imageViewAudioBook = (ImageView) convertView.findViewById(R.id.imageViewAudioBook);
+            holder.titleAudioBook = (TextView) convertView.findViewById(R.id.titleAudioBook);
+            holder.button = (Button) convertView.findViewById(R.id.buttonSound);
+            holder.buttonCloseSound = (Button) convertView.findViewById(R.id.buttonCloseSound);
 
+            title = audioBooks.get(position).getTitle();
+            holder.titleAudioBook.setText(title);
 
-            button.setOnClickListener(new View.OnClickListener() {
+//            int resID = getResources().getIdentifier(audioBooks.get(position).getNamePicture(), "drawable", getPackageName());
+//            holder.imageViewAudioBook.setImageResource(resID);
+            auxString=imageLinkList.get(position);
+            Glide.with(context).load("https://docs.google.com/uc?export=download&id="+auxString).into(holder.imageViewAudioBook);
+
+            holder.buttonCloseSound.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
-//                    for (int i=0;i<audioBooks.size();i++)
-//                        if(position==i)
-//                            button.setTag(position);
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                    stopButtonActivate=true;
 
-                    audioLink=audioBooks.get(position).getAudioLink();
+                }
 
-                    if (!playPause) {
-                        // button.getTag(position).notifyAll();
+            });
 
-                        button.setText("Pause Streaming");
+
+            holder.button.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    for (Book bk : audioBooks)
+                        if (bk.getTitle().equals(holder.titleAudioBook.getText().toString())) {
+                            audioLink = bk.getAudioLink();
+                            //Toast.makeText(context, "audioLink:"+audioLink, Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+
+                    //  audioLink = audioBooks.get(position).getAudioLink();
+
+                    if (!playPause || stopButtonActivate==true) {
+
+                        holder.button.setText("Pause Streaming");
 
                         if (initialStage) {
                             //https://www.ssaurel.com/tmp/mymusic"
@@ -130,7 +195,7 @@ public class AudioBooksActivity  extends AppCompatActivity implements SelectBook
                         playPause = true;
 
                     } else {
-                        button.setText("Launch Streaming");
+                        holder.button.setText("Launch Streaming");
 
                         if (mediaPlayer.isPlaying()) {
                             mediaPlayer.pause();
@@ -140,7 +205,7 @@ public class AudioBooksActivity  extends AppCompatActivity implements SelectBook
                 }
             });
 
-            return view;
+            return convertView;
         }
     }
 
@@ -161,7 +226,7 @@ public class AudioBooksActivity  extends AppCompatActivity implements SelectBook
             Boolean prepared = false;
 
             try {
-                String source="https://docs.google.com/uc?export=download&id="+audioLink;
+                String source = "https://docs.google.com/uc?export=download&id=" + audioLink;
                 mediaPlayer.setDataSource(source);
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
@@ -205,4 +270,6 @@ public class AudioBooksActivity  extends AppCompatActivity implements SelectBook
             progressDialog.show();
         }
     }
+
+
 }
