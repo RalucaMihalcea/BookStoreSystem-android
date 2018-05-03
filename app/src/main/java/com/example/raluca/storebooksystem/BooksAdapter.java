@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,13 +39,14 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     private Resources resources;
     private int idCover;
     private List<String> covers;
-   // private int imageNumber;
+    // private int imageNumber;
     private User userAfterLogin;
     private Book bookk;
     private Book selectedBook;
     private List<FavoriteBook> favoriteBooks = new ArrayList<>();
     private Boolean ok = true;
     private String auxiliarString;
+    private static final String TAG = "BooksAdapter";
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title, price;
@@ -106,17 +108,17 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         //Glide.with(mContext).load(covers.get(position)).into(holder.thumbnail);
 
         // loading album cover using Glide library
-        auxiliarString=covers.get(position);
-        Glide.with(mContext).load("https://docs.google.com/uc?export=download&id="+auxiliarString).into(holder.thumbnail);
+        auxiliarString = covers.get(position);
+        Glide.with(mContext).load("https://docs.google.com/uc?export=download&id=" + auxiliarString).into(holder.thumbnail);
 
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                ok=true;
+                ok = true;
                 for (Book book : booksList) {
-                    String titleAuthorString=book.getTitle() + " - " + book.getAuthor();
+                    String titleAuthorString = book.getTitle() + " - " + book.getAuthor();
                     if (titleAuthorString.equals(holder.title.getText())) {
                         selectedBook = book;
                     }
@@ -166,6 +168,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
 //                    addFavoriteBookTask.setAddFavoriteBookDelegate(booksAdapter);
 //                    Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
 
+                    Log.i(TAG, "Select favorite books task for user: " + userAfterLogin.getUsername());
                     SelectFavoriteBooksByUserTask selectFavoriteBooksByUserTask = new SelectFavoriteBooksByUserTask(userAfterLogin.getUsername());
                     selectFavoriteBooksByUserTask.setSelectFavoriteBooksByUserDelegate(booksAdapter);
                     return true;
@@ -184,28 +187,29 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         if (!result.equals("[]\n"))
             favoriteBooks = DataManager.getInstance().parseFavoriteBooks(result);
 
-            if (!favoriteBooks.isEmpty())
-                for (FavoriteBook favBook : favoriteBooks)
-                    if (favBook.getIdBook() == selectedBook.getId()) {
-                        ok = false;
-                        break;
-                    }
+        if (!favoriteBooks.isEmpty())
+            for (FavoriteBook favBook : favoriteBooks)
+                if (favBook.getIdBook() == selectedBook.getId()) {
+                    ok = false;
+                    break;
+                }
 
-            if (ok.equals(Boolean.TRUE)) {
+        if (ok.equals(Boolean.TRUE)) {
 
-                String author = selectedBook.getAuthor();
-                if (author.contains(" "))
-                    author = author.replaceAll(" ", "+");
+            String author = selectedBook.getAuthor();
+            if (author.contains(" "))
+                author = author.replaceAll(" ", "+");
 
-                String title = selectedBook.getTitle();
-                if (title.contains(" "))
-                    title = title.replaceAll(" ", "+");
+            String title = selectedBook.getTitle();
+            if (title.contains(" "))
+                title = title.replaceAll(" ", "+");
 
-                AddFavoriteBookTask addFavoriteBookTask = new AddFavoriteBookTask(title, author, userAfterLogin.getUsername());
-                addFavoriteBookTask.setAddFavoriteBookDelegate(booksAdapter);
-                Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
-            } else
-                Toast.makeText(mContext, "You have already added this book to your favorites!", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Add favorite book task with title book:"+title+", author book:"+author+" for user: " + userAfterLogin.getUsername());
+            AddFavoriteBookTask addFavoriteBookTask = new AddFavoriteBookTask(title, author, userAfterLogin.getUsername());
+            addFavoriteBookTask.setAddFavoriteBookDelegate(booksAdapter);
+            Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(mContext, "You have already added this book to your favorites!", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -216,11 +220,12 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
 
     @Override
     public void onAddFavoriteBookDone(String result) throws UnsupportedEncodingException {
-
+        Log.d(TAG, "AddFavoriteBook DONE DELEGATE " + result);
     }
 
     @Override
     public void onAddFavoriteBookError(String response) {
+        Log.d(TAG, "AddFavoriteBookError DONE DELEGATE " + response);
 
     }
 }

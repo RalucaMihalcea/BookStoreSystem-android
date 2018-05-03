@@ -3,6 +3,7 @@ package com.example.raluca.storebooksystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class StatisticsActivity extends AppCompatActivity implements SelectBookB
     int month, j = 1;
     Book book;
     private List<Book> books = new ArrayList<>();
+    private static final String TAG = "StatisticsActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +130,9 @@ public class StatisticsActivity extends AppCompatActivity implements SelectBookB
 //        LoginTask loginTask = new LoginTask(userAfterLogin.getUsername(), userAfterLogin.getPassword());
 //        loginTask.setLoginDelegate(progressActivity);
         for (BookViewsAndDate bookViews : bookViewsForProgress) {
+
+            Log.i(TAG, "Select book by id: " + bookViews.getIdBook());
+
             SelectBookByIdTask selectBookByIdTaskTask = new SelectBookByIdTask(bookViews.getIdBook());
             selectBookByIdTaskTask.setSelectBookByIdDelegate(statisticsActivity);
 
@@ -350,6 +355,8 @@ public class StatisticsActivity extends AppCompatActivity implements SelectBookB
 
     @Override
     public void onSelectBookByIdDone(String result) throws UnsupportedEncodingException {
+
+        Log.d(TAG, "SelectBookById DONE DELEGATE " + result);
 
         if (!result.isEmpty()) {
             book = DataManager.getInstance().parseBook(result);

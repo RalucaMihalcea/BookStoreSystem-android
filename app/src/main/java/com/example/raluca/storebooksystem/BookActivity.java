@@ -3,6 +3,7 @@ package com.example.raluca.storebooksystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -67,6 +68,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     private int month;
     private int monthToday;
     private String auxString;
+    private static final String TAG = "BookActivity";
 
 
     @Override
@@ -74,7 +76,6 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         super.onCreate(savedInstanceState);
 
         bookActivity = this;
-
 
         setContentView(R.layout.activity_book_activity);
 
@@ -86,7 +87,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         Calendar calendarDate = Calendar.getInstance();
         try {
             calendarDate.setTime(df2.parse(calendarString));
-            monthToday =calendarDate.get(Calendar.MONTH)+1 ;
+            monthToday = calendarDate.get(Calendar.MONTH) + 1;
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -142,10 +143,10 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         idBook = book.getId();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
 
-        if(!book.getPdfLink().equals(""))
+        if (!book.getPdfLink().equals(""))
             m_buttonRead.setVisibility(View.VISIBLE);
 
-
+        Log.i(TAG, "SelectBookViewsAndDate task by idBook: " + idBook + ", username" + userAfterLogin.getUsername());
         SelectBookViewsAndDateTask selectBookViewsAndDateTask = new SelectBookViewsAndDateTask(idBook, userAfterLogin.getUsername());
         selectBookViewsAndDateTask.setSelectBookViewsAndDateDelegate(bookActivity);
 
@@ -172,12 +173,13 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
         //imageView.setImageResource(resID);
 
 
-       //Glide.with(this).load("http://www.rounite.com/wp-content/uploads/2010/01/eminescu1.png").into(imageView);
+        //Glide.with(this).load("http://www.rounite.com/wp-content/uploads/2010/01/eminescu1.png").into(imageView);
         //https://drive.google.com/file/d/1tjZnUmkGOIVL9Vh4guvjvRnh8cxS0sa6/view?usp=sharing
 
-        auxString=book.getImageLink();
-        Glide.with(this).load("https://docs.google.com/uc?export=download&id="+auxString).into(imageView);
+        auxString = book.getImageLink();
+        Glide.with(this).load("https://docs.google.com/uc?export=download&id=" + auxString).into(imageView);
 
+        Log.i(TAG, "SelectReviewsByIdBook task by idBook: " + idBook);
         SelectReviewsByIdBookTask selectReviewsByIdBookTask = new SelectReviewsByIdBookTask(idBook);
         selectReviewsByIdBookTask.setSelectReviewsByIdBookDelegate(bookActivity);
 
@@ -316,7 +318,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
                 }
             }
 
-            if (reviews.size()>1 && reviews.get(1) != null) {
+            if (reviews.size() > 1 && reviews.get(1) != null) {
 
                 textReviewUser2.setText(reviews.get(1).getUsername());
                 textReview2.setText(reviews.get(1).getTextReview());
@@ -358,7 +360,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
                 }
             }
 
-            if (reviews.size()>2 && reviews.get(2) != null) {
+            if (reviews.size() > 2 && reviews.get(2) != null) {
 
                 textReviewUser3.setText(reviews.get(2).getUsername());
                 textReview3.setText(reviews.get(2).getTextReview());
@@ -426,7 +428,9 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     @Override
     public void onSelectBookViewsAndDateDone(String result) throws UnsupportedEncodingException, ParseException {
 
+        Log.d(TAG, "SelectBookViewsAndDate DONE DELEGATE " + result);
         if (result.isEmpty()) {
+            Log.i(TAG, "AddBookViews task with idBook: " + idBook + ", 1, username:" + userAfterLogin.getUsername());
             AddBookViewsTask addBookViewsTask = new AddBookViewsTask(idBook, 1, userAfterLogin.getUsername());
             addBookViewsTask.setAddBookViewsDelegate(bookActivity);
             //Toast.makeText(getApplicationContext(),"Am inserat prima vizionare a cartii",Toast.LENGTH_SHORT).show();
@@ -436,6 +440,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
             number++;
             month = bookViewsAndDate.getMonth();
 
+            Log.i(TAG, "UpdateBookViews task with idBook: " + idBook + ", number: " + number + ", username:" + userAfterLogin.getUsername());
             UpdateBookViewsTask updateBookViewsTask = new UpdateBookViewsTask(idBook, number, userAfterLogin.getUsername());
             updateBookViewsTask.setUpdateBookViewsDelegate(bookActivity);
 
@@ -445,12 +450,15 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
     @Override
     public void onUpdateBookViewsDone(String result) {
 
-        if (monthToday!=month) {
+        Log.d(TAG, "UpdateBookViews DONE DELEGATE " + result);
+        if (monthToday != month) {
 
+            Log.i(TAG, "AddBookViewsAndDate task with idBook: " + idBook + ", 1, monthToday:" + monthToday + ", username:" + userAfterLogin.getUsername());
             AddBookViewsAndDateTask addBookViewsAndDateTask = new AddBookViewsAndDateTask(idBook, 1, monthToday, userAfterLogin.getUsername());
             addBookViewsAndDateTask.setAddBookViewsAndDateDelegate(bookActivity);
 
         } else {
+            Log.i(TAG, "UpdateBookViewsAndDate task with idBook: " + idBook + ", number:" + number + ", username:" + userAfterLogin.getUsername() + ", month:" + month);
             UpdateBookViewsAndDateTask updateBookViewsAndDateTask = new UpdateBookViewsAndDateTask(idBook, number, userAfterLogin.getUsername(), month);
             updateBookViewsAndDateTask.setUpdateBookViewsAndDateDelegate(bookActivity);
         }
@@ -458,12 +466,15 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
 
     @Override
     public void onUpdateBookViewsAndDateDone(String result) {
+        Log.d(TAG, "UpdateBookViewsAndDate DONE DELEGATE " + result);
 
     }
 
     @Override
     public void onAddBookViewsDone(String result) throws UnsupportedEncodingException {
+        Log.d(TAG, "AddBookViews DONE DELEGATE " + result);
         if (!result.isEmpty()) {
+            Log.i(TAG, " AddBookViewsAndDate task with idBook: " + idBook + ", 1, monthToday:" + monthToday + ", username:" + userAfterLogin.getUsername());
             AddBookViewsAndDateTask addBookViewsAndDateTask = new AddBookViewsAndDateTask(idBook, 1, monthToday, userAfterLogin.getUsername());
             addBookViewsAndDateTask.setAddBookViewsAndDateDelegate(bookActivity);
         }
@@ -471,7 +482,7 @@ public class BookActivity extends AppCompatActivity implements SelectReviewsById
 
     @Override
     public void onAddBookViewsAndDateDone(String result) throws UnsupportedEncodingException {
-
+        Log.d(TAG, "AddBookViewsAndDate DONE DELEGATE " + result);
     }
 }
 

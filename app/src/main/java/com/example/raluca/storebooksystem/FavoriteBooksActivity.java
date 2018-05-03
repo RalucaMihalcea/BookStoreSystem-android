@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
     private ListView m_listViewFavoriteBooks;
     private Long idBookForDelete;
     private String auxiliarString;
+    private static final String TAG = "FavoriteBooksActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
 
     @Override
     public void onSelectFavoriteBooksByUserDone(String result) throws UnsupportedEncodingException {
+        Log.d(TAG, "SelectFavoriteBooksByUser DONE DELEGATE " + result);
 
         if (!result.equals("[]\n")) {
             favoriteBooks = DataManager.getInstance().parseFavoriteBooks(result);
@@ -94,6 +97,7 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
 
     @Override
     public void onSelectBooksDone(String result) throws UnsupportedEncodingException {
+        Log.d(TAG, "SelectBooks DONE DELEGATE " + result);
         if (!result.equals("[]\n")) {
             booksList = DataManager.getInstance().parseBooks(result);
 
@@ -120,6 +124,7 @@ public class FavoriteBooksActivity extends AppCompatActivity implements SelectFa
 
     @Override
     public void onDeleteFavoriteBookDone(String result) throws UnsupportedEncodingException {
+        Log.d(TAG, "DeleteFavoriteBook DONE DELEGATE " + result);
         if (!result.equals("")) {
             Toast.makeText(getApplicationContext(), "The book has been removed from favorites!", Toast.LENGTH_SHORT).show();
 

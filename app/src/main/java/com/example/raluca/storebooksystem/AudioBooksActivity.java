@@ -53,6 +53,7 @@ public class AudioBooksActivity extends AppCompatActivity implements SelectBooks
     private TextView titleAudioBook;
     private String title = "";
     private String auxString;
+    private static final String TAG = "AudioBooksActivity";
 
 
     @Override
@@ -71,13 +72,14 @@ public class AudioBooksActivity extends AppCompatActivity implements SelectBooks
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         progressDialog = new ProgressDialog(this);
 
-
+        Log.i(TAG, "Select books task: " + userAfterLogin.getUsername());
         SelectBooksTask selectBooksTask = new SelectBooksTask();
         selectBooksTask.setSelectBooksDelegate(audioBooksActivity);
     }
 
     @Override
     public void onSelectBooksDone(String result) throws UnsupportedEncodingException {
+        Log.d(TAG, "SelectBooks DONE DELEGATE " + result);
         if (!result.equals("[]\n")) {
             books = DataManager.getInstance().parseBooks(result);
 
@@ -122,7 +124,7 @@ public class AudioBooksActivity extends AppCompatActivity implements SelectBooks
         public CustomAdaptor(@NonNull Context context, List<Book> audioBooks, List<String> imageLinkList) {
             this.context = context;
             this.audioBooks = audioBooks;
-            this.imageLinkList=imageLinkList;
+            this.imageLinkList = imageLinkList;
         }
 
         public class ViewHolder {
@@ -150,8 +152,8 @@ public class AudioBooksActivity extends AppCompatActivity implements SelectBooks
 
 //            int resID = getResources().getIdentifier(audioBooks.get(position).getNamePicture(), "drawable", getPackageName());
 //            holder.imageViewAudioBook.setImageResource(resID);
-            auxString=imageLinkList.get(position);
-            Glide.with(context).load("https://docs.google.com/uc?export=download&id="+auxString).into(holder.imageViewAudioBook);
+            auxString = imageLinkList.get(position);
+            Glide.with(context).load("https://docs.google.com/uc?export=download&id=" + auxString).into(holder.imageViewAudioBook);
 
             holder.buttonCloseSound.setOnClickListener(new View.OnClickListener() {
 
@@ -159,7 +161,7 @@ public class AudioBooksActivity extends AppCompatActivity implements SelectBooks
                 public void onClick(View view) {
                     mediaPlayer.stop();
                     mediaPlayer.reset();
-                    stopButtonActivate=true;
+                    stopButtonActivate = true;
 
                 }
 
@@ -180,7 +182,7 @@ public class AudioBooksActivity extends AppCompatActivity implements SelectBooks
 
                     //  audioLink = audioBooks.get(position).getAudioLink();
 
-                    if (!playPause || stopButtonActivate==true) {
+                    if (!playPause || stopButtonActivate == true) {
 
                         holder.button.setText("Pause Streaming");
 

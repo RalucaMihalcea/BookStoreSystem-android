@@ -22,7 +22,7 @@ import manager.DataManager;
 public class UpdateTask extends AsyncTask<String, String, String> implements CredentialInterface {
     private UpdateDelegate updateDelegate;
     private String username;
-    private String password;
+    private String newUsername;
     private String firstName;
     private String lastName;
     private String email;
@@ -39,7 +39,7 @@ public class UpdateTask extends AsyncTask<String, String, String> implements Cre
     }
 
     private String callRegisterService() throws IOException, JSONException {
-        String modelString = BASE_URL + "update/update2?username=" + username + "&firstName=" + firstName + "&lastName=" + lastName + "&password=" + password + "&email=" + email + "&contactNo=" + contactNo;
+        String modelString = BASE_URL + "update/updatee?username=" + username + "&newUsername=" + newUsername + "&firstName=" + firstName + "&lastName=" + lastName + "&email=" + email + "&contactNo=" + contactNo;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
 
@@ -53,9 +53,9 @@ public class UpdateTask extends AsyncTask<String, String, String> implements Cre
 
         JSONObject object = new JSONObject();
         object.put("username", username);
+        object.put("newUsername", newUsername);
         object.put("firstName", firstName);
         object.put("lastName", lastName);
-        object.put("password", password);
         object.put("email", email);
         object.put("contactNo", contactNo);
 
@@ -82,17 +82,17 @@ public class UpdateTask extends AsyncTask<String, String, String> implements Cre
         return sb.toString();
     }
 
-    public UpdateTask(String username, String firstName, String lastName, String password, String email, String contactNo) {
+    public UpdateTask(String username, String newUsername, String firstName, String lastName, String email, String contactNo) {
 
         this.username = username;
+        this.newUsername = newUsername;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.contactNo = contactNo;
-        this.password = password;
 
 
-        String modelString = BASE_URL + "update/update2?username=" + username + "&firstName=" + firstName + "&lastName=" + lastName + "&password=" + password + "&email=" + email + "&contactNo=" + contactNo;
+        String modelString = BASE_URL + "update/updatee?username=" + username + "&newUsername=" + newUsername + "&firstName=" + firstName + "&lastName=" + lastName + "&email=" + email + "&contactNo=" + contactNo;
 
         Uri uri = Uri.parse(modelString).buildUpon().build();
         this.execute(uri.toString());

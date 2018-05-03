@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,16 +45,18 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
     private User userAfterLogin;
     private List<Book> books = new ArrayList<>();
     private ImageView imageView;
+    private static final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         loginActivity = this;
 
         getLoginPreferences();
-        imageView=(ImageView)findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.imageView);
         progressBarSpinner = (ProgressBar) findViewById(R.id.progressBar);
         btnSignIn = (CardView) findViewById(R.id.cardViewLogin);
         progressBarSpinner.setVisibility(View.GONE);
@@ -72,6 +75,9 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
                     password = editTextPassword.getText().toString();
                     progressBarSpinner.setVisibility(View.VISIBLE);
 
+                    Encryption sj = new Encryption();
+                    String hash = sj.MD5(password);
+
 //                    if (checkBox_RememberMe.isChecked()) {
 //                        // remember username and password
 //                        loginPrefsEditor.putBoolean("saveLogin", true);
@@ -84,7 +90,13 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
 //                        loginPrefsEditor.commit();
 //                    }
 
-                    LoginTask loginTask = new LoginTask(username, password);
+                    Log.i(TAG, "Check user data for authentication with username: " + username + " and password: " + hash);
+                    LoginTask loginTask = null;
+                    try {
+                        loginTask = new LoginTask(username, hash);
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
                     loginTask.setLoginDelegate(loginActivity);
 //
 //                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -119,7 +131,6 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
             userAfterLogin = user;
             myIntent = new Intent(LoginActivity.this, HomeActivity.class);
             myIntent.putExtra("userAfterLogin", userAfterLogin);
-
 
             startActivity(myIntent);
         }
@@ -159,7 +170,7 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
     public void onLoginDone(String result) throws UnsupportedEncodingException {
 
         progressBarSpinner.setVisibility(View.INVISIBLE);
-        Log.d("TAG", "LOGIN DONE DELEGATE " + result);
+        Log.d(TAG, "LOGIN DONE DELEGATE " + result);
 
         if (!result.isEmpty()) {
             User user = DataManager.getInstance().parseUser(result);
@@ -180,6 +191,7 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
                 loginPrefsEditor.commit();
             }
             startNewActivity(user);
+
             Toast.makeText(getApplicationContext(), "Success login", Toast.LENGTH_SHORT).show();
 
 //            SelectBooksTask selectBooksTask = new SelectBooksTask();

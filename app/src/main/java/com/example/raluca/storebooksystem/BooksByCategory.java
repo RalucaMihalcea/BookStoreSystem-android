@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,6 +59,7 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
     private ImageView m_refresh;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayAdapter<String> adapterTitleBooks;
+    private static final String TAG = "BooksByCategory";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +92,11 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
         titleTextView.setText(titleCover);
 
         if (!category.equals("BestOf")) {
+            Log.i(TAG, "Select book by category: "+category );
             SelectBookByCategoryTask selectBookByCategoryTask = new SelectBookByCategoryTask(category);
             selectBookByCategoryTask.setSelectBookByCategoryDelegate(booksByCategory);
         } else {
+            Log.i(TAG, "Select books task: "+booksByCategory );
             SelectBooksTask selectBooksTask = new SelectBooksTask();
             selectBooksTask.setSelectBooksDelegate(booksByCategory);
         }
@@ -254,6 +258,9 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
     @Override
     public void onSelectBookByCategoryDone(String result) throws UnsupportedEncodingException {
+
+        Log.d(TAG, "SelectBookByCategory DONE DELEGATE " + result);
+
         if (!result.isEmpty() && !result.equals("[]\n")) {
             m_autoCompleteTextView.setVisibility(View.VISIBLE);
             m_refresh.setVisibility(View.VISIBLE);
@@ -326,6 +333,8 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
     @Override
     public void onSelectBooksDone(String result) throws UnsupportedEncodingException {
+
+        Log.d(TAG, "SelectBooks DONE DELEGATE " + result);
 
         if (!result.isEmpty() && !result.equals("[]\n")) {
             m_autoCompleteTextView.setVisibility(View.VISIBLE);

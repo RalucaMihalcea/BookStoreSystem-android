@@ -41,7 +41,6 @@
         <activity
             android:name=".HomeActivity"
             android:label="Home" />
-        <activity android:name=".AllBooksActivity" />
         <activity
             android:name=".BooksByCategory"
             android:label="@string/app_name"

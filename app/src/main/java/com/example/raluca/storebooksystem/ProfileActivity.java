@@ -4,20 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 import manager.DataManager;
 import model.User;
 import webservice.LoginDelegate;
 import webservice.LoginTask;
+import webservice.RegisterDelegate;
+import webservice.RegisterTask;
+import webservice.SelectUserDelegate;
+import webservice.SelectUserTask;
 import webservice.UpdateDelegate;
 import webservice.UpdateTask;
 
-public class ProfileActivity extends AppCompatActivity implements UpdateDelegate, LoginDelegate {
+public class ProfileActivity extends AppCompatActivity implements UpdateDelegate, LoginDelegate, RegisterDelegate, SelectUserDelegate {
     private EditText m_editTextUsername;
     private EditText m_editTextFirstName;
     private EditText m_editTextLastName;
@@ -27,7 +33,9 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
     private User userAfterLogin;
     private EditText m_errorInfo;
     private String regexStr = "^[0-9]{10}$";
-    private Boolean ok = false;
+    private Boolean ok = false, okUsername = false;
+    private static final String TAG = "ProfileActivity";
+
 
     private ProfileActivity profileActivity;
 
@@ -73,11 +81,26 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
                     if ((m_editTextEmail.getText().toString().endsWith("@yahoo.com") || m_editTextEmail.getText().toString().endsWith("@gmail.com")) && ok.equals(Boolean.TRUE)) {
 
                         m_errorInfo.setVisibility(View.INVISIBLE);
-                        UpdateTask updateTask = new UpdateTask(m_editTextUsername.getText().toString(), m_editTextFirstName.getText().toString(), m_editTextLastName.getText().toString(), userAfterLogin.getPassword().toString(), m_editTextEmail.getText().toString(), m_editTextContactNo.getText().toString());
-                        updateTask.setUpdateDelegate(profileActivity);
-                        LoginTask loginTask = new LoginTask(userAfterLogin.getUsername(), userAfterLogin.getPassword());
+                        Log.i(TAG, "Select user by username: " + userAfterLogin.getUsername());
+                        SelectUserTask selectUserTask = new SelectUserTask(m_editTextUsername.getText().toString());
+                        selectUserTask.setSelectUserDelegate(profileActivity);
+
+//                        Log.i(TAG, "Update user with new credentials: " + m_editTextUsername.getText().toString() + ", " + m_editTextFirstName.getText().toString() + ", " + m_editTextLastName.getText().toString() + ", " + userAfterLogin.getPassword().toString() + ", " + m_editTextEmail.getText().toString() + ", " + m_editTextContactNo.getText().toString());
+//                        UpdateTask updateTask = new UpdateTask(userAfterLogin.getUsername(), m_editTextUsername.getText().toString(), m_editTextFirstName.getText().toString(), m_editTextLastName.getText().toString(), m_editTextEmail.getText().toString(), m_editTextContactNo.getText().toString());
+//                        updateTask.setUpdateDelegate(profileActivity);
+
+                        // if (okUsername == true) {
+
+                        Log.i(TAG, "Check user data for authentication with username: " + userAfterLogin.getUsername() + " and password: " + userAfterLogin.getPassword());
+                        LoginTask loginTask = null;
+                        try {
+                            loginTask = new LoginTask(userAfterLogin.getUsername(), userAfterLogin.getPassword());
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        }
                         loginTask.setLoginDelegate(profileActivity);
-                        Toast.makeText(ProfileActivity.this, "Updated profile! ", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(ProfileActivity.this, "Updated profile! ", Toast.LENGTH_SHORT).show();
+                        //}
 
                     } else {
                         if (!m_editTextEmail.getText().toString().endsWith("@yahoo.com") && !m_editTextEmail.getText().toString().endsWith("@gmail.com")) {
@@ -91,7 +114,6 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
                         }
 
                     }
-
 
                 }
             }
@@ -110,6 +132,12 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
     @Override
     public void onUpdateDone(String result) {
 
+        Log.d(TAG, "UPDATE DONE DELEGATE " + result);
+//        m_errorInfo.setVisibility(View.INVISIBLE);
+//        Log.i(TAG, "Select user by username: " + userAfterLogin.getUsername());
+//        SelectUserTask selectUserTask = new SelectUserTask(userAfterLogin.getUsername());
+//        selectUserTask.setSelectUserDelegate(profileActivity);
+
     }
 
     @Override
@@ -121,9 +149,53 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
     @Override
     public void onLoginDone(String result) throws UnsupportedEncodingException {
 
+        //Toast.makeText(ProfileActivity.this, "Updated profile! ", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "LOGIN DONE DELEGATE " + result);
+
         if (!result.isEmpty()) {
             User user = DataManager.getInstance().parseUser(result);
-            userAfterLogin=user;
+            userAfterLogin = user;
         }
+    }
+
+    @Override
+    public void onRegisterDone(String result) {
+
+        Log.d(TAG, "SELECT USER DONE DELEGATE " + result);
+        if (!result.isEmpty()) {
+            okUsername = false;
+            Toast.makeText(ProfileActivity.this, "This username already exists. Please try with another username!", Toast.LENGTH_SHORT).show();
+        } else {
+
+            okUsername = true;
+            Log.i(TAG, "Register new user with username: " + userAfterLogin.getUsername() + ", firstName: " + userAfterLogin.getFirstName() + " lastName: " + userAfterLogin.getLastName() + " password: " + userAfterLogin.getPassword());
+
+            RegisterTask registerTask = new RegisterTask(userAfterLogin.getUsername(), userAfterLogin.getFirstName(), userAfterLogin.getLastName(), userAfterLogin.getPassword(), "", "", "");
+            registerTask.setRegisterDelegate(profileActivity);
+            Toast.makeText(ProfileActivity.this, "Your have registered! ", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRegisterError(String response) {
+
+    }
+
+    @Override
+    public void onSelectUserDone(String result) {
+
+        Log.d(TAG, "SELECT USER DONE DELEGATE " + result);
+        if (!result.isEmpty()) {
+            m_errorInfo.setText("This username already exists!! Try again!");
+            Toast.makeText(ProfileActivity.this, "This username already exists. Please try with another username!", Toast.LENGTH_SHORT).show();
+        } else {
+            Log.i(TAG, "Update user with new credentials: " + m_editTextUsername.getText().toString() + ", " + m_editTextFirstName.getText().toString() + ", " + m_editTextLastName.getText().toString() + ", " + userAfterLogin.getPassword().toString() + ", " + m_editTextEmail.getText().toString() + ", " + m_editTextContactNo.getText().toString());
+
+
+            UpdateTask updateTask = new UpdateTask(userAfterLogin.getUsername(), m_editTextUsername.getText().toString(), m_editTextFirstName.getText().toString(), m_editTextLastName.getText().toString(), m_editTextEmail.getText().toString(), m_editTextContactNo.getText().toString());
+            updateTask.setUpdateDelegate(profileActivity);
+            Toast.makeText(ProfileActivity.this, "Updated profile! ", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

@@ -34,15 +34,15 @@ public class CategoryMenu extends AppCompatActivity {
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
 
 
-        m_cardViewNonfiction=(CardView)findViewById(R.id.cardViewNonfiction);
-        m_cardViewFiction=(CardView)findViewById(R.id.cardViewFiction);
-        m_cardViewLove=(CardView)findViewById(R.id.cardViewLove);
-        m_cardViewLiterature=(CardView)findViewById(R.id.cardViewLiterature);
-        m_cardViewDrama=(CardView)findViewById(R.id.cardViewDrama);
-        m_cardViewPsychology=(CardView)findViewById(R.id.cardViewPsychology);
-        m_cardViewAction=(CardView)findViewById(R.id.cardViewAction);
-        m_cardViewComedy=(CardView)findViewById(R.id.cardViewComedy);
-        m_cardViewChildren=(CardView)findViewById(R.id.cardViewChildren);
+        m_cardViewNonfiction = (CardView) findViewById(R.id.cardViewNonfiction);
+        m_cardViewFiction = (CardView) findViewById(R.id.cardViewFiction);
+        m_cardViewLove = (CardView) findViewById(R.id.cardViewLove);
+        m_cardViewLiterature = (CardView) findViewById(R.id.cardViewLiterature);
+        m_cardViewDrama = (CardView) findViewById(R.id.cardViewDrama);
+        m_cardViewPsychology = (CardView) findViewById(R.id.cardViewPsychology);
+        m_cardViewAction = (CardView) findViewById(R.id.cardViewAction);
+        m_cardViewComedy = (CardView) findViewById(R.id.cardViewComedy);
+        m_cardViewChildren = (CardView) findViewById(R.id.cardViewChildren);
 
 
         m_cardViewNonfiction.setOnClickListener(new View.OnClickListener() {
@@ -145,10 +145,7 @@ public class CategoryMenu extends AppCompatActivity {
             }
         });
 
-
-
     }
-
 
     @Override
     public void onBackPressed() {

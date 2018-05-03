@@ -3,6 +3,7 @@ package com.example.raluca.storebooksystem;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
     private String repeatPassword;
     private SignUpActivity signUpActivity;
     private EditText m_errorInfo;
+    private static final String TAG = "SignUpActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        signUpActivity=this;
+        signUpActivity = this;
         m_editTextUsername = (EditText) findViewById(R.id.editTextUsername);
         m_editTextFirstName = (EditText) findViewById(R.id.editTextFirstName);
         m_editTextLastName = (EditText) findViewById(R.id.editTextLastName);
@@ -65,6 +67,7 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
                     if (password.equals(repeatPassword)) {
 
                         m_errorInfo.setVisibility(View.INVISIBLE);
+                        Log.i(TAG, "Select user by username: " + username);
                         SelectUserTask selectUserTask = new SelectUserTask(username);
                         selectUserTask.setSelectUserDelegate(signUpActivity);
 
@@ -74,8 +77,6 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
                         m_editTextPassword.setText("");
                         m_editTextRetypePassword.setText("");
                     }
-
-
 
                 }
             }
@@ -93,10 +94,18 @@ public class SignUpActivity extends AppCompatActivity implements RegisterDelegat
 
     @Override
     public void onSelectUserDone(String result) {
+        Log.d(TAG, "SELECT USER DONE DELEGATE " + result);
         if (!result.isEmpty())
             Toast.makeText(SignUpActivity.this, "This username already exists. Please try with another username!", Toast.LENGTH_SHORT).show();
         else {
-            RegisterTask registerTask = new RegisterTask(username, firstName, lastName, password, "", "", "");
+            Log.i(TAG, "Register new user with username: " + username + ", firstName: " + firstName + " lastName: " + lastName + " password: " + password);
+
+            Encryption sj = new Encryption();
+            String hash = sj.MD5(password);
+            System.out.println("The MD5 (hexadecimal encoded) hash is:" + hash);
+
+           // RegisterTask registerTask = new RegisterTask(username, firstName, lastName, password, "", "", "");
+            RegisterTask registerTask = new RegisterTask(username, firstName, lastName, hash, "", "", "");
             registerTask.setRegisterDelegate(signUpActivity);
             Toast.makeText(SignUpActivity.this, "Your have registered! ", Toast.LENGTH_SHORT).show();
         }

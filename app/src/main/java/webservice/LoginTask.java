@@ -17,6 +17,8 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Andreea on 31.10.2017.
@@ -76,7 +78,8 @@ LoginTask extends AsyncTask<String, String, String> implements CredentialInterfa
 
     }
 
-    public LoginTask(String username, String password) {
+    public LoginTask(String username, String password) throws NoSuchAlgorithmException {
+
 
         this.username = username;
         this.password = password;

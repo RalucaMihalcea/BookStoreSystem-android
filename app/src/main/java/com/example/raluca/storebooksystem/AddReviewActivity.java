@@ -3,6 +3,7 @@ package com.example.raluca.storebooksystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +33,7 @@ public class AddReviewActivity extends AppCompatActivity implements AddReviewDel
     private int starNumber;
     private EditText m_editText;
     private Boolean reviewSent = false;
-
+    private static final String TAG = "AddReviewActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +152,7 @@ public class AddReviewActivity extends AppCompatActivity implements AddReviewDel
                 if (textReview.contains(" "))
                     textReview = textReview.replaceAll(" ", "+");
 
+                Log.i(TAG, " AddReview task with bookID: " + book.getId() + ", username: " + userAfterLogin.getUsername() + ", starNumber:" + starNumber);
                 AddReviewTask addReviewTask = new AddReviewTask(book.getId(), userAfterLogin.getUsername(), textReview, starNumber);
                 addReviewTask.setAddReviewDelegate(addReviewActivity);
 //                LoginTask loginTask = new LoginTask(userAfterLogin.getUsername(), userAfterLogin.getPassword());
@@ -197,11 +199,13 @@ public class AddReviewActivity extends AppCompatActivity implements AddReviewDel
 
     @Override
     public void onAddReviewDone(String result) throws UnsupportedEncodingException {
+        Log.d(TAG, "AddReview DONE DELEGATE " + result);
 
     }
 
     @Override
     public void onAddReviewError(String response) {
+        Log.d(TAG, "AddReviewError DONE DELEGATE " + response);
 
     }
 
