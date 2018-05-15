@@ -4,12 +4,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -20,42 +18,43 @@ import manager.DataManager;
  * Created by Raluca on 22.02.2018.
  */
 
-public class SelectBookViewsAndDateByUsernameTask extends AsyncTask<String, String, String> implements CredentialInterface {
+public class SelectAllBookViewsAndDateTask extends AsyncTask<String, String, String> implements CredentialInterface {
 
-    private SelectBookViewsAndDateByUsernameDelegate selectBookViewsAndDateByUsernameDelegate;
+    private SelectAllBookViewsAndDateDelegate selectAllBookViewsAndDateDelegate;
     private String username;
 
     @Override
     protected String doInBackground(String... params) {
         try {
-            return callSelectBookViewsAndDateService();
+            return callSelectAllBookViewsAndDateService();
         } catch (IOException | JSONException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private String callSelectBookViewsAndDateService() throws IOException, JSONException {
-        String modelString = BASE_URL + "bookViewsAndDate/searchBooksViewsAndDateByUsername?username=" + username;
+    private String callSelectAllBookViewsAndDateService() throws IOException, JSONException {
+        //String modelString = BASE_URL + "bookViewsAndDate/searchBooksViewsAndDateByUsername?username=" + username;
+        String modelString = BASE_URL + "bookViewsAndDate/allBookViewsAndDate";
         Uri uri = Uri.parse(modelString).buildUpon().build();
         //Uri uri = Uri.parse(BASE_URL).buildUpon().appendPath("food/all").build();
         HttpURLConnection connection = (HttpURLConnection) new URL(uri.toString()).openConnection();
 
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
-        connection.setRequestMethod("POST");
+       // connection.setRequestMethod("POST");
+        connection.setRequestMethod("GET");
         connection.setConnectTimeout(100000000);
         connection.setReadTimeout(100000000);
 
-        JSONObject object = new JSONObject();
-        object.put("username", username);
-
+//        JSONObject object = new JSONObject();
+//        object.put("username", username);
 
         connection.addRequestProperty("Authorization", DataManager.getInstance().getBaseAuthStr());
 
-        OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-        out.write(object.toString());
-        out.close();
+//        OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+//        out.write(object.toString());
+//        out.close();
 
 
         StringBuilder sb = new StringBuilder();
@@ -75,13 +74,13 @@ public class SelectBookViewsAndDateByUsernameTask extends AsyncTask<String, Stri
 
     }
 
-    public SelectBookViewsAndDateByUsernameTask(String username) {
+    public SelectAllBookViewsAndDateTask(/*String username*/) {
 
-        this.username = username;
+        //this.username = username;
 
-        String modelString = BASE_URL + "bookViewsAndDate/searchBooksViewsAndDateByUsername?username=" + username;
+        //String modelString = BASE_URL + "bookViewsAndDate/searchBooksViewsAndDateByUsername?username=" + username;
+        String modelString = BASE_URL + "bookViewsAndDate/allBookViewsAndDate";
         Uri uri = Uri.parse(modelString).buildUpon().build();
-        //Uri uri = Uri.parse(BASE_URL).buildUpon().appendPath("food/all").build();
         this.execute(uri.toString());
     }
 
@@ -90,20 +89,20 @@ public class SelectBookViewsAndDateByUsernameTask extends AsyncTask<String, Stri
         super.onPostExecute(o);
         String response = String.valueOf(o);
 
-        if (selectBookViewsAndDateByUsernameDelegate != null) {
+        if (selectAllBookViewsAndDateDelegate != null) {
             try {
-                selectBookViewsAndDateByUsernameDelegate.onSelectBookViewsAndDateByUsernameDone(response);
+                selectAllBookViewsAndDateDelegate.onSelecAllBookViewsAndDateDone(response);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public SelectBookViewsAndDateByUsernameDelegate getDelegate() {
-        return selectBookViewsAndDateByUsernameDelegate;
+    public SelectAllBookViewsAndDateDelegate getDelegate() {
+        return selectAllBookViewsAndDateDelegate;
     }
 
-    public void setSelectBookViewsAndDateByUsernameDelegate(SelectBookViewsAndDateByUsernameDelegate selectBookViewsAndDateByUsernameDelegate) {
-        this.selectBookViewsAndDateByUsernameDelegate = selectBookViewsAndDateByUsernameDelegate;
+    public void setSelectAllBookViewsAndDateDelegate(SelectAllBookViewsAndDateDelegate selectAllBookViewsAndDateDelegate) {
+        this.selectAllBookViewsAndDateDelegate = selectAllBookViewsAndDateDelegate;
     }
 }

@@ -13,12 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.raluca.storebooksystem.Activities.Activities.BookActivity;
-import com.example.raluca.storebooksystem.Activities.Activities.CustomComparator;
-import com.example.raluca.storebooksystem.Activities.Activities.FavoriteBooksActivity;
-import com.example.raluca.storebooksystem.Activities.Activities.LoginActivity;
-import com.example.raluca.storebooksystem.Activities.Activities.ProfileActivity;
-import com.example.raluca.storebooksystem.Activities.Activities.StatisticsActivity;
 import com.example.raluca.storebooksystem.R;
 
 import java.io.Serializable;
@@ -30,27 +24,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.mail.Quota;
-
 import manager.DataManager;
 import model.Book;
 import model.BookViews;
 import model.BookViewsAndDate;
 import model.User;
+import webservice.SelectAllBookViewsAndDateTask;
 import webservice.SelectBookByCategoryDelegate;
 import webservice.SelectBookByCategoryTask;
 import webservice.SelectBookByIdDelegate;
 import webservice.SelectBookByIdTask;
-import webservice.SelectBookViewsAndDateByUsernameDelegate;
-import webservice.SelectBookViewsAndDateByUsernameTask;
+import webservice.SelectAllBookViewsAndDateDelegate;
 import webservice.SelectBookViewsByUsernameDelegate;
 import webservice.SelectBookViewsByUsernameTask;
-import webservice.SelectBooksDelegate;
-import webservice.SelectBooksTask;
-import webservice.UpdateBookDelegate;
-import webservice.UpdateBookTask;
 
-public class MyLibraryActivity extends AppCompatActivity implements /*UpdateBookDelegate, SelectBooksDelegate,*/ SelectBookViewsAndDateByUsernameDelegate, SelectBookViewsByUsernameDelegate, SelectBookByIdDelegate, SelectBookByCategoryDelegate {
+public class MyLibraryActivity extends AppCompatActivity implements /*UpdateBookDelegate, SelectBooksDelegate,*/ SelectAllBookViewsAndDateDelegate, SelectBookViewsByUsernameDelegate, SelectBookByIdDelegate, SelectBookByCategoryDelegate {
 
     private MyLibraryActivity myLibraryActivity;
     private TextView textEdit, text1, text3, title1, title2, title3, title4, author1, author2, author3, author4, textViewDescriptionInterested;
@@ -226,8 +214,9 @@ public class MyLibraryActivity extends AppCompatActivity implements /*UpdateBook
             @Override
             public void onClick(View v) {
 
-                SelectBookViewsAndDateByUsernameTask selectBookViewsAndDateByUsernameTask = new SelectBookViewsAndDateByUsernameTask(userAfterLogin.getUsername());
-                selectBookViewsAndDateByUsernameTask.setSelectBookViewsAndDateByUsernameDelegate(myLibraryActivity);
+//                SelectAllBookViewsAndDateTask selectBookViewsAndDateByUsernameTask = new SelectAllBookViewsAndDateTask(userAfterLogin.getUsername());
+                SelectAllBookViewsAndDateTask selectBookViewsAndDateByUsernameTask = new SelectAllBookViewsAndDateTask();
+                selectBookViewsAndDateByUsernameTask.setSelectAllBookViewsAndDateDelegate(myLibraryActivity);
 
             }
         });
@@ -415,7 +404,7 @@ public class MyLibraryActivity extends AppCompatActivity implements /*UpdateBook
     }
 
     @Override
-    public void onSelectBookViewsAndDateByUsernameDone(String result) throws UnsupportedEncodingException {
+    public void onSelecAllBookViewsAndDateDone(String result) throws UnsupportedEncodingException {
 
         if (!result.isEmpty() && !result.equals("[]\n")) {
 
@@ -598,6 +587,8 @@ public class MyLibraryActivity extends AppCompatActivity implements /*UpdateBook
         }
 
     }
+
+
 
 //    @Override
 //    public void onSelectBooksDone(String result) throws UnsupportedEncodingException {
