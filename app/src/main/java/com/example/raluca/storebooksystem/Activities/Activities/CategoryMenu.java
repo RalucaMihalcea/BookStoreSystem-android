@@ -1,10 +1,12 @@
-package com.example.raluca.storebooksystem;
+package com.example.raluca.storebooksystem.Activities.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
+
+import com.example.raluca.storebooksystem.R;
 
 import model.User;
 

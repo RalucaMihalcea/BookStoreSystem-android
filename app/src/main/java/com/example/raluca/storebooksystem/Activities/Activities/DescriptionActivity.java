@@ -1,9 +1,11 @@
-package com.example.raluca.storebooksystem;
+package com.example.raluca.storebooksystem.Activities.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.raluca.storebooksystem.R;
 
 import model.Book;
 

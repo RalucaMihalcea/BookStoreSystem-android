@@ -20,9 +20,6 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * Created by Andreea on 31.10.2017.
- */
 
 public class
 LoginTask extends AsyncTask<String, String, String> implements CredentialInterface {

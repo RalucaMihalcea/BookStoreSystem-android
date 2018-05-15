@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem;
+package com.example.raluca.storebooksystem.Activities.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.raluca.storebooksystem.R;
+
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import manager.DataManager;
 import model.User;
@@ -32,7 +36,6 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
     private CardView m_buttonUpdate;
     private User userAfterLogin;
     private EditText m_errorInfo;
-    private String regexStr = "^[0-9]{10}$";
     private Boolean ok = false, okUsername = false;
     private static final String TAG = "ProfileActivity";
 
@@ -64,9 +67,12 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
         m_errorInfo.setVisibility(View.INVISIBLE);
         m_errorInfo.setEnabled(false);
 
+
         m_buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                m_errorInfo.setText("");
 
                 if (m_editTextUsername.getText().toString().isEmpty() || m_editTextFirstName.getText().toString().toString().isEmpty() || m_editTextLastName.getText().toString().isEmpty() || m_editTextEmail.getText().toString().isEmpty() || m_editTextContactNo.getText().toString().isEmpty()) {
                     m_errorInfo.setText("Complete all fields!!");
@@ -74,8 +80,13 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
 
                 } else {
 
-                    if (m_editTextContactNo.getText().toString().matches(regexStr))
-                        ok = true;
+//                    if (m_editTextContactNo.getText().toString().matches(regexStr))
+//                        ok = true;
+
+                    if (!contactNumberValid(m_editTextContactNo.getText().toString())) {
+                        m_errorInfo.setText(m_errorInfo.getText().toString() + "Invalid phone number. ");
+                        m_errorInfo.setVisibility(View.VISIBLE);
+                    }
 
 
                     if ((m_editTextEmail.getText().toString().endsWith("@yahoo.com") || m_editTextEmail.getText().toString().endsWith("@gmail.com")) && ok.equals(Boolean.TRUE)) {
@@ -93,8 +104,12 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
 
                         Log.i(TAG, "Check user data for authentication with username: " + userAfterLogin.getUsername() + " and password: " + userAfterLogin.getPassword());
                         LoginTask loginTask = null;
+
+                        Encryption sj = new Encryption();
+                        String hash = sj.MD5(userAfterLogin.getPassword());
+
                         try {
-                            loginTask = new LoginTask(userAfterLogin.getUsername(), userAfterLogin.getPassword());
+                            loginTask = new LoginTask(userAfterLogin.getUsername(), hash);
                         } catch (NoSuchAlgorithmException e) {
                             e.printStackTrace();
                         }
@@ -107,11 +122,12 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
                             m_errorInfo.setText("Email is invalid!");
                             m_errorInfo.setVisibility(View.VISIBLE);
                             m_editTextEmail.setText("");
-                        } else if (ok.equals(Boolean.FALSE)) {
-                            m_errorInfo.setText("The phone number is invalid!");
-                            m_errorInfo.setVisibility(View.VISIBLE);
-                            m_editTextContactNo.setText("");
                         }
+//                         else if (ok.equals(Boolean.FALSE)) {
+//                            m_errorInfo.setText("The phone number is invalid!");
+//                            m_errorInfo.setVisibility(View.VISIBLE);
+//                            m_editTextContactNo.setText("");
+//                        }
 
                     }
 
@@ -119,6 +135,20 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
             }
         });
     }
+
+    private Boolean contactNumberValid(String contactNo) {
+
+        String expression = "^([0-9\\+]|\\(\\d{1,3}\\))[0-9\\-\\. ]{3,15}$";
+        CharSequence inputString = contactNo;
+        Pattern pattern = Pattern.compile(expression);
+        Matcher matcher = pattern.matcher(inputString);
+        if (matcher.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -187,6 +217,7 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
         Log.d(TAG, "SELECT USER DONE DELEGATE " + result);
         if (!result.isEmpty()) {
             m_errorInfo.setText("This username already exists!! Try again!");
+            m_errorInfo.setVisibility(View.VISIBLE);
             Toast.makeText(ProfileActivity.this, "This username already exists. Please try with another username!", Toast.LENGTH_SHORT).show();
         } else {
             Log.i(TAG, "Update user with new credentials: " + m_editTextUsername.getText().toString() + ", " + m_editTextFirstName.getText().toString() + ", " + m_editTextLastName.getText().toString() + ", " + userAfterLogin.getPassword().toString() + ", " + m_editTextEmail.getText().toString() + ", " + m_editTextContactNo.getText().toString());

@@ -7,7 +7,7 @@
     android:background="@color/gri"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="com.example.raluca.storebooksystem.HomeActivity">
+    tools:context="com.example.raluca.storebooksystem.Activities.Activities.HomeActivity">
 
     <ScrollView
         android:layout_width="match_parent"

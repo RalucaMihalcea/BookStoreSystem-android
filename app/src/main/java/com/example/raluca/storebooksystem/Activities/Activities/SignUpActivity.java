@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem;
+package com.example.raluca.storebooksystem.Activities.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.raluca.storebooksystem.R;
 
 import webservice.RegisterDelegate;
 import webservice.RegisterTask;

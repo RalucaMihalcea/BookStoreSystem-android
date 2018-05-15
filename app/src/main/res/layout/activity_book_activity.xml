@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.raluca.storebooksystem.BookActivity">
+    tools:context="com.example.raluca.storebooksystem.Activities.Activities.BookActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -138,6 +138,12 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp" />
 
+                        <ImageView
+                            android:id="@+id/audioBookIcon"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="170dp"
+                            android:layout_marginTop="4dp"/>
 
 
                     </LinearLayout>
@@ -280,7 +286,6 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="No avaible review"
                     android:textColor="@color/white"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -342,7 +347,6 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="No avaible review"
                     android:textColor="@color/white"
                     android:textSize="14dp"
                     android:textStyle="bold" />

@@ -27,7 +27,7 @@
 
     <TextView
         android:id="@+id/authorText"
-        android:layout_width="180dp"
+        android:layout_width="135dp"
         android:layout_height="30dp"
         android:layout_alignTop="@+id/imageViewFavoriteBook"
         android:layout_marginStart="13dp"
@@ -37,16 +37,22 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/shareImageView"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/share_icon"
+        android:layout_alignTop="@+id/authorText"
+        android:layout_toEndOf="@+id/authorText" />
+
     <TextView
         android:id="@+id/categoryText"
         android:layout_width="135dp"
         android:layout_height="30dp"
         android:text="categorie"
         android:textColor="@color/green"
-        android:layout_alignTop="@+id/imageViewFavoriteBook"
-        android:layout_toEndOf="@+id/imageViewFavoriteBook"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="100dp" />
+        android:layout_alignBottom="@+id/trashImageView"
+        android:layout_alignStart="@+id/authorText" />
 
     <ImageView
         android:id="@+id/trashImageView"

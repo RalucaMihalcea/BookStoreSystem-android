@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem;
+package com.example.raluca.storebooksystem.Activities.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,39 +8,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import com.example.raluca.storebooksystem.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import manager.DataManager;
-import model.Book;
-import model.BookViews;
-import model.BookViewsAndDate;
 import model.User;
-import webservice.SelectBookByCategoryDelegate;
-import webservice.SelectBookByCategoryTask;
-import webservice.SelectBookByIdDelegate;
-import webservice.SelectBookByIdTask;
-import webservice.SelectBookViewsAndDateByUsernameDelegate;
-import webservice.SelectBookViewsAndDateByUsernameTask;
-import webservice.SelectBookViewsByUsernameDelegate;
-import webservice.SelectBookViewsByUsernameTask;
-import webservice.SelectBooksDelegate;
-import webservice.SelectBooksTask;
-import webservice.UpdateBookDelegate;
-import webservice.UpdateBookTask;
 
 public class HomeActivity extends AppCompatActivity  {
 

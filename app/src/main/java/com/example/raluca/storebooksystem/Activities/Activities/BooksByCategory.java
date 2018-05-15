@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem;
+package com.example.raluca.storebooksystem.Activities.Activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.raluca.storebooksystem.R;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -29,11 +30,16 @@ import java.util.List;
 
 import manager.DataManager;
 import model.Book;
+import model.FavoriteBook;
 import model.User;
 import webservice.SelectBookByCategoryDelegate;
 import webservice.SelectBookByCategoryTask;
+import webservice.SelectBookByIdDelegate;
+import webservice.SelectBookByIdTask;
 import webservice.SelectBooksDelegate;
 import webservice.SelectBooksTask;
+import webservice.SelectFavoriteBooksByUserDelegate;
+import webservice.SelectFavoriteBooksByUserTask;
 
 public class BooksByCategory extends AppCompatActivity implements SelectBookByCategoryDelegate, SelectBooksDelegate {
 
@@ -60,6 +66,9 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayAdapter<String> adapterTitleBooks;
     private static final String TAG = "BooksByCategory";
+    private List<FavoriteBook> favoriteBooks;
+    private Book book;
+    private List<Book> favoriteBookForUser = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +87,10 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
         Intent intent = getIntent();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
+
+//        SelectFavoriteBooksByUserTask selectFavoriteBooksByUserTask = new SelectFavoriteBooksByUserTask(userAfterLogin.getUsername());
+//        selectFavoriteBooksByUserTask.setSelectFavoriteBooksByUserDelegate(booksByCategory);
+
         m_imageView = (ImageView) findViewById(R.id.backdrop);
         resources = this.getResources();
 
@@ -92,11 +105,11 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
         titleTextView.setText(titleCover);
 
         if (!category.equals("BestOf")) {
-            Log.i(TAG, "Select book by category: "+category );
+            Log.i(TAG, "Select book by category: " + category);
             SelectBookByCategoryTask selectBookByCategoryTask = new SelectBookByCategoryTask(category);
             selectBookByCategoryTask.setSelectBookByCategoryDelegate(booksByCategory);
         } else {
-            Log.i(TAG, "Select books task: "+booksByCategory );
+            Log.i(TAG, "Select books task: " + booksByCategory);
             SelectBooksTask selectBooksTask = new SelectBooksTask();
             selectBooksTask.setSelectBooksDelegate(booksByCategory);
         }
@@ -144,6 +157,8 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
             }
         });
+
+
     }
 
     /**
@@ -185,7 +200,7 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
         int idCover;
 
         for (Book book : books) {
-           // idCover = resources.getIdentifier(book.getNamePicture(), "drawable", this.getPackageName());
+            // idCover = resources.getIdentifier(book.getNamePicture(), "drawable", this.getPackageName());
             //aici trebuie sa fac book.getImageLink();
 
             covers.add(book.getImageLink());
@@ -209,6 +224,7 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
         adapter.notifyDataSetChanged();
     }
+
 
     /**
      * RecyclerView item decoration - give equal margin around grid item
@@ -256,6 +272,26 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
+//    @Override
+//    public void onSelectFavoriteBooksByUserDone(String result) throws UnsupportedEncodingException {
+//        if (!result.equals("[]\n"))
+//            favoriteBooks = DataManager.getInstance().parseFavoriteBooks(result);
+//
+//        for (FavoriteBook favBook : favoriteBooks) {
+//            SelectBookByIdTask selectBookByIdTask = new SelectBookByIdTask(favBook.getIdBook());
+//            selectBookByIdTask.setSelectBookByIdDelegate(booksByCategory);
+//        }
+//    }
+//
+//    @Override
+//    public void onSelectBookByIdDone(String result) throws UnsupportedEncodingException {
+//        if (!result.isEmpty())
+//            book= DataManager.getInstance().parseBook(result);
+//        favoriteBookForUser.add(book);
+//
+//    }
+
+
     @Override
     public void onSelectBookByCategoryDone(String result) throws UnsupportedEncodingException {
 
@@ -293,31 +329,31 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
                         Glide.with(this).load("https://docs.google.com/uc?export=download&id=1mUJ7bhPEhr-MLjdI-icUmZOAeVny8D0j").into((ImageView) findViewById(R.id.backdrop));
                         break;
                     case "rromance":
-                       // Glide.with(this).load(R.drawable.rromance).into((ImageView) findViewById(R.id.backdrop));
+                        // Glide.with(this).load(R.drawable.rromance).into((ImageView) findViewById(R.id.backdrop));
                         Glide.with(this).load("https://docs.google.com/uc?export=download&id=1O96NFm3D0472o-XzS6KE8iKFjha-2ho9").into((ImageView) findViewById(R.id.backdrop));
                         break;
                     case "literature":
-                       // Glide.with(this).load(R.drawable.literature).into((ImageView) findViewById(R.id.backdrop));
+                        // Glide.with(this).load(R.drawable.literature).into((ImageView) findViewById(R.id.backdrop));
                         Glide.with(this).load("https://docs.google.com/uc?export=download&id=1x7T81Uul6Ayj3q_-XW_TDLD3bOQxPyWf").into((ImageView) findViewById(R.id.backdrop));
                         break;
                     case "drama":
-                       // Glide.with(this).load(R.drawable.drama).into((ImageView) findViewById(R.id.backdrop));
+                        // Glide.with(this).load(R.drawable.drama).into((ImageView) findViewById(R.id.backdrop));
                         Glide.with(this).load("https://docs.google.com/uc?export=download&id=1D_eiQypT1bT9wihiF_ASI2bdDM0wCYg3").into((ImageView) findViewById(R.id.backdrop));
                         break;
                     case "psychology":
-                       // Glide.with(this).load(R.drawable.psychology).into((ImageView) findViewById(R.id.backdrop));
+                        // Glide.with(this).load(R.drawable.psychology).into((ImageView) findViewById(R.id.backdrop));
                         Glide.with(this).load("https://docs.google.com/uc?export=download&id=10hDALI-Frk6PgocwZGC2S77rFBvX1K_r").into((ImageView) findViewById(R.id.backdrop));
                         break;
                     case "adventure":
-                       // Glide.with(this).load(R.drawable.adventure).into((ImageView) findViewById(R.id.backdrop));
+                        // Glide.with(this).load(R.drawable.adventure).into((ImageView) findViewById(R.id.backdrop));
                         Glide.with(this).load("https://docs.google.com/uc?export=download&id=19EPmq8mNgHjHgXcIK-fyP-1hX51ZhbWt").into((ImageView) findViewById(R.id.backdrop));
                         break;
                     case "comedy":
-                       // Glide.with(this).load(R.drawable.comedy).into((ImageView) findViewById(R.id.backdrop));
+                        // Glide.with(this).load(R.drawable.comedy).into((ImageView) findViewById(R.id.backdrop));
                         Glide.with(this).load("https://docs.google.com/uc?export=download&id=1gU8q72IX4gC7lZQIVgEN-6K6IpXM4aKf").into((ImageView) findViewById(R.id.backdrop));
                         break;
                     case "cchildren":
-                       // Glide.with(this).load(R.drawable.cchildren).into((ImageView) findViewById(R.id.backdrop));
+                        // Glide.with(this).load(R.drawable.cchildren).into((ImageView) findViewById(R.id.backdrop));
                         Glide.with(this).load("https://docs.google.com/uc?export=download&id=1q6pz6Da3kBnK2vqC6J0wmE2ikHDCVpdn").into((ImageView) findViewById(R.id.backdrop));
                         break;
 
@@ -342,10 +378,10 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
             booksListAll = DataManager.getInstance().parseBooks(result);
 
-           // DataManager.getInstance().setBooksList(booksListAll);
+            // DataManager.getInstance().setBooksList(booksListAll);
 
-            for (Book bk:booksListAll)
-                if(bk.getStars()==5)
+            for (Book bk : booksListAll)
+                if (bk.getStars() == 5)
                     books.add(bk);
 
 
@@ -366,7 +402,5 @@ public class BooksByCategory extends AppCompatActivity implements SelectBookByCa
 
             Toast.makeText(getApplicationContext(), "Get all books from database", Toast.LENGTH_SHORT).show();
         }
-
     }
-
 }

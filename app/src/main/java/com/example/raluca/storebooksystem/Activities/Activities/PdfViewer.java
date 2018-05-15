@@ -1,10 +1,11 @@
-package com.example.raluca.storebooksystem;
+package com.example.raluca.storebooksystem.Activities.Activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.raluca.storebooksystem.R;
 import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.BufferedInputStream;
@@ -14,8 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import model.Book;
-
-import static android.net.wifi.WifiConfiguration.Status.strings;
 
 public class PdfViewer extends AppCompatActivity {
     private PDFView pdfView;

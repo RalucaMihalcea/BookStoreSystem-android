@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem;
+package com.example.raluca.storebooksystem.Activities.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +18,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.raluca.storebooksystem.R;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -30,10 +29,8 @@ import java.util.List;
 import manager.DataManager;
 import model.Book;
 import model.User;
-import webservice.DeleteFavoriteBookTask;
 import webservice.SelectBooksDelegate;
 import webservice.SelectBooksTask;
-import webservice.SelectFavoriteBooksByUserTask;
 
 public class AudioBooksActivity extends AppCompatActivity implements SelectBooksDelegate {
     private User userAfterLogin;

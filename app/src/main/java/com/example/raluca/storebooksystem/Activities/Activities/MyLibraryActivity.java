@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem;
+package com.example.raluca.storebooksystem.Activities.Activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -13,6 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.raluca.storebooksystem.Activities.Activities.BookActivity;
+import com.example.raluca.storebooksystem.Activities.Activities.CustomComparator;
+import com.example.raluca.storebooksystem.Activities.Activities.FavoriteBooksActivity;
+import com.example.raluca.storebooksystem.Activities.Activities.LoginActivity;
+import com.example.raluca.storebooksystem.Activities.Activities.ProfileActivity;
+import com.example.raluca.storebooksystem.Activities.Activities.StatisticsActivity;
+import com.example.raluca.storebooksystem.R;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -106,7 +113,7 @@ public class MyLibraryActivity extends AppCompatActivity implements /*UpdateBook
 
         m_cardCartBookStatistics = (CardView) findViewById(R.id.cardCartBookStatistics);
         m_cardScan = (CardView) findViewById(R.id.cardScan);
-        m_cardAudioBooks = (CardView) findViewById(R.id.cardAudioBooks);
+        //m_cardAudioBooks = (CardView) findViewById(R.id.cardAudioBooks);
         image_view1 = (ImageView) findViewById(R.id.image_view1);
         image_view2 = (ImageView) findViewById(R.id.image_view2);
         image_view3 = (ImageView) findViewById(R.id.image_view3);
@@ -236,16 +243,16 @@ public class MyLibraryActivity extends AppCompatActivity implements /*UpdateBook
             }
         });
 
-        m_cardAudioBooks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent4 = new Intent(MyLibraryActivity.this, AudioBooksActivity.class);
-                intent4.putExtra("userAfterLogin", userAfterLogin);
-                startActivity(intent4);
-
-            }
-        });
+//        m_cardAudioBooks.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent4 = new Intent(MyLibraryActivity.this, AudioBooksActivity.class);
+//                intent4.putExtra("userAfterLogin", userAfterLogin);
+//                startActivity(intent4);
+//
+//            }
+//        });
     }
 
     @Override
@@ -359,14 +366,14 @@ public class MyLibraryActivity extends AppCompatActivity implements /*UpdateBook
             title1.setText(randomBookList.get(0).getTitle());
             author1.setText(randomBookList.get(0).getAuthor());
 
-           // int resID2 = resources.getIdentifier(randomBookList.get(1).getNamePicture().toString(), "drawable", this.getPackageName());
+            // int resID2 = resources.getIdentifier(randomBookList.get(1).getNamePicture().toString(), "drawable", this.getPackageName());
 //            image_view2.setImageResource(resID2);
             auxiliarString2=randomBookList.get(1).getImageLink();
             Glide.with(this).load("https://docs.google.com/uc?export=download&id="+auxiliarString2).into(image_view2);
             title2.setText(randomBookList.get(1).getTitle());
             author2.setText(randomBookList.get(1).getAuthor());
 
-           // int resID3 = resources.getIdentifier(randomBookList.get(2).getNamePicture().toString(), "drawable", this.getPackageName());
+            // int resID3 = resources.getIdentifier(randomBookList.get(2).getNamePicture().toString(), "drawable", this.getPackageName());
 //            image_view3.setImageResource(resID3);
             auxiliarString3=randomBookList.get(2).getImageLink();
             Glide.with(this).load("https://docs.google.com/uc?export=download&id="+auxiliarString3).into(image_view3);
