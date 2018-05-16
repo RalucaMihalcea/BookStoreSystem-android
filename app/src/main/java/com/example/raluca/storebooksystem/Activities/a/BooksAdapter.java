@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem.Activities.Activities;
+package com.example.raluca.storebooksystem.Activities.a;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +29,6 @@ import model.FavoriteBook;
 import model.User;
 import webservice.AddFavoriteBookDelegate;
 import webservice.AddFavoriteBookTask;
-import webservice.SelectBookByIdDelegate;
 import webservice.SelectFavoriteBooksByUserDelegate;
 import webservice.SelectFavoriteBooksByUserTask;
 

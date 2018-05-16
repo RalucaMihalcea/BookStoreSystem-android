@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem.Activities.Activities;
+package com.example.raluca.storebooksystem.Activities.a;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +27,6 @@ import model.BookViewsAndDate;
 import model.User;
 import webservice.SelectBookByIdDelegate;
 import webservice.SelectBookByIdTask;
-import webservice.SelectReviewsByIdBookTask;
 
 public class StatisticsActivity extends AppCompatActivity implements SelectBookByIdDelegate {
 

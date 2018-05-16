@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem.Activities.Activities;
+package com.example.raluca.storebooksystem.Activities.a;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -24,23 +24,14 @@ public class PdfViewer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_viewer);
-
         Intent intent = getIntent();
         book = (Book) intent.getSerializableExtra("book");
         pdfView = (PDFView) findViewById(R.id.pdfViewer);
-        //This is function read PDF from Assets
-       // String nameBookPDF = titleBook + ".pdf";
-       // pdfView.fromAsset(nameBookPDF).load();
-
-         //new RetrievePDFStream().execute("http://publicliterature.org/pdf/46.pdf"); //or any url direct from internet
-        //new RetrievePDFStream(this).execute("https://www.readingstudios.com/uploads/5/2/4/6/52467441/insurgent2.pdf");
         new RetrievePDFStream(this).execute(book.getPdfLink());
     }
 
         class RetrievePDFStream extends AsyncTask<String, Void, InputStream> {
-
             private final PdfViewer pdfViewer;
-
             public RetrievePDFStream(PdfViewer pdfViewer) {
                 this.pdfViewer=pdfViewer;
             }

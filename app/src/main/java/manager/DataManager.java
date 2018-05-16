@@ -29,23 +29,16 @@ public class DataManager {
     }
 
     private String baseAuthStr;
-
     private List<Book> books;
-
     private List<BookViews> bookViewsList;
-
     private List<BookViewsAndDate> bookViewsAndDateList;
-
     private List<Book> booksList;
-
     private List<Review> reviewsList;
-
     private List<FavoriteBook> favoriteBooksList;
 
     private DataManager() {
         Log.d("TAG", "DataManager()");
     }
-
     public DataManager(String baseAuthStr) {
         this.baseAuthStr = baseAuthStr;
     }
@@ -53,14 +46,13 @@ public class DataManager {
     public static void setInstance(DataManager instance) {
         DataManager.instance = instance;
     }
-
     public String getBaseAuthStr() {
         return baseAuthStr;
     }
-
     public void setBaseAuthStr(String baseAuthStr) {
         this.baseAuthStr = baseAuthStr;
     }
+
 
     public List<Book> getBooks() {
         return books;

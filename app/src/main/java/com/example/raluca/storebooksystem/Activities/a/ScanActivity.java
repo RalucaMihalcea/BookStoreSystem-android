@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem.Activities.Activities;
+package com.example.raluca.storebooksystem.Activities.a;
 
 import android.content.DialogInterface;
 import android.content.Intent;

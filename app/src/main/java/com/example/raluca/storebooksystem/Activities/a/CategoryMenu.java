@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem.Activities.Activities;
+package com.example.raluca.storebooksystem.Activities.a;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,19 +22,14 @@ public class CategoryMenu extends AppCompatActivity {
     private CardView m_cardViewComedy;
     private CardView m_cardViewChildren;
     private User userAfterLogin;
-    //private List<String> nameOfCovers=new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_menu);
 
-        //nameOfCovers.add("before_i_fall");
-        //nameOfCovers.add("allegiant");
         Intent intent = getIntent();
         userAfterLogin = (User) intent.getSerializableExtra("userAfterLogin");
-
 
         m_cardViewNonfiction = (CardView) findViewById(R.id.cardViewNonfiction);
         m_cardViewFiction = (CardView) findViewById(R.id.cardViewFiction);
@@ -146,7 +141,6 @@ public class CategoryMenu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -154,9 +148,6 @@ public class CategoryMenu extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("userAfterLogin", userAfterLogin);
-//        intent.putExtra("foodToSend", foodReceived);
-//        intent.putExtra("quantityFromHolderSelected", currentQuantity);
-//        intent.putExtra("calendarString", stringDate);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

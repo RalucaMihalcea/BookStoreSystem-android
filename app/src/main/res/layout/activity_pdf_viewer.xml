@@ -9,7 +9,7 @@
     android:paddingTop="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    tools:context="com.example.raluca.storebooksystem.Activities.Activities.PdfViewer">
+    tools:context="com.example.raluca.storebooksystem.Activities.a.PdfViewer">
 
     <com.github.barteksc.pdfviewer.PDFView
         android:layout_width="336dp"

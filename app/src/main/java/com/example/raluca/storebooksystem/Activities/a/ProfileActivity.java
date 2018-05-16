@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem.Activities.Activities;
+package com.example.raluca.storebooksystem.Activities.a;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -89,7 +89,7 @@ public class ProfileActivity extends AppCompatActivity implements UpdateDelegate
                     }
 
 
-                    if ((m_editTextEmail.getText().toString().endsWith("@yahoo.com") || m_editTextEmail.getText().toString().endsWith("@gmail.com")) && ok.equals(Boolean.TRUE)) {
+                    if ((m_editTextEmail.getText().toString().endsWith("@yahoo.com") || m_editTextEmail.getText().toString().endsWith("@gmail.com")) /*&& ok.equals(Boolean.TRUE)*/) {
 
                         m_errorInfo.setVisibility(View.INVISIBLE);
                         Log.i(TAG, "Select user by username: " + userAfterLogin.getUsername());

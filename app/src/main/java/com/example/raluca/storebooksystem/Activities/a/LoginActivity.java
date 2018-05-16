@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem.Activities.Activities;
+package com.example.raluca.storebooksystem.Activities.a;
 
 import android.content.Context;
 import android.content.Intent;
@@ -53,18 +53,13 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
         loginActivity = this;
-
         getLoginPreferences();
         imageView = (ImageView) findViewById(R.id.imageView);
         progressBarSpinner = (ProgressBar) findViewById(R.id.progressBar);
         btnSignIn = (CardView) findViewById(R.id.cardViewLogin);
         progressBarSpinner.setVisibility(View.GONE);
         m_textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
-
-        //imageView.setImageDrawable("https://openclipart.org/download/98143/Mihai-Eminescu-b-w.svg");
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,18 +75,6 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
                     Encryption sj = new Encryption();
                     String hash = sj.MD5(password);
 
-//                    if (checkBox_RememberMe.isChecked()) {
-//                        // remember username and password
-//                        loginPrefsEditor.putBoolean("saveLogin", true);
-//                        loginPrefsEditor.putString("username", username);
-//                        loginPrefsEditor.putString("password", password);
-//                        loginPrefsEditor.commit();
-//
-//                    } else {
-//                        loginPrefsEditor.clear();
-//                        loginPrefsEditor.commit();
-//                    }
-
                     Log.i(TAG, "Check user data for authentication with username: " + username + " and password: " + hash);
                     LoginTask loginTask = null;
                     try {
@@ -100,10 +83,6 @@ public class LoginActivity extends AppCompatActivity implements LoginDelegate {
                         e.printStackTrace();
                     }
                     loginTask.setLoginDelegate(loginActivity);
-//
-//                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-//                    intent.putExtra("Username", username);
-//                    startActivity(intent);
 
                 }
             }

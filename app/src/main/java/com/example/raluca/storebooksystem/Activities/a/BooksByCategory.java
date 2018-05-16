@@ -1,4 +1,4 @@
-package com.example.raluca.storebooksystem.Activities.Activities;
+package com.example.raluca.storebooksystem.Activities.a;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -34,12 +34,8 @@ import model.FavoriteBook;
 import model.User;
 import webservice.SelectBookByCategoryDelegate;
 import webservice.SelectBookByCategoryTask;
-import webservice.SelectBookByIdDelegate;
-import webservice.SelectBookByIdTask;
 import webservice.SelectBooksDelegate;
 import webservice.SelectBooksTask;
-import webservice.SelectFavoriteBooksByUserDelegate;
-import webservice.SelectFavoriteBooksByUserTask;
 
 public class BooksByCategory extends AppCompatActivity implements SelectBookByCategoryDelegate, SelectBooksDelegate {
 
